@@ -1,15 +1,15 @@
 body {
    background-color: #292929;
    color: white;
-   max-width: 1000px;
+   max-width: 1500px;
    margin: 0 auto;
    padding: 3em;
 }
 
 @media only screen and (min-width: 1000px) {
-  body .splash {
+/*  body .splash {
       display: flex;
-      width: 70%;
+      width: 80%;
       margin: 0 auto 30px auto;
   }
   body .title {
@@ -28,7 +28,7 @@ body {
   body .splash .text {
       text-align: left;
       padding: 0px;
-  }
+  }*/
 }
 
 .title {
