@@ -1,26 +1,35 @@
 <template>
-    <div id="header">
-        <img id="logo" src="../assets/logo.png">
-        <a href="foo">Spices</a>
-        <a href="foo">Herbs</a>
-        <a href="foo">Salts</a>
-        <a href="foo">Falvor Profiles</a>
-        <a href="foo">Misc</a>
-        <SearchBar/>
-        <div id="user-content">
-            <button>LOGIN</button>
-            <button>CART</button>
-            <button>TRACK</button>
-        </div>
+  <div id="header">
+    <img id="logo" src="../assets/logo.png">
+    <a href="foo">Spices</a>
+    <a href="foo">Herbs</a>
+    <a href="foo">Salts</a>
+    <a href="foo">Falvor Profiles</a>
+    <a href="foo">Misc</a>
+    <SearchBar/>
+    <div id="user-content">
+      <Login/>
+      <!-- <button v-on:click="loginModalActive = true">LOGIN</button> -->
+      <button>CART</button>
+      <button>TRACK</button>
     </div>
-</template>
+    <b-modal
+      :active.sync="loginModalActive"
+      has-modal-card
+    >
+      <Login/>
+    </b-modal>
+    </div>
+  </template>
 
 <script>
 import SearchBar from "./SearchBar.vue";
+import Login from "./Login.vue";
 export default {
     name: "Header",
     components: {
-        SearchBar
+        SearchBar,
+        Login
     }
 };
 </script>

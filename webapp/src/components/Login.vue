@@ -1,0 +1,130 @@
+<template>
+  <div>
+    <button v-on:click="modalActive = true">LOGIN</button>
+    <b-modal :active.sync="modalActive" has-modal-card>
+      <div class="modal-card" style="width:auto">
+        <!-- <header class="modal-card-head">
+        <p class="modal-card-title">Login</p>
+      </header> -->
+      <section class="login-modal-body">
+        <section class="modal-card-body" style="float: down">
+          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
+          <p><b>Existing Login</b></p>
+          <b-field label="Email">
+            <b-input
+            type="email"
+            v-model="email"
+            placeholder="Your email"
+            required
+            ></b-input>
+          </b-field>
+
+          <b-field label="Password">
+            <b-input
+            type="password"
+            v-model="password"
+            password-reveal
+            placeholder="Your password"
+            required
+            ></b-input>
+          </b-field>
+          <button v-on:click="login">Login</button>
+        </section>
+
+        <section class="modal-card-body" style="border-left: 3px solid grey">
+          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
+          <p><b>New User Signup</b></p>
+          <b-field label="Email">
+            <b-input
+            type="email"
+            v-model="email"
+            placeholder="Your email"
+            required
+            ></b-input>
+          </b-field>
+
+          <b-field label="Confirm Email">
+            <b-input
+            type="email"
+            v-model="email"
+            placeholder="Confirm Email"
+            required
+            ></b-input>
+          </b-field>
+
+          <b-field label="Password">
+            <b-input
+            type="password"
+            v-model="password"
+            password-reveal
+            placeholder="Your password"
+            required
+            ></b-input>
+          </b-field>
+
+          <b-field label="Confirm Password">
+            <b-input
+            type="password"
+            v-model="password"
+            password-reveal
+            placeholder="Confirm Password"
+            required
+            ></b-input>
+          </b-field>
+          <button v-on:click="signUp">Sign Up</button>
+        </section>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button" type="button" v-on:click="modalActive = false">Close</button>
+      </footer>
+    </div>
+
+  </b-modal>
+</div>
+</template>
+
+<script>
+export default {
+  name: "Login",
+  methods: {
+    login: function(){
+      console.log("log in");
+    },
+    signUp: function(){
+      console.log("sign up");
+    }
+  },
+  data() {
+    return {
+      modalActive: false,
+      formProps: {
+        email: 'evan@you.com',
+        password: 'testing'
+      }
+    }
+  }
+};
+</script>
+
+<style scoped>
+div{
+  float: left;
+}
+.login-modal-body{
+  float: left;
+  background: #ffffff;
+}
+.login-modal-body section{
+  width: 50%;
+  float: left;
+}
+button {
+    padding: 3px;
+    border-radius: 5px;
+    border-style: none;
+    background-color: #EEEEEE;
+    margin-left: 5px;
+    color: #888888;
+    cursor: pointer;
+}
+</style>
