@@ -1,13 +1,12 @@
 <template>
   <div id="app">
     <Header></Header>
-    <b-modal
-      :active.sync="isLoginModalActive"
+    <!-- <b-modal :active.sync="isLoginModalActive"
       has-modal-card
       :can-cancel="false"
     >
       <LoginForm v-on:close="isLoginModalActive = false" />
-    </b-modal>
+    </b-modal> -->
     <router-view />
   </div>
 </template>

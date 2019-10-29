@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <img id="logo" src="../assets/logo.png">
+    <a href="/"><img id="logo" src="../assets/logo.png"></a>
     <a href="foo">Spices</a>
     <a href="foo">Herbs</a>
     <a href="foo">Salts</a>
