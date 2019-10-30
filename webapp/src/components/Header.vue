@@ -1,11 +1,11 @@
 <template>
   <div id="header">
-    <a href="/"><img id="logo" src="../assets/logo.png"></a>
-    <a href="foo">Spices</a>
-    <a href="foo">Herbs</a>
-    <a href="foo">Salts</a>
-    <a href="foo">Falvor Profiles</a>
-    <a href="foo">Misc</a>
+    <router-link to="/"><img id="logo" src="../assets/logo.png"></router-link>
+    <router-link to="foo">Spices</router-link>
+    <router-link to="foo">Herbs</router-link>
+    <router-link to="foo">Salts</router-link>
+    <router-link to="foo">Flavor Profiles</router-link>
+    <router-link to="foo">Misc</router-link>
     <SearchBar/>
     <div id="user-content">
       <Login/>
