@@ -5,7 +5,24 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
-
+    <!-- Content filler -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div id="foot">
       <hr>
       <router-link to="/">Home</router-link> |
@@ -37,6 +54,10 @@
 }
 #foot {
   padding: 30px;
+  float: bottom;
+  position: sticky;
+  bottom: 0px;
+  height: 30px;
   a {
     color: #2c3e50;
     &.router-link-exact-active {
