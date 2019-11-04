@@ -1,6 +1,26 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <div id="header">
+      <router-link to="/"><img id="logo" src="./assets/logo.png"></router-link>
+      <router-link to="foo">Spices</router-link>
+      <router-link to="foo">Herbs</router-link>
+      <router-link to="foo">Salts</router-link>
+      <router-link to="foo">Falvor Profiles</router-link>
+      <router-link to="foo">Misc</router-link>
+      <SearchBar/>
+      <div id="user-content">
+        <Login/>
+        <!-- <button v-on:click="loginModalActive = true">LOGIN</button> -->
+        <button>CART</button>
+        <button>TRACK</button>
+      </div>
+      <b-modal
+        :active.sync="loginModalActive"
+        has-modal-card
+      >
+        <Login/>
+      </b-modal>
+    </div>
     <!-- <b-modal :active.sync="isLoginModalActive"
       has-modal-card
       :can-cancel="false"
@@ -12,10 +32,10 @@
 </template>
 
 <script>
-import LoginForm from "@/components/LoginForm.vue";
-import Header from "@/components/Header.vue"
+import SearchBar from "@/components/SearchBar.vue";
+import Login from "@/components/Login.vue";
 export default {
-  components: { LoginForm, Header},
+  components: { Login, SearchBar},
   data: function() {
     return {
       isLoginModalActive: false
@@ -55,5 +75,36 @@ export default {
       color: #42b983;
     }
   }
+}
+
+#header {
+    width: 100%;
+    padding: 15px 15px 15px 15px;
+    border-bottom: solid #AAAAAA 1px;
+    position: sticky;
+    top: 0;
+    background-color: #FDFDFD;
+}
+#header #logo {
+    width: 20px;
+    height: 20px;
+}
+#header #user-content {
+    display: inline;
+    float: right;
+}
+#header a {
+    text-decoration: none;
+    margin: 0 0 0 20px;
+    line-height: 30%;
+}
+#header button {
+    padding: 3px;
+    border-radius: 5px;
+    border-style: none;
+    background-color: #EEEEEE;
+    margin-left: 5px;
+    color: #888888;
+    cursor: pointer;
 }
 </style>
