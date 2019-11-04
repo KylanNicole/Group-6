@@ -12,10 +12,9 @@
 </template>
 
 <script>
-import LoginForm from "@/components/LoginForm.vue";
 import Header from "@/components/Header.vue"
 export default {
-  components: { LoginForm, Header},
+  components: { Header},
   data: function() {
     return {
       isLoginModalActive: false
