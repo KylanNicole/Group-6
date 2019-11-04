@@ -6,16 +6,18 @@
       :can-cancel="false"
     >
       <LoginForm v-on:close="isLoginModalActive = false" />
-    </b-modal> -->
-    <router-view />
+    </b-modal>
+    <router-view />-->
+    <Portal />
   </div>
 </template>
 
 <script>
 import LoginForm from "@/components/LoginForm.vue";
 import Header from "@/components/Header.vue"
+import Portal from "@/views/Portal.vue"
 export default {
-  components: { LoginForm, Header},
+  components: { LoginForm, Header, Portal},
   data: function() {
     return {
       isLoginModalActive: false

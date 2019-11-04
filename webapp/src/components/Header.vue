@@ -4,7 +4,7 @@
     <a href="foo">Spices</a>
     <a href="foo">Herbs</a>
     <a href="foo">Salts</a>
-    <a href="foo">Falvor Profiles</a>
+    <a href="foo">Flavor Profiles</a>
     <a href="foo">Misc</a>
     <SearchBar/>
     <div id="user-content">

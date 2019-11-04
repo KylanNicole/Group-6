@@ -72,7 +72,12 @@ export default new Vuex.Store({
     loginState: {
       loggedIn: false
     },
-    todoIdx: 0
+    todoIdx: 0,
+    userInfo: {
+      username: "Alex123",
+      email: "alex@alex.com",
+      status: "Admin"
+    }
   },
   mutations,
   actions
