@@ -68,12 +68,12 @@ button {
     display: none;
 }
 .window {
-    top: 0;
-    left: 0;
+    top: 10%;
+    left: 25%;
     position:absolute;
     width: 50%;
     margin: auto;
-    padding: 10% 0 0 0;
+    padding: 0;
     background-color: rgba(0, 0, 0, 0);
 }
 .center {
