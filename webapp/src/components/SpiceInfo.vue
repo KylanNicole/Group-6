@@ -1,10 +1,10 @@
 <template>
     <div class="spice-info">
         <div class="desc">
-            <img src="@/assets/paprika.jpg" />
-            <h4>Paprika</h4>
+            <img :src='"@/assets/" + img + ""' />
+            <h4>{{name}}</h4>
             <p>
-                A ground spice made from dried red fruits of the larger and sweeter varieties of the plant Capsicum annuum, called bell pepper or sweet pepper.
+                {{desc}}
             </p>
         </div>
         <div class="purchase">
@@ -22,10 +22,10 @@
                 <input type="text" value="100" />
             <br/>
                 <button>Add to Cart</button>
+            </form>
             <br/>
                 <p>Tags</p>
                 <p class="tag" v-for="tag in tags">{{tag}}</p>
-            </form>
         </div>
         <button class="edit">Edit</button>
     </div>
@@ -34,11 +34,12 @@
 <script>
 export default {
     name: "SpiceInfo",
-    data() {
-        return {
-            tags: ["Red", "Spicy"]
-        }
-    }
+    props: {
+        name: String,
+        img: String,
+        desc: String,
+        tags: Array
+    },
 }
 </script>
 
@@ -60,7 +61,7 @@ p {
     border-radius: 5px;
     padding: 10px;
     overflow: hidden;
-    width: 50%;
+    width: 100%;
     background-color: #F0F0F0;
 }
 .desc {
