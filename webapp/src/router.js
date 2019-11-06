@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import ToDos from "./views/ToDos.vue";
 
 Vue.use(Router);
 
@@ -23,10 +24,16 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
+
+      path: "/todos",
+      name: "todos",
+      component: ToDos
+
       path: "/myaccount",
       name: "myaccount",
       component: () =>
         import("./views/CAccount.vue")
+
     }
   ]
 });
