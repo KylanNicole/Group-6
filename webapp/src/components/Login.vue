@@ -7,7 +7,7 @@
         <p class="modal-card-title">Login</p>
       </header> -->
       <section class="login-modal-body">
-        <section class="modal-card-body" style="float: down">
+        <section class="modal-card-body">
           <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>Existing Login</b></p>
           <b-field label="Email">
@@ -30,7 +30,7 @@
           </b-field>
           <button v-on:click="login">Login</button>
         </section>
-
+        
         <section class="modal-card-body" style="border-left: 3px solid grey">
           <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>New User Signup</b></p>
