@@ -28,6 +28,32 @@
       <LoginForm v-on:close="isLoginModalActive = false" />
     </b-modal> -->
     <router-view />
+    <!-- Content filler -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="foot">
+      <hr>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/myaccount">My Account</router-link> |
+      <router-link to="/">Tracking</router-link> |
+      <router-link to="/">Contact us</router-link>
+    </div>
   </div>
 </template>
 
@@ -106,5 +132,18 @@ export default {
     margin-left: 5px;
     color: #888888;
     cursor: pointer;
+#foot {
+  padding: 30px;
+  float: bottom;
+  position: sticky;
+  bottom: 0px;
+  height: 30px;
+  a {
+    color: #2c3e50;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+
 }
 </style>

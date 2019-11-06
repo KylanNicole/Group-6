@@ -24,9 +24,16 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
+
       path: "/todos",
       name: "todos",
       component: ToDos
+
+      path: "/myaccount",
+      name: "myaccount",
+      component: () =>
+        import("./views/CAccount.vue")
+
     }
   ]
 });
