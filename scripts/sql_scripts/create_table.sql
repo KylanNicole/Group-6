@@ -3,7 +3,7 @@ USE Evan;
 
 DROP TABLE IF EXISTS Category, Orders, Users, Address, OrderItem, Item; 
 
-CREATE TABLE Address (
+CREATE TABLE Address ( --written out
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   street_name VARCHAR(50) NOT NULL,
   street_num INTEGER NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE Address (
   city VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Users (
+CREATE TABLE Users ( -- written out
   id INTEGER PRIMARY KEY AUTO_INCREMENT, -- auto incremented
   f_name VARCHAR(20) NOT NULL,
   l_name VARCHAR(20) NOT NULL,
@@ -24,16 +24,18 @@ CREATE TABLE Users (
   FOREIGN KEY (aid) REFERENCES Address(id) 
 );
 
-CREATE TABLE Item (
+CREATE TABLE Item ( --written out
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name, VARCHAR(50) NOT NULL,
   unit_price FLOAT NOT NULL,
   stock INTEGER NOT NULL,
   description VARCHAR(500) NOT NULL,
   image VARCHAR(200) NOT NULL,
-  category INTEGER NOT NULL
+  category INTEGER NOT NULL,
+  FOREIGN KEY (category) REFERENCES Category(id)
 );
 
-CREATE TABLE OrderItem (
+CREATE TABLE OrderItem ( --written out
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   cost INTEGER NOT NULL,
   weight INTEGER NOT NULL,
@@ -41,17 +43,18 @@ CREATE TABLE OrderItem (
   FOREIGN KEY (item_id) REFERENCES Item(id)
 );
 
-CREATE TABLE Category (
+CREATE TABLE Category ( -- written out
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   tag VARCHAR(50) NOT NULL,
   item_id INTEGER NOT NULL,
   FOREIGN KEY (item_id) REFERENCES Item(id)
 );
 
-CREATE TABLE Orders (
+CREATE TABLE Orders ( -- written out
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   total_cost INTEGER NOT NULL,
   total_weight INTEGER NOT NULL,
+  -- every order item id gets a row in orders
   item_id INTEGER NOT NULL,
   status INTEGER NOT NULL,
   credit_card INTEGER NOT NULL,
