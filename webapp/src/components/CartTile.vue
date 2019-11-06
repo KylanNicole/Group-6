@@ -9,7 +9,7 @@
                 <option default>g</option>
                 <option>oz</option>
             </select>
-            <p>Price: $10</p>
+            <p style="margin: 0">Price: $10</p>
         </div>
     </div>
 </template>
@@ -24,17 +24,19 @@ export default {
 .carttile {
     background-color: #EEEEEE;
     width: 80%;
-    margin: auto;
+    margin: 0 auto 10px;
     display: block;
-    padding: 5px 0 5px 0;
+    padding: 5px;
     overflow: auto;
+    border-bottom: solid 1px black;
+    border-radius: 5px;
 }
 .info {
-    float: right;
-    text-align: right;
+    text-align: left;
 }
 img {
     width: 50px;
     display: inline;
+    //margin: 0 30px 0 10px;
 }
 </style>

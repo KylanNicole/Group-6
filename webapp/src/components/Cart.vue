@@ -4,7 +4,7 @@
             <button id="exit">X</button>
             <h1>My Cart</h1>
         </div>
-        <CartTile/>
+        <CartTile v-for="id in 5"/>
         <div class="footer">
             <router-link to="foo" style="float: left">Go To Checkout</router-link>
             <p style="text-align: right; display: inline;">Total: $100</p>
