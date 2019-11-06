@@ -3,6 +3,8 @@
     <SearchBar/>
     <br>
     <AccountCard/>
+    <AccountCard/>
+    <AccountCard/>
     <br>
     <router-link to="/dashboard">
       <div class="manageLink">
