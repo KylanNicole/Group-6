@@ -27,7 +27,7 @@
       <hr>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/">My Account</router-link> |
+      <router-link to="/myaccount">My Account</router-link> |
       <router-link to="/">Tracking</router-link> |
       <router-link to="/">Contact us</router-link>
     </div>
