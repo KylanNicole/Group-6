@@ -3,14 +3,6 @@
     <div id="header">
       <router-link to="/"><img id="logo" src="./assets/logo.png"></router-link>
       <router-link to="foo">Spices</router-link>
-    <b-field>
-      <b-select v-model="s_selection">
-        <option value="spices">Spices</option>
-        <option value="sweet_spices">Sweet</option>
-        <option value="spicy_spices">Spicy</option>
-        <option value="bitter_spices">Bitter</option>
-      </b-select>
-    </b-field>
       <router-link to="foo">Herbs</router-link>
       <router-link to="foo">Salts</router-link>
       <router-link to="foo">Falvor Profiles</router-link>
@@ -46,8 +38,7 @@ export default {
   components: { Login, SearchBar},
   data: function() {
     return {
-      isLoginModalActive: false,
-      s_selection: "spices"
+      isLoginModalActive: false
     };
   },
   computed: {
