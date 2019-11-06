@@ -1,68 +1,91 @@
 <template>
   <div id="header">
-    <a href="/"><img id="logo" src="../assets/logo.png"></a>
+    <a href="/">
+      <img id="logo" src="../assets/logo.png" />
+    </a>
+    <div class="inline">
     <a href="foo">Spices</a>
+    <b-field>
+      <b-select v-model="s_selection">
+        <option value="spices">Spices</option>
+        <option value="sweet_spices">Sweet</option>
+        <option value="spicy_spices">Spicy</option>
+        <option value="bitter_spices">Bitter</option>
+      </b-select>
+    </b-field>
+    </div>
+    <div class="inline">
     <a href="foo">Herbs</a>
+    <b-field>
+      <b-select v-model="h_selection">
+        <option value="herbs">Herbs</option>
+      </b-select>
+    </b-field>
+    </div>
     <a href="foo">Salts</a>
     <a href="foo">Falvor Profiles</a>
     <a href="foo">Misc</a>
-    <SearchBar/>
+    <SearchBar />
     <div id="user-content">
-      <Login/>
+      <Login />
       <!-- <button v-on:click="loginModalActive = true">LOGIN</button> -->
       <button>CART</button>
       <button>TRACK</button>
     </div>
-    <b-modal
-      :active.sync="loginModalActive"
-      has-modal-card
-    >
-      <Login/>
+    <b-modal :active.sync="loginModalActive" has-modal-card>
+      <Login />
     </b-modal>
-    </div>
-  </template>
+  </div>
+</template>
 
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
 export default {
-    name: "Header",
-    components: {
-        SearchBar,
-        Login
-    }
+  name: "Header",
+  components: {
+    SearchBar,
+    Login
+  },
+  data() {
+    return {
+      h_selection : "herbs",
+      s_selection : "spices"
+    };
+  }
 };
 </script>
 
 <style scoped>
 #header {
-    width: 100%;
-    padding: 15px 15px 15px 15px;
-    border-bottom: solid #AAAAAA 1px;
-    position: sticky;
-    top: 0;
-    background-color: #FDFDFD;
+  width: 100%;
+  padding: 15px 15px 15px 15px;
+  border-bottom: solid #aaaaaa 1px;
+  position: sticky;
+  top: 0;
+  background-color: #fdfdfd;
 }
 #logo {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 #user-content {
-    display: inline;
-    float: right;
+  display: inline;
+  float: right;
 }
 a {
-    text-decoration: none;
-    margin: 0 0 0 20px;
-    line-height: 30%;
+  text-decoration: none;
+  margin: 0 0 0 20px;
+  line-height: 30%;
 }
 button {
-    padding: 3px;
-    border-radius: 5px;
-    border-style: none;
-    background-color: #EEEEEE;
-    margin-left: 5px;
-    color: #888888;
-    cursor: pointer;
+  padding: 3px;
+  border-radius: 5px;
+  border-style: none;
+  background-color: #eeeeee;
+  margin-left: 5px;
+  color: #888888;
+  cursor: pointer;
 }
+div.inline { float:left; }
 </style>
