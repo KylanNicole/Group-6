@@ -27,7 +27,7 @@ export default new Router({
 
       path: "/todos",
       name: "todos",
-      component: ToDos
+      component: ToDos,
 
       path: "/myaccount",
       name: "myaccount",

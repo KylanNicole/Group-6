@@ -132,6 +132,7 @@ export default {
     margin-left: 5px;
     color: #888888;
     cursor: pointer;
+}
 #foot {
   padding: 30px;
   float: bottom;
