@@ -60,10 +60,10 @@ export default {
 #header {
   width: 100%;
   padding: 15px 15px 15px 15px;
-  border-bottom: solid #aaaaaa 1px;
+  border-bottom: solid #AAAAAA 1px;
   position: sticky;
   top: 0;
-  background-color: #fdfdfd;
+  background-color: #FDFDFD;
 }
 #logo {
   width: 20px;
