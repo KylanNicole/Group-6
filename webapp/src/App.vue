@@ -117,7 +117,7 @@ export default {
 }
 #header #user-content {
     display: inline;
-    float: right;
+    /*float: right;*/
 }
 #header a {
     text-decoration: none;
