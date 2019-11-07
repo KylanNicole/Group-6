@@ -2,16 +2,19 @@
     <div>
         <div>
             <OrderInfo></OrderInfo>
+            <CustomerInfo></CustomerInfo>
         </div>
     </div>
 </template>
 
 <script>
 import OrderInfo from "@/components/OrderInfo.vue"
+import CustomerInfo from "@/components/CustomerInfo.vue"
 export default {
     name: "Checkout",
     components: {
-        OrderInfo
+        OrderInfo,
+        CustomerInfo
     },
     data() {
         return {
