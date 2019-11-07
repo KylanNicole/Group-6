@@ -40,13 +40,14 @@ export default new Router({
       path: "/manage/staff",
       name: "staff",
       component: Staff
+    },
+    {
       component: ToDos,
 
       path: "/myaccount",
       name: "myaccount",
       component: () =>
         import("./views/CAccount.vue")
-
     }
   ]
 });

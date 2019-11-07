@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <Header/>
+    <!--
     <div id="header">
       <router-link to="/"><img id="logo" src="./assets/logo.png"></router-link>
       <router-link to="foo">Spices</router-link>
@@ -10,7 +12,6 @@
       <SearchBar/>
       <div id="user-content">
         <Login/>
-        <!-- <button v-on:click="loginModalActive = true">LOGIN</button> -->
         <button>CART</button>
         <button>TRACK</button>
       </div>
@@ -21,6 +22,7 @@
         <Login/>
       </b-modal>
     </div>
+    -->
     <!-- <b-modal :active.sync="isLoginModalActive"
       has-modal-card
       :can-cancel="false"
