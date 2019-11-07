@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import Dashboard from "./views/Dashboard.vue";
+import Staff from "./views/Staff.vue"
 import ToDos from "./views/ToDos.vue";
 
 Vue.use(Router);
@@ -27,13 +29,25 @@ export default new Router({
 
       path: "/todos",
       name: "todos",
+      component: ToDos
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: Dashboard
+    },
+    {
+      path: "/manage/staff",
+      name: "staff",
+      component: Staff
+    },
+    {
       component: ToDos,
 
       path: "/myaccount",
       name: "myaccount",
       component: () =>
         import("./views/CAccount.vue")
-
     }
   ]
 });

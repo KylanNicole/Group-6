@@ -10,7 +10,7 @@ export default {
     name: "SearchBar",
     methods: {
         toggleBar() {
-            console.log("X")
+            // console.log("X")
             this.minimized = !this.minimized;
         }
     },
