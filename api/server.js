@@ -32,7 +32,6 @@ config();
 app.use(login(passport));
 app.use(address);
 app.use(item);
-// app.use(login);
 app.use(order_items);
 app.use(order);
 app.use(tag);

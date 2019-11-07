@@ -5,6 +5,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
     ManyToMany,
+    JoinTable,
   } from 'typeorm';
   import Order_Item from './order_item';
   import Tag from './tag';
@@ -13,6 +14,9 @@ import {
   export default class Item {
     @PrimaryGeneratedColumn()
     id
+
+    @Column( { type: 'varchar' })
+    title
   
     @Column({ type: 'int' })
     unit_price
@@ -31,6 +35,7 @@ import {
     order_item
 
     @ManyToMany( () => Tag, (tag) => tag.item)
+    @JoinTable()
     tag
 
     // @OneToMany(() => ToDo, (todo) => todo.user, { eager: true })

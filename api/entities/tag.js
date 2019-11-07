@@ -9,7 +9,7 @@ import {
   import Item from './item';
   
   @Entity()
-  export default class Category {
+  export default class Tag {
     
     @PrimaryGeneratedColumn()
     id
@@ -17,7 +17,7 @@ import {
     @Column({ type: 'varchar' })
     title
 
-    @ManyToMany( () => Item, (item) => item.category)
+    @ManyToMany( () => Item, (item) => item.tag)
     item
 
   }

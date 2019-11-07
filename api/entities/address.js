@@ -25,9 +25,9 @@ import {
     state
 
     @Column({ type: 'varchar' })
-    city 
+    city
   
-    @OneToOne(() => User, (user) => user.address )
+    @OneToOne(() => User, (user) => user.address)
     user
   }
   
