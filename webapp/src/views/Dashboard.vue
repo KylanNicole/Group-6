@@ -11,7 +11,7 @@
     <router-link to="manage/staff">
       <div class="manageLink">Manage Staff</div>
     </router-link><br>
-    <router-link to="manage/orders">
+    <router-link to="manage/staff">
       <div class="manageLink">Manage Orders</div>
     </router-link><br>
     <router-link to="manage/staff">

@@ -9,6 +9,11 @@
         </tr>
       </tbody>
     </table>
+    <router-link to="/dashboard">
+      <div class="manageLink">
+        Back
+      </div>
+    </router-link>
   </div>
 </template>
 
