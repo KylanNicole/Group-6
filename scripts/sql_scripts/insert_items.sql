@@ -1,0 +1,9 @@
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_a", 10, 237, "description of spice_a", "image of spice_a", 2);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_b", 16, 236, "description of spice_b", "image of spice_b", 2);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_c", 10, 294, "description of spice_c", "image of spice_c", 9);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_d", 18, 270, "description of spice_d", "image of spice_d", 6);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_e", 10, 181, "description of spice_e", "image of spice_e", 3);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_f", 15, 387, "description of spice_f", "image of spice_f", 6);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_g", 13, 183, "description of spice_g", "image of spice_g", 1);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_h", 16, 496, "description of spice_h", "image of spice_h", 2);
+INSERT INTO Item(name, unit_price, stock, desciption, image, category) VALUE("spice_i", 19, 293, "description of spice_i", "image of spice_i", 2);
