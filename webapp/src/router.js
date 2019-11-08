@@ -42,6 +42,11 @@ export default new Router({
       component: Staff
     },
     {
+      path: "/Shop",
+      name: "Shop",
+      component: Shop
+    },
+    {
       component: ToDos,
 
       path: "/myaccount",

@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <router-link to="/"><img id="logo" src="../assets/logo.png"></router-link>
-    <router-link to="foo">Spices</router-link>
+    <router-link to="Shop">Spices</router-link>
     <router-link to="foo">Herbs</router-link>
     <router-link to="foo">Salts</router-link>
     <router-link to="foo">Flavor Profiles</router-link>
