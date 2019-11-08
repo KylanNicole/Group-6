@@ -5,6 +5,7 @@ import Dashboard from "./views/Dashboard.vue";
 import Staff from "./views/Staff.vue"
 import ToDos from "./views/ToDos.vue";
 import PastOrders from "./views/PastOrders.vue";
+import Shop from "./views/Shop.vue";
 
 Vue.use(Router);
 
@@ -53,8 +54,6 @@ export default new Router({
       component: PastOrders
     },
     {
-      component: ToDos,
-
       path: "/myaccount",
       name: "myaccount",
       component: () =>
