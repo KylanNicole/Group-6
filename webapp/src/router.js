@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Dashboard from "./views/Dashboard.vue";
 import Staff from "./views/Staff.vue"
 import ToDos from "./views/ToDos.vue";
+import PastOrders from "./views/PastOrders.vue";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: "/manage/staff",
       name: "staff",
       component: Staff
+    },
+    {
+      path: "/manage/orders",
+      name: "orders",
+      component: PastOrders
     },
     {
       component: ToDos,
