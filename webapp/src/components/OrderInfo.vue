@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Order Number {{ order.uid }}</h2>
-        <h5>Ordered: {{ order.item_list }}</h5>
+        <h5 v-for="i in order.item_list.length">Ordered: {{ order.item_list[i-1] }}</h5>
         <h5>Price: {{ order.total_cost }}</h5>
         <h5>Status: {{ order.status }}</h5>
     </div>
@@ -18,7 +18,7 @@ export default {
           uid: 1,
           total_cost: 30,
           total_weight: 50,
-          item_list: ["a", "b"],
+          item_list: ["paprika", "tamarind"],
           status: 0,
           credit_card: 123,
           customer_id: 33,
