@@ -3,6 +3,8 @@
         <div>
             <OrderInfo></OrderInfo>
             <CustomerInfo></CustomerInfo>
+            <br>
+            <b-button>Place Order</b-button>
         </div>
     </div>
 </template>
