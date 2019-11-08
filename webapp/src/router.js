@@ -43,6 +43,11 @@ export default new Router({
       component: Staff
     },
     {
+      path: "/Shop",
+      name: "Shop",
+      component: Shop
+    },
+    {
       path: "/manage/orders",
       name: "orders",
       component: PastOrders
