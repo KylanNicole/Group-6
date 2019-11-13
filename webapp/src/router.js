@@ -60,10 +60,10 @@ export default new Router({
         import("./views/CAccount.vue")
     },
     {
-      path: "/checkout",
-      name: "checkout",
+      path: "/confirmation",
+      name: "confirmation",
       component: () =>
-        import("./views/Checkout.vue")
+        import("./views/Confirmation.vue")
     }
   ]
 });

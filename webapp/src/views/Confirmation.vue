@@ -12,6 +12,7 @@
 <script>
 import CustomerInfo from "@/components/CustomerInfo.vue"
 import CartTile from "@/components/CartTile.vue"
+
 export default {
     name: "Checkout",
     components: {
