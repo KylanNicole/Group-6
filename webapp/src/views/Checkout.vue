@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <OrderInfo></OrderInfo>
+            <CartTile></CartTile>
             <CustomerInfo></CustomerInfo>
             <br>
             <b-button>Place Order</b-button>
@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import OrderInfo from "@/components/OrderInfo.vue"
 import CustomerInfo from "@/components/CustomerInfo.vue"
+import CartTile from "@/components/CartTile.vue"
 export default {
     name: "Checkout",
     components: {
-        OrderInfo,
-        CustomerInfo
+        CustomerInfo,
+        CartTile
     },
     data() {
         return {
