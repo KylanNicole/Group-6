@@ -1,0 +1,9 @@
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Rhonda", "Ferguson", 123456789101112, 0, "RFerguson@gmail.com", "bicynidbmr", 0);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Karen", "Cross", 123456789101112, 1, "KCross@gmail.com", "rkkbfekrkw", 0);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Dawn", "Wall", 123456789101112, 2, "DWall@gmail.com", "hfanyctmca", 0);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Katelyn", "Foster", 123456789101112, 3, "KFoster@gmail.com", "kxodbcveez", 0);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Jonathan", "Martinez", 123456789101112, 4, "JMartinez@gmail.com", "ajnspipbyj", 0);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Stephanie", "Gibbs", 123456789101112, 5, "SGibbs@gmail.com", "kqzpgtuqsz", 1);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Kathleen", "Dominguez", 123456789101112, 6, "KDominguez@gmail.com", "kamyuqnvru", 1);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Anthony", "Hensley", 123456789101112, 7, "AHensley@gmail.com", "zvtpqvnlqb", 1);
+INSERT INTO Users(f_name, l_name, ccid, aid, email, pass, perms) VALUE("Michael", "Fisher", 123456789101112, 8, "MFisher@gmail.com", "yufxcpvifk", 2);

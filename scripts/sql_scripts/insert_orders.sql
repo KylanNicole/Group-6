@@ -1,0 +1,9 @@
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(678, 54, 0, 1, 123456789101112, 2, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(678, 54, 1, 1, 123456789101112, 2, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(678, 54, 2, 1, 123456789101112, 2, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(1033, 69, 3, 0, 123456789101112, 4, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(1033, 69, 4, 0, 123456789101112, 4, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(1033, 69, 5, 0, 123456789101112, 4, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(730, 55, 6, 0, 123456789101112, 4, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(730, 55, 7, 0, 123456789101112, 4, 6);
+INSERT INTO Orders(total_cost, total_weight, item_id, status, credit_card, cust_id, staff_id) VALUE(730, 55, 8, 0, 123456789101112, 4, 6);
