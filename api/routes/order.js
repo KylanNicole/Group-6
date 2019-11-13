@@ -10,9 +10,9 @@ router.route('/order')
     res.send(req.user.order); //@@ why todos?
   })
   .post((req, res) => {
-    const { total_cost, total_weight, order_status, staff, user, order_item } = req.body;
+    const { total_cost, total_weight, order_status, staff } = req.body;
     const manager = getManager();
-    const order = manager.create(ToDo, { total_cost, total_weight, order_status, staff, user, order_item });
+    const order = manager.create(ToDo, { total_cost, total_weight, order_status, staff });
     order.user = req.user;
     manager.save(order).then((savedOrder) => {
       res.send(savedOrder);

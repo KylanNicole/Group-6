@@ -5,17 +5,18 @@ import Address from '../entities/address';
 
 const router = Router();
 router.route('/address')
-  .all(isAuthenticated)
+  // .all(isAuthenticated)
   .get((req, res) => {
-    res.send(req.user.address);
+    res.send("hi there");
   })
+
   .post((req, res) => {
-    const { street_name, street_number, zip_code, state, city, user } = req.body;
+    const { street_name, street_number, zip_code, state, city } = req.body;
     const manager = getManager();
-    const address = manager.create(Address, { street_name, street_number, zip_code, state, city, user });
-    address.user = req.user;
+    const address = manager.create(Address, { street_name, street_number, zip_code, state, city });
     manager.save(address).then((savedAddress) => {
-      res.send(savedAddress);
+      debugger
+      res.send(savedAddress); // @@ why can't return savedAddress.id 
     });
   });
 
@@ -23,7 +24,7 @@ router.route('/address')
 router.route('/address/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
-    getRepository(ToDo).findOneOrFail(
+    getRepository(Address).findOneOrFail(
       { where: { userId: req.user.id, id: req.params.id } },
     ).then((_foundAddress) => {
       req.address = _foundAddress;
@@ -32,6 +33,9 @@ router.route('/address/:id')
       res.send(404);
     });
   })
+
+
+  
   .put((req, res) => {
     debugger
     const _foundAddress = req.address;

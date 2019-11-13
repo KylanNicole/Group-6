@@ -7,13 +7,17 @@ const router = Router();
 router.route('/item')
   .all(isAuthenticated)
   .get((req, res) => {
-    res.send(req.user.item); //@@ why todos?
+    debugger
+    res.send(req.item.order_item); //@@ why todos?
   })
   .post((req, res) => {
-    const { unit_price, stock, description, image, order_item, tag } = req.body;
+    const { title, unit_price, stock, description, image, order_item, tag } = req.body;
     const manager = getManager();
-    const item = manager.create(Item, { unit_price, stock, description, image, order_item, tag });
-    item.user = req.user;
+    const item = manager.create(Item, { title, unit_price, stock, description, image, order_item, tag });
+    
+    //item.user = req.user;
+
+    
     manager.save(item).then((savedItem) => {
       res.send(savedItem);
     });
@@ -41,8 +45,8 @@ router.route('/item/:id')
     foundItem.stock = stock; 
     foundItem.description = description;
     foundItem.image = image; 
-    foundItem.order_item = order_item; 
-    foundItem.tag = tag; 
+    // foundItem.order_item = order_item; 
+    // foundItem.tag = tag; 
 
 
     getManager().save(foundItem).then((updatedItem) => {
