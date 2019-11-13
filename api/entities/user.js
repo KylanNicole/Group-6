@@ -24,16 +24,13 @@ export default class User {
   @Column({ type: 'int' })
   permission
 
-  @Column({ type: 'int' })
-  credit_card_number
-
   @Column({ type: 'varchar'})
   email
 
   @Column({ type: 'varchar', nullable: false })
   password
 
-  // it didn't show address column in user 
+  // it didn't show address column in user
   @OneToOne(() => Address)
   @JoinColumn()
   address
