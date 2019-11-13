@@ -10,10 +10,10 @@ router.route('/tag')
     res.send(req.user.tag); //@@ why todos?
   })
   .post((req, res) => {
-    const { title, item } = req.body;
+    const { title } = req.body;
     const manager = getManager();
-    const tag = manager.create(Tag, { title, item });
-    tag.user = req.user;
+    const tag = manager.create(Tag, { title});
+    // tag.user = req.user;
     manager.save(tag).then((savedTag) => {
       res.send(savedTag);
     });

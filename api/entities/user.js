@@ -27,7 +27,7 @@ export default class User {
   @Column({ type: 'int' })
   credit_card_number
 
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar'})
   email
 
   @Column({ type: 'varchar', nullable: false })
@@ -36,7 +36,7 @@ export default class User {
   // it didn't show address column in user 
   @OneToOne(() => Address)
   @JoinColumn()
-  address 
+  address
 
   @OneToMany(() => Order, (order) => order.user, { eager: true})
   orders
