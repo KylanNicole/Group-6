@@ -13,7 +13,7 @@ router.route('/order_item')
     const { cost, weight, order, item } = req.body;
     const manager = getManager();
     const order_item = manager.create(ToDo, { cost, weight, order, item });
-    order_item.user = req.user;
+    // order_item.user = req.user;
     manager.save(order_item).then((savedOrderItem) => {
       res.send(savedOrderItem);
     });
