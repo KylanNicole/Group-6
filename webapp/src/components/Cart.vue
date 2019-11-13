@@ -6,7 +6,7 @@
         </div>
         <CartTile v-for="id in 5"/>
         <div class="footer">
-            <router-link to="foo" style="float: left">Go To Checkout</router-link>
+            <router-link to="checkout" style="float: left">Go To Checkout</router-link>
             <p style="text-align: right; display: inline;">Total: $100</p>
         </div>
     </div>
