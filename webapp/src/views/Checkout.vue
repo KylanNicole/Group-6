@@ -3,6 +3,7 @@
         <div>
             <CartTile></CartTile>
             <ShippingInfo></ShippingInfo>
+            <BillingInfo></BillingInfo>
             <br>
             <b-button>Place Order</b-button>
         </div>
@@ -12,6 +13,7 @@
 <script>
 import CustomerInfo from "@/components/CustomerInfo.vue"
 import ShippingInfo from "@/components/ShippingInfo.vue"
+import BillingInfo from "@/components/BillingInfo.vue"
 import CartTile from "@/components/CartTile.vue"
 
 export default {
@@ -19,6 +21,7 @@ export default {
     components: {
         CustomerInfo,
         ShippingInfo,
+        BillingInfo,
         CartTile
     },
     data() {
