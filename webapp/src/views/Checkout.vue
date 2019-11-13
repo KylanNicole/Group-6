@@ -2,29 +2,27 @@
     <div>
         <div>
             <CartTile></CartTile>
-            <CustomerInfo></CustomerInfo>
-            <b-button v-on:click="change=!change">Change Info</b-button>
-            <ShippingInfo :class="{Ship : change}"></ShippingInfo>
+            <ShippingInfo></ShippingInfo>
             <br>
+            <b-button>Place Order</b-button>
         </div>
     </div>
 </template>
 
 <script>
 import CustomerInfo from "@/components/CustomerInfo.vue"
-import CartTile from "@/components/CartTile.vue"
 import ShippingInfo from "@/components/ShippingInfo.vue"
+import CartTile from "@/components/CartTile.vue"
 
 export default {
-    name: "Confirmation",
+    name: "Checkout",
     components: {
         CustomerInfo,
-        CartTile,
-        ShippingInfo
+        ShippingInfo,
+        CartTile
     },
     data() {
         return {
-            change: false,
             colors: [{
                 name: "Red",
                 hex: "#FF0000"},
@@ -46,5 +44,4 @@ export default {
 </script>
 
 <style scoped>
-.Ship{display:none;}
 </style>

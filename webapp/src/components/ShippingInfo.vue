@@ -1,9 +1,15 @@
 <template>
     <div>
-        <h2>Billed to: {{ user_data.f_name }} {{user_data.l_name }}</h2>
-        <h5>Credit Card: {{ user_data.ccid }}</h5>
-        <h5>Confirmation Sent To: {{user_data.email}}</h5>
-        <h5>Shipping to: {{ user_data.address_id }}</h5>
+        <form>
+        <input type="text" name="fname" placeholder="Name"></input>
+        <h2>Street Address</h2>
+        <input type="text" name="address" placeholder="Street Address"></input><br>
+        <input type="text" name="City" placeholder="City"></input><br>
+        <input type="text" name="state" placeholder="State"></input><br>
+        <input type="text" name="Zip" placeholder="Zip"></input><br>
+        <input type="checkbox" value="checkbox">Pick up in store</input><br>
+        <input type="submit" value="Submit">
+        </form>
     </div>
 </template>
 
@@ -31,7 +37,7 @@ export default {
 
 <style scoped>
 div {
-  width: 1000px;
+  width: 500px;
   border-radius: 5px;
   border-bottom: solid 1px darkgray;
   background-color: #eeeeee;
