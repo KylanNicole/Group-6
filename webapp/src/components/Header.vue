@@ -2,15 +2,16 @@
   <div id="header">
     <router-link to="/"><img id="logo" src="../assets/logo.png"></router-link>
     <router-link to="Shop">Spices</router-link>
-    <router-link to="foo">Herbs</router-link>
-    <router-link to="foo">Salts</router-link>
-    <router-link to="foo">Flavor Profiles</router-link>
-    <router-link to="foo">Misc</router-link>
+    <router-link to="Shop">Herbs</router-link>
+    <router-link to="Shop">Salts</router-link>
+    <router-link to="Shop">Flavor Profiles</router-link>
+    <router-link to="Shop">Misc</router-link>
     <SearchBar/>
     <div id="user-content">
       <Login/>
       <!-- <button v-on:click="loginModalActive = true">LOGIN</button> -->
-      <button>CART</button>
+      <button @click="focusCart()">CART</button>
+      <Cart :class="{hidden : hideCart}"/>
       <button>TRACK</button>
     </div>
   </div>
@@ -19,16 +20,31 @@
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
+import Cart from "./Cart.vue"
 export default {
   name: "Header",
   components: {
     SearchBar,
-    Login
+    Login,
+    Cart
+  },
+  data() {
+    return {
+      hideCart: true
+    }
+  },
+  methods: {
+    focusCart() {
+      this.hideCart = !this.hideCart;
+    }
   }
 };
 </script>
 
 <style scoped>
+.hidden {
+  display: none;
+}
 #header {
   width: 100%;
   padding: 15px 15px 15px 15px;
