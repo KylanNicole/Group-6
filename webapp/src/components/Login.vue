@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button v-on:click="modalActive = true">LOGIN</button>
     <b-modal :active.sync="modalActive" has-modal-card>
       <div class="modal-card" style="width:auto">
         <!-- <header class="modal-card-head">
@@ -28,7 +27,7 @@
             required
             ></b-input>
           </b-field>
-          <button v-on:click="login">Login</button>
+          <!--<button v-on:click="login">Login</button>-->
         </section>
         
         <section class="modal-card-body" style="border-left: 3px solid grey">
@@ -117,14 +116,5 @@ div{
 .login-modal-body section{
   width: 50%;
   float: left;
-}
-button {
-    padding: 3px;
-    border-radius: 5px;
-    border-style: none;
-    background-color: #EEEEEE;
-    margin-left: 5px;
-    color: #888888;
-    cursor: pointer;
 }
 </style>

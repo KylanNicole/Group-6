@@ -1,19 +1,28 @@
 <template>
   <div id="header">
-    <router-link to="/"><img id="logo" src="../assets/logo.png"></router-link>
-    <router-link to="Shop">Spices</router-link>
-    <router-link to="Shop">Herbs</router-link>
-    <router-link to="Shop">Salts</router-link>
-    <router-link to="Shop">Flavor Profiles</router-link>
-    <router-link to="Shop">Misc</router-link>
-    <SearchBar/>
-    <div id="user-content">
-      <Login/>
-      <!-- <button v-on:click="loginModalActive = true">LOGIN</button> -->
-      <button @click="focusCart()">CART</button>
-      <Cart :class="{hidden : hideCart}"/>
-      <button>TRACK</button>
+    <div id="brand">
+      <router-link to="/" style="margin: 0;">
+        
+        <h1>The Spice Cabinet</h1>
+      </router-link>
     </div>
+    <div id="user-links">
+      <button @click="toggleLogin">LOGIN</button>
+      <Login ref="login"/>
+      <button @click="toggleCart">CART</button>
+      <Cart :class="{hidden : hideCart}"/>
+      <!--<button>TRACK</button>-->
+    </div>
+    <div id="links">
+      <div class="center">
+      <router-link to="Shop" >SPICES</router-link>
+      <router-link to="Shop" >HERBS</router-link>
+      <router-link to="Shop" >SALTS</router-link>
+      <router-link to="Shop" >FLAVORS</router-link>
+      </div>
+      <!--<SearchBar/>-->
+    </div>
+    
   </div>
 </template>
 
@@ -34,45 +43,71 @@ export default {
     }
   },
   methods: {
-    focusCart() {
+    toggleCart() {
       this.hideCart = !this.hideCart;
+    },
+    toggleLogin() {
+      this.$refs.login.modalActive = true;
     }
   }
 };
 </script>
 
 <style scoped>
-.hidden {
-  display: none;
+@font-face {
+  font-family: 'Brand Font';
+  src: url('../assets/day-roman.regular.ttf') format('truetype');
 }
+
 #header {
   width: 100%;
-  padding: 15px 15px 15px 15px;
-  border-bottom: solid #AAAAAA 1px;
+  padding: 15px;
+  border-bottom: solid #7aa256 1px;
   position: sticky;
   top: 0;
-  background-color: #FDFDFD;
+  background-color: rgba(66, 34, 16, 0.8);
+  display: block;
 }
-#logo {
-  width: 20px;
-  height: 20px;
+
+#brand {
+  float: left;
 }
-#user-content {
+#brand h1 {
+  font-family: Brand Font;
+  display: inline;
+  line-height: 10%;
+  color: #7aa256;
+}
+
+#links {
+  width: 100%;
+  text-align: center;
+}
+
+a {
+  color: #cc783c;
+  margin: 10px;
+}
+
+a:hover {
+  color: #f98634;
+}
+
+#user-links {
   display: inline;
   float: right;
 }
-a {
-  text-decoration: none;
-  margin: 0 0 0 20px;
-  line-height: 30%;
+
+#user-links button{
+  margin-left: -1px;;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
 }
-button {
-  padding: 3px;
-  border-radius: 5px;
-  border-style: none;
-  background-color: #EEEEEE;
-  margin-left: 5px;
-  color: #888888;
-  cursor: pointer;
+
+.hidden {
+  display: none;
 }
 </style>
