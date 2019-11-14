@@ -1,7 +1,6 @@
 <template>
     <div class="cart">
         <div class="header">
-            <button id="exit">X</button>
             <h1>My Cart</h1>
         </div>
         <div class="hide_scroll">
