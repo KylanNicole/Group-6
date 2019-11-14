@@ -34,9 +34,9 @@ export default class User {
   password
 
   // it didn't show address column in user 
-  @OneToOne(() => Address)
-  @JoinColumn()
-  address
+  // @OneToOne(() => Address)
+  // @JoinColumn()
+  // address
 
   @OneToMany(() => Order, (order) => order.user, { eager: true})
   orders
