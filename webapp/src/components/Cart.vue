@@ -22,12 +22,15 @@ export default {
 
 <style scoped>
 .cart {
-    top: 0;
-    position: sticky;
-    float: right;
+    position: fixed;
+    top: 70px;
+    right: 0;
     border: solid 1px black;
     width: 300px;
     border-radius: 5px;
+    overflow-y: scroll;
+    height: 500px;
+    background-color: white;
 }
 h1 {
     text-align: left;
@@ -37,11 +40,16 @@ h1 {
     padding: 10px;
     border-bottom: solid 1px black;
     margin-bottom: 10px;
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
 .footer {
     border-top: solid 1px black;
     padding: 10px;
     margin-top: 10px;
+    position: sticky;
+    bottom: 0;
 }
 #exit {
     float: right;
