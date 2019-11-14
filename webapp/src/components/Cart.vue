@@ -4,9 +4,13 @@
             <button id="exit">X</button>
             <h1>My Cart</h1>
         </div>
-        <CartTile v-for="id in 5"/>
+        <div class="hide_scroll">
+            <div class="content">
+                <CartTile v-for="id in 5"/>
+            </div>
+        </div>
         <div class="footer">
-            <router-link to="checkout" style="float: left">Go To Checkout</router-link>
+            <router-link to="checkout" style="float: left;">Go To Checkout</router-link>
             <p style="text-align: right; display: inline;">Total: $100</p>
         </div>
     </div>
@@ -28,8 +32,6 @@ export default {
     border: solid 1px black;
     width: 300px;
     border-radius: 5px;
-    overflow-y: scroll;
-    height: 500px;
     background-color: white;
 }
 h1 {
@@ -39,17 +41,19 @@ h1 {
 .header {
     padding: 10px;
     border-bottom: solid 1px black;
-    margin-bottom: 10px;
-    position: sticky;
-    top: 0;
     background-color: white;
+}
+.hide_scroll {
+    overflow: hidden;
+}
+.content {
+    width: 120%;
+    overflow-y: scroll;
+    height: 340px;
 }
 .footer {
     border-top: solid 1px black;
     padding: 10px;
-    margin-top: 10px;
-    position: sticky;
-    bottom: 0;
 }
 #exit {
     float: right;
