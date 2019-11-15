@@ -1,14 +1,19 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
+// import checkPermission from '../middleware/checkPermission';
 import Item from '../entities/item';
 
 const router = Router();
 router.route('/item')
   .all(isAuthenticated)
   .get((req, res) => {
+    const allItem = getRepository(Item)
+    .createQueryBuilder("items")
+    .getMany();
     debugger
-    res.send(req.item.order_item); //@@ why todos?
+    res.send(allItem)
+
   })
   .post((req, res) => {
     const { title, unit_price, stock, description, image, order_item, tag } = req.body;

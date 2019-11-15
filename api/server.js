@@ -32,7 +32,7 @@ config();
 
 // wire up all the routes
 app.use(login(passport));
-app.use(address);
+// app.use(address);
 app.use(item);
 app.use(order_items);
 app.use(order);
