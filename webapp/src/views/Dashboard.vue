@@ -11,10 +11,10 @@
     <router-link to="manage/staff">
       <div class="manageLink">Manage Staff</div>
     </router-link><br>
-    <router-link to="manage/staff">
+    <router-link to="manage/orders">
       <div class="manageLink">Manage Orders</div>
     </router-link><br>
-    <router-link to="manage/staff">
+    <router-link to="manage/banner">
       <div class="manageLink">Manage Banners</div>
     </router-link>
   </div>

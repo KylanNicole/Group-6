@@ -11,6 +11,9 @@
       <Login ref="login"/>
       <button @click="toggleCart">CART</button>
       <Cart :class="{hidden : hideCart}"/>
+      <router-link to="dashboard" style="margin: 0">
+        <button>DASHBOARD</button>
+      </router-link>
       <!--<button>TRACK</button>-->
     </div>
     <div id="links">
@@ -65,7 +68,7 @@ export default {
   border-bottom: solid #7aa256 1px;
   position: sticky;
   top: 0;
-  background-color: rgba(66, 34, 16, 0.8);
+  background-color: rgba(82, 45, 26, 0.8);
   display: block;
 }
 
@@ -105,6 +108,11 @@ a:hover {
   border: solid 1px #7aa256;
   border-radius: 0;
   color: #7aa256;
+  cursor: pointer;
+}
+
+#user-links button:hover{
+  color: #9ad466;
 }
 
 .hidden {
