@@ -9,8 +9,8 @@
             </div>
         </div>
         <div class="footer">
-            <router-link to="checkout" style="float: left;">Go To Checkout</router-link>
-            <p style="text-align: right; display: inline;">Total: $100</p>
+            <p style="display:inline;">Total: $100</p>
+            <router-link to="checkout" style="float: right; display:inline;">Go To Checkout</router-link>
         </div>
     </div>
 </template>
@@ -28,10 +28,10 @@ export default {
     position: fixed;
     top: 70px;
     right: 0;
-    border: solid 1px black;
+    border: solid 1px #5e5d5a;
     width: 300px;
     border-radius: 5px;
-    background-color: white;
+    background-color: #fdf9f2;
 }
 h1 {
     text-align: left;
@@ -39,8 +39,8 @@ h1 {
 }
 .header {
     padding: 10px;
-    border-bottom: solid 1px black;
-    background-color: white;
+    border-bottom: solid 1px #5e5d5a;
+    background-color: #fdf9f2;
 }
 .hide_scroll {
     overflow: hidden;
@@ -51,11 +51,15 @@ h1 {
     height: 340px;
 }
 .footer {
-    border-top: solid 1px black;
+    border-top: solid 1px #5e5d5a;
     padding: 10px;
+    background-color: #fdf9f2;
 }
 #exit {
     float: right;
     position: relative;
+}
+a{
+    color:#7aa256;
 }
 </style>

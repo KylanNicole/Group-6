@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="back">
         <div>
             <CartTile></CartTile>
             <ShippingInfo></ShippingInfo>
@@ -47,4 +47,7 @@ export default {
 </script>
 
 <style scoped>
+.back {
+    background-color: #fbf3e4;
+}
 </style>
