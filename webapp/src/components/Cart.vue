@@ -28,19 +28,25 @@ export default {
     position: fixed;
     top: 70px;
     right: 0;
-    border: solid 1px #5e5d5a;
+    border: solid 1px #7aa256;
     width: 300px;
     border-radius: 5px;
-    background-color: #fdf9f2;
+    background-color: rgba(82, 45, 26, 0.8);
+}
+p {
+    color: #7aa256;
 }
 h1 {
     text-align: left;
     margin: 0;
+    font-weight: bold;
+    font-size: 26px;
+    color: #7aa256;
 }
 .header {
     padding: 10px;
-    border-bottom: solid 1px #5e5d5a;
-    background-color: #fdf9f2;
+    border-bottom: solid 1px #7aa256;
+    background-color: rgba(82, 45, 26, 1);
 }
 .hide_scroll {
     overflow: hidden;
@@ -51,15 +57,15 @@ h1 {
     height: 340px;
 }
 .footer {
-    border-top: solid 1px #5e5d5a;
+    border-top: solid 1px #7aa256;
     padding: 10px;
-    background-color: #fdf9f2;
+    background-color: rgba(82, 45, 26, 1);
 }
 #exit {
     float: right;
     position: relative;
 }
 a{
-    color:#7aa256;
+    color:#cc783c;
 }
 </style>
