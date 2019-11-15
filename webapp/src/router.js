@@ -6,6 +6,7 @@ import Staff from "./views/Staff.vue"
 import ToDos from "./views/ToDos.vue";
 import PastOrders from "./views/PastOrders.vue";
 import Shop from "./views/Shop.vue";
+import BannerEdit from "./views/BannerEdit.vue";
 
 Vue.use(Router);
 
@@ -52,6 +53,11 @@ export default new Router({
       path: "/manage/orders",
       name: "orders",
       component: PastOrders
+    },
+    {
+      path: "/manage/banner",
+      name: "banner",
+      component: BannerEdit
     },
     {
       path: "/myaccount",
