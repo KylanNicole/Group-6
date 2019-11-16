@@ -34,98 +34,104 @@ export default {
     components: {
         SpiceTile
     },
+    methods: {
+      getItems: function(query){
+        return this.$store.dispatch("getItems", query);
+      }
+    },
     data() {
         return {
             filters: ["Price", "Name"],
             tags: ["Spicy", "Sweet", "Bitter", "Salty", "Umami"],
             sortby: "",
-            spices: [
-                {
-                    name: "Paprika",
-                    img: "paprika.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Red"]
-                },
-                {
-                    name:"Nutmeg",
-                    img: "nutmeg.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Bitter", "Brown"]
-                },
-                {
-                    name: "Cinnamon",
-                    img: "cinnamon.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Brown"]
-                },
-                {
-                    name: "Paprika",
-                    img: "paprika.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Red"]
-                },
-                {
-                    name:"Nutmeg",
-                    img: "nutmeg.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Bitter", "Brown"]
-                },
-                {
-                    name: "Cinnamon",
-                    img: "cinnamon.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Brown"]
-                },
-                {
-                    name: "Paprika",
-                    img: "paprika.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Red"]
-                },
-                {
-                    name:"Nutmeg",
-                    img: "nutmeg.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Bitter", "Brown"]
-                    
-                },
-                {
-                    name: "Cinnamon",
-                    img: "cinnamon.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Brown"]
-                }],
-            colors: [{
+            spices:
+            // getItems("paprika"),
+              [{
+                name: "Paprika",
+                img: "paprika.jpg",
+                desc: "This is a desc.",
+                tags: ["Spicy", "Red"]
+              },
+              {
+                name:"Nutmeg",
+                img: "nutmeg.jpg",
+                desc: "This is a desc.",
+                tags: ["Bitter", "Brown"]
+              },
+              {
+                name: "Cinnamon",
+                img: "cinnamon.jpg",
+                desc: "This is a desc.",
+                tags: ["Spicy", "Brown"]
+              },
+              {
+                name: "Paprika",
+                img: "paprika.jpg",
+                desc: "This is a desc.",
+                tags: ["Spicy", "Red"]
+              },
+              {
+                name:"Nutmeg",
+                img: "nutmeg.jpg",
+                desc: "This is a desc.",
+                tags: ["Bitter", "Brown"]
+              },
+              {
+                name: "Cinnamon",
+                img: "cinnamon.jpg",
+                desc: "This is a desc.",
+                tags: ["Spicy", "Brown"]
+              },
+              {
+                name: "Paprika",
+                img: "paprika.jpg",
+                desc: "This is a desc.",
+                tags: ["Spicy", "Red"]
+              },
+              {
+                name:"Nutmeg",
+                img: "nutmeg.jpg",
+                desc: "This is a desc.",
+                tags: ["Bitter", "Brown"]
+
+              },
+              {
+                name: "Cinnamon",
+                img: "cinnamon.jpg",
+                desc: "This is a desc.",
+                tags: ["Spicy", "Brown"]
+              }],
+              colors: [{
                 name: "Red",
                 hex: "#FF0000"},
                 {
-                name: "Green",
-                hex: "#00FF00"},
-                {
-                name: "Orange",
-                hex: "#FF8888"},
-                {
-                name: "Yellow",
-                hex: "#FFFF00"},
-                {
-                name: "Blue",
-                hex: "#0000Ff"}]
-        }
-    }
-}
-</script>
+                  name: "Green",
+                  hex: "#00FF00"},
+                  {
+                    name: "Orange",
+                    hex: "#FF8888"},
+                    {
+                      name: "Yellow",
+                      hex: "#FFFF00"},
+                      {
+                        name: "Blue",
+                        hex: "#0000Ff"}]
+                      }
+                    }
+                  }
+                  </script>
 
-<style scoped>
-.filter {
-    width: 200px;
-    height: 100%;
-    overflow: hidden;
-    padding: 15px;
-    border-right: solid 1px black;
-    float: left;
-}
-.tag {
-    background-color: lightgreen;
-    border-radius: 5px;
-}
-</style>
+                  <style scoped>
+                  .filter {
+                    width: 200px;
+                    height: 100%;
+                    overflow: hidden;
+                    padding: 15px;
+                    border-right: solid 1px black;
+                    float: left;
+                  }
+                  .tag {
+                    background-color: lightgreen;
+                    border-radius: 5px;
+                  }
+                  </style>

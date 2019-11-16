@@ -12,11 +12,10 @@ router.route('/signup')
 
 
   .post((req, res) => {
-    const { firstname, lastname, credit_card_number, email, password, addressId } = req.body;
-
-    debugger
+    const { firstname, lastname, email, password } = req.body;
+    console.log(firstname);
     const manager = getManager();
-    const user = manager.create(User, { firstname, lastname, permission : 3, credit_card_number, email, password, address : addressId});
+    const user = manager.create(User, { firstname, lastname, permission : 3, email, password });
     // tag.user = req.user;
     manager.save(user).then((savedUser) => {
       res.send(savedUser);
