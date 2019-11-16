@@ -4,11 +4,10 @@
         <h4>{{name}}</h4>
         <button>Edit</button>
         <button v-on:click="toggleDetails">Details</button>
-        <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
-        </div>
-        <div :class="[hideDetails ? 'hidden' : 'window']" >
+        <SpiceInfo ref="SpiceInfo" class="center" v-bind="{name, img, desc, tags}"/>
+        <!-- <div :class="[hideDetails ? 'hidden' : 'window']" >
             <SpiceInfo class="center" v-bind="{name, img, desc, tags}"/>
-        </div>
+        </div> -->
         
     </div>
 </template>
@@ -26,7 +25,7 @@ export default {
     },
     methods: {
         toggleDetails() {
-            this.hideDetails = !this.hideDetails;
+            this.$refs.SpiceInfo.modalActive = true;
         }
     },
     data() {
@@ -41,7 +40,6 @@ export default {
 div {
     width: 200px;
     border-radius: 5px;
-    border-bottom: solid 1px darkgray;
     background-color: #EEEEEE;
     padding: 10px;
     margin: 5px;
