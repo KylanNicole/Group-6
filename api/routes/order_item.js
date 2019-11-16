@@ -23,6 +23,7 @@ router.route('/order_item')
 router.route('/order_item/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
+    debugger
     getRepository(order_item).findOneOrFail(
       { where: { userId: req.user.id, id: req.params.id } },
     ).then((_foundOrderItem) => {
