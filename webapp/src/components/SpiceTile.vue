@@ -5,10 +5,6 @@
         <button>Edit</button>
         <button v-on:click="toggleDetails">Details</button>
         <SpiceInfo ref="SpiceInfo" class="center" v-bind="{name, img, desc, tags}"/>
-        <!-- <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind="{name, img, desc, tags}"/>
-        </div> -->
-        
     </div>
 </template>
 
@@ -40,7 +36,7 @@ export default {
 div {
     width: 200px;
     border-radius: 5px;
-    background-color: #EEEEEE;
+    background-color: #8d9b77;
     padding: 10px;
     margin: 5px;
     display: inline-block;
@@ -58,9 +54,14 @@ h4 {
     text-align: center;
 }
 button {
-    width: 25%;
-    margin: auto;
+    background-color: #cc783c;
+    color: #fbf3e4;
+    border-color: #cc783c;
+    width: 100%;
+    margin: 5px;
+    font-weight: bold;
     display: block;
+    border-radius: 10px;
 }
 .hidden {
     display: none;

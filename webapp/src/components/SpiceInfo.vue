@@ -94,7 +94,7 @@ p {
   display: block;
 }
 .tag {
-  background-color: lightgreen;
+  background-color: #8d9b77;
   border-radius: 5px;
   padding: 0 10px 0 10px;
   margin: 0 1px;

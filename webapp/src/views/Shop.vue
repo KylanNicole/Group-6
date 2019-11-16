@@ -125,7 +125,7 @@ export default {
     float: left;
 }
 .tag {
-    background-color: lightgreen;
+    background-color: #8d9b77;
     border-radius: 5px;
 }
 </style>
