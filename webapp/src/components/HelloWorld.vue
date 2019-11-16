@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <h1>The Spice Cabinet</h1>
-  <div class="back-img">
-    </div>
+  <div class="container">
+      <img width=100%; src="../assets/background.jpg">
+      <div class="top-right">>
+        <h1>The Spice Cabinet</h1>
+      </div>
   </div>
 </template>
 
@@ -23,6 +24,7 @@ h1{
   margin:0px;
   text-align:center;
   font-weight: bold;
+  background-color: rgba(82, 45, 26, 0.9);
 }
 h3 {
   margin: 40px 0 0;
@@ -47,5 +49,15 @@ a {
   background-image: url('../assets/background.jpg');
   background-size: 100%;
   z-index: -1;
+}
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
 }
 </style>
