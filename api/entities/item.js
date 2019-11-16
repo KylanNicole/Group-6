@@ -30,7 +30,6 @@ import {
     @Column({ type: 'varchar' })
     image
   
-  
     @OneToMany( () => Order_Item, (order_item) => order_item.item )
     order_item
 
