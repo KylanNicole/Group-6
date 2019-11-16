@@ -1,9 +1,0 @@
-INSERT INTO Category(tag, item_id) VALUE("1", spicy);
-INSERT INTO Category(tag, item_id) VALUE("2", salty);
-INSERT INTO Category(tag, item_id) VALUE("3", peppery);
-INSERT INTO Category(tag, item_id) VALUE("4", red);
-INSERT INTO Category(tag, item_id) VALUE("5", umami);
-INSERT INTO Category(tag, item_id) VALUE("6", sweet);
-INSERT INTO Category(tag, item_id) VALUE("7", brown);
-INSERT INTO Category(tag, item_id) VALUE("8", italian);
-INSERT INTO Category(tag, item_id) VALUE("9", fresh);
