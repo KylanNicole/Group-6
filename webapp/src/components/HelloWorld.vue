@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <img width=100%; src="../assets/background.jpg">
-      <div class="top-right">>
+      <div class="top-right">
         <h1>The Spice Cabinet</h1>
       </div>
   </div>
@@ -53,7 +53,7 @@ a {
 .container {
   position: relative;
   text-align: center;
-  color: white;
+  color: #fbf3e4;
 }
 .top-right {
   position: absolute;

@@ -66,14 +66,16 @@ h4 {
 p {
   font-size: 10pt;
 }
-
+div {
+  background-color: #fbf3e4;
+}
 .spice-info {
   border: solid 1px black;
   border-radius: 5px;
   padding: 10px;
   overflow: hidden;
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: #fbf3e4;
 }
 .desc {
   float: left;
@@ -101,11 +103,12 @@ p {
 }
 .spice-modal-body {
   float: left;
-  background: #ffffff;
+  background: #fbf3e4;
 }
 .spice-modal-body section {
   width: 50%;
   float: left;
+  background: #fbf3e4;
 }
 
 .noclass {

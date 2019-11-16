@@ -111,7 +111,7 @@ div{
 }
 .login-modal-body{
   float: left;
-  background: #ffffff;
+  background: #fbf3e4;
 }
 .login-modal-body section{
   width: 50%;
