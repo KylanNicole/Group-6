@@ -35,7 +35,7 @@ import {
 
     @ManyToMany( () => Tag, (tag) => tag.item)
     @JoinTable()
-    join
+    Tags
 
     // @OneToMany(() => ToDo, (todo) => todo.user, { eager: true })
     // todos
