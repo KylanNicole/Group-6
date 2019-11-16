@@ -9,7 +9,7 @@ router.route('/order')
 
   .all((req, res, next) => {
     debugger
-    getRepository(Order).findOrFail(
+    getRepository(Order).findOneOrFail(
       { where: { userId: req.user.id } },
     ).then((_foundOrder) => {
       req.order = _foundOrder;
