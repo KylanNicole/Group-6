@@ -7,7 +7,7 @@
       </header> -->
       <section class="login-modal-body">
         <section class="modal-card-body">
-          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
+          <span class="has-text-danger" v-if="formProps.error">Unsuccessful logging in.</span>
           <p><b>Existing Login</b></p>
           <b-field label="Email">
             <b-input
@@ -27,7 +27,7 @@
             required
             ></b-input>
           </b-field>
-          <!--<button v-on:click="login">Login</button>-->
+          <button v-on:click="login">Login</button>
         </section>
         
         <section class="modal-card-body" style="border-left: 3px solid grey">
@@ -87,7 +87,17 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      console.log("log in");
+      this.formProps.loginError = false;
+      this.$store
+        .dispatch("login", { email: this.formProps.email, password: this.formProps.password })
+        .then(
+          () => {
+            this.$emit("close");
+          },
+          () => {
+            this.formProps.loginError = true;
+          }
+        );
     },
     signUp: function(){
       console.log("sign up");
@@ -97,8 +107,9 @@ export default {
     return {
       modalActive: false,
       formProps: {
-        email: 'evan@you.com',
-        password: 'testing'
+        email: '',
+        password: '',
+        loginError: false
       }
     }
   }
