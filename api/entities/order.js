@@ -24,7 +24,10 @@ import Order_Item from './order_item';
     order_status
   
     @Column({ type: 'int' })
-    staffId
+    staff_id
+
+    @Column({ type: 'varchar'})
+    address 
   
     @ManyToOne(() => User, (user) => user.orders)
     user
