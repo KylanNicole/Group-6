@@ -7,7 +7,6 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import Address from './address';
 import Order from './order';
 
 @Entity()

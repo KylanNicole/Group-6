@@ -25,6 +25,10 @@ import Order_Item from './order_item';
   
     @Column({ type: 'int' })
     staff_id
+
+
+    @Column({ type: 'varchar'})
+    address 
   
     @ManyToOne(() => User, (user) => user.orders)
     user

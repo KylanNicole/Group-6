@@ -1,18 +1,26 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
-import ToDo from '../entities/order';
+import Order from '../entities/order';
 
 const router = Router();
 router.route('/order')
   .all(isAuthenticated)
   .get((req, res) => {
-    res.send(req.user.order); //@@ why todos?
+    getRepository(Order).find(
+      { where: { userId: req.user.id} },
+    ).then((_foundOrder) => {
+     res.send(_foundOrder);
+    }, () => {
+      res.send(404); 
+    } )
   })
+
+  
   .post((req, res) => {
     const { total_cost, total_weight, order_status, staff } = req.body;
     const manager = getManager();
-    const order = manager.create(ToDo, { total_cost, total_weight, order_status, staff });
+    const order = manager.create(Order, { total_cost, total_weight, order_status, staff });
     order.user = req.user;
     manager.save(order).then((savedOrder) => {
       res.send(savedOrder);

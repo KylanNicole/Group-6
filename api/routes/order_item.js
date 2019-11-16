@@ -6,9 +6,9 @@ import ToDo from '../entities/order_item';
 const router = Router();
 router.route('/order_item')
   .all(isAuthenticated)
-  .get((req, res) => {
-    res.send(req.user.order_item); //@@ why todos?
-  })
+  // .get((req, res) => {
+  //   res.send(req.user.order_item); //@@ why todos?
+  // })
   .post((req, res) => {
     const { cost, weight, order, item } = req.body;
     const manager = getManager();
