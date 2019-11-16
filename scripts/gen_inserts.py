@@ -10,17 +10,15 @@ fake.seed_instance(123)
 f_name, l_name = fake.name().split(' ')
 
 # good as of 11-12
-base_user = "INSERT INTO Users(firstname, lastname, permission, credit_card_number, address, email, password) VALUE(\"{}\", \"{}\", {}, {}, \"{}\", \"{}\", {});"
+base_user = "INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE(\"{}\", \"{}\", {}, {}, \"{}\", \"{}\");"
 # good as of 11-12
-base_address = "INSERT INTO Address(street_name, street_number, zip_code, state, city) VALUE(\"{}\", {}, {}, \"{}\", \"{}\");"
+base_order = "INSERT INTO order_(total_cost, total_weight, order_status, userId, staffId) VALUE({}, {}, {}, {}, {});"
 # good as of 11-12
-base_order = "INSERT INTO Orders(total_cost, total_weight, order_status, user, staff) VALUE({}, {}, {}, {}, {});"
-# good as of 11-12
-base_order_item = "INSERT INTO OrderItem(cost, weight, order_id, item_id) VALUE({}, {}, {}, {});"
+base_order_item = "INSERT INTO order__item(cost, weight, orderId, itemId) VALUE({}, {}, {}, {});"
 # need to update the gen function for item
-base_item = "INSERT INTO Item(title, unit_price, stock, desciption, image, order_item, tag) VALUE(\"{}\", {}, {}, \"{}\", \"{}\", \"{}\", {});"
-base_item_tag = "INSERT INTO Item_Tag(itemID, tagID) VALUES({}, {});"
-base_tag = "INSERT INTO Tag(tag_id, item_id) VALUE(\"{}\", {});"
+base_item = "INSERT INTO item(title, unit_price, stock, description, image) VALUE(\"{}\", {}, {}, \"{}\", \"{}\");"
+base_item_tag = "INSERT INTO item_join_tag(itemID, tagID) VALUES({}, {});"
+base_tag = "INSERT INTO tag(title) VALUE(\"{}\");"
 
 def write_db(file_name, df, sql_template):
     if WRITE:
@@ -50,16 +48,6 @@ def generate_users():
     df = pd.DataFrame(data, columns=['f_name', 'l_name', 'perms', 'ccid', 'aid', 'email', 'pass'])
     return df
 
-def generate_addresses():
-    data = []
-    for i in range(9):
-        street, loc = (fake.address().split('\n'))
-        street_num, street_name = street.split(' ')[0], " ".join(street.split(' ')[1:])
-        city, state, zip_code = loc.split(',')[0], loc.split(',')[1].split(' ')[1], loc.split(',')[1].split(' ')[2]
-        data.append([street_name, street_num, zip_code, state, city])
-    df = pd.DataFrame(data, columns=['street_name', 'street_num', 'zip', 'state', 'city'])
-    return df
-
 def generate_orders():
     data = []
     random.seed(123)
@@ -69,13 +57,11 @@ def generate_orders():
         total_cost = sum(subset_order_items['cost'])
         total_weight = sum(subset_order_items['weight'])
         status = random.randint(0, 3)
-        ccid = 123456789101112
         cust_id = random.randint(1, 4)
         staff_id = 6
         for j in range(len(subset_order_items)):
-            data.append([total_cost, total_weight, status,
-                ccid, cust_id, staff_id])
-    df = pd.DataFrame(data, columns=['total_cost', 'total_weight', 'status', 'credit_card', 'cust_id', 'staff_id'])
+            data.append([total_cost, total_weight, status, cust_id, staff_id])
+    df = pd.DataFrame(data, columns=['total_cost', 'total_weight', 'status', 'cust_id', 'staff_id'])
     return df
 
 def generate_order_items():
@@ -105,43 +91,40 @@ def generate_items():
         stock = random.randint(100, 500)
         description = "description of spice_{}".format(alpha[i])
         image = "image of spice_{}".format(alpha[i])
-        category = random.randint(1, 10)
-        data.append([name, unit_price, stock, description, image, category])
-    df = pd.DataFrame(data, columns=["name", "unit_price", "stock",
-        "description", "image", "order_item", "category"])
+        data.append([name, unit_price, stock, description, image])
+    df = pd.DataFrame(data, columns=["name", "unit_price", "stock", "description", "image"])
     return df
 
 def generate_tags():
     data = []
     tags = ["spicy", "salty", "peppery", "red", "umami", "sweet", "brown", "italian", "fresh", "coarse"]
     for i in range(9):
-        id_val = i+1
         tag = tags[i]
         item_id = 0
-        data.append([id_val, tag, item_id])
-    df = pd.DataFrame(data, columns=['id', 'tag', 'item_id'])
+        data.append([tag])
+    df = pd.DataFrame(data, columns=['tag'])
     return df
 
-def generate_item_tags():
+def generate_join_tag():
     data = []
     item_df = generate_items()
     tag_df = generate_tags()
+    random.seed(456)
     for i in range(9):
-        data.append([random.randint(len(item_df)),
-            random.randint(len(tag_df))])
+        data.append([random.randint(1, len(item_df)),
+            random.randint(1, len(tag_df))])
     df = pd.DataFrame(data, columns=['itemID', 'tagID'])
     return df
 
 def main():
-    write_db('sql_scripts/insert_address.sql', generate_addresses(), base_address)
-    write_db('sql_scripts/insert_users.sql', generate_users(), base_user)
-    write_db('sql_scripts/insert_categories.sql', generate_tags(),
+    write_db('sql_scripts/insert_user.sql', generate_users(), base_user)
+    write_db('sql_scripts/insert_tag.sql', generate_tags(),
             base_tag)
-    write_db('sql_scripts/insert_items.sql', generate_items(), base_item)
-    write_db('sql_scripts/insert_order_items.sql', generate_order_items(),
+    write_db('sql_scripts/insert_item.sql', generate_items(), base_item)
+    write_db('sql_scripts/insert_order__item.sql', generate_order_items(),
             base_order_item)
-    write_db('sql_scripts/insert_orders.sql', generate_orders(), base_order)
-    write_db('sql_scripts/insert_item_tags.sql', generate_item_tags(),
+    write_db('sql_scripts/insert_order_.sql', generate_orders(), base_order)
+    write_db('sql_scripts/insert_item_join_tag.sql', generate_join_tag(),
             base_item_tag)
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ router.route('/signup')
 
 
   .post((req, res) => {
-    const { firstname, lastname, credit_card_number, email, password, addressID } = req.body;
+    const { firstname, lastname, credit_card_number, email, password, addressId } = req.body;
 
     debugger
     const manager = getManager();

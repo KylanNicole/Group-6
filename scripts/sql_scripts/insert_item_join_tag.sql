@@ -1,0 +1,9 @@
+INSERT INTO item_join_tag(itemID, tagID) VALUES(8, 8);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(7, 7);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(1, 9);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(2, 6);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(8, 2);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(2, 8);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(8, 1);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(5, 3);
+INSERT INTO item_join_tag(itemID, tagID) VALUES(3, 4);
