@@ -7,7 +7,6 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import Address from './address';
 import Order from './order';
 
 @Entity()
@@ -32,11 +31,6 @@ export default class User {
 
   @Column({ type: 'varchar', nullable: false })
   password
-
-  // it didn't show address column in user 
-  // @OneToOne(() => Address)
-  // @JoinColumn()
-  // address
 
   @OneToMany(() => Order, (order) => order.user, { eager: true})
   orders

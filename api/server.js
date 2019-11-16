@@ -6,7 +6,6 @@ import passport from 'passport';
 import config from './config/passport';
 
 import login from './routes/login';
-import address from './routes/address';
 import item from './routes/item';
 import order_items from './routes/order_item';
 import order from './routes/order';
@@ -32,7 +31,6 @@ config();
 
 // wire up all the routes
 app.use(login(passport));
-// app.use(address);
 app.use(item);
 app.use(order_items);
 app.use(order);
