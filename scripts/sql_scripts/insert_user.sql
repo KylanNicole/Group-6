@@ -1,9 +1,9 @@
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Steven", "Johnson", 0, 123456789101112, "0", "SJohnson@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Evelyn", "Christian", 0, 123456789101112, "1", "EChristian@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("George", "Cook", 0, 123456789101112, "2", "GCook@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Aaron", "Graham", 0, 123456789101112, "3", "AGraham@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Kyle", "Jones", 0, 123456789101112, "4", "KJones@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Jerome", "Whitehead", 1, 123456789101112, "5", "JWhitehead@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Charles", "Tyler", 1, 123456789101112, "6", "CTyler@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Thomas", "Berry", 1, 123456789101112, "7", "TBerry@gmail.com");
-INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE("Ryan", "Mack", 2, 123456789101112, "8", "RMack@gmail.com");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Steven", "Johnson", 0, "SJohnson@gmail.com", "bicynidbmr");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Evelyn", "Christian", 0, "EChristian@gmail.com", "rkkbfekrkw");
+INSERT user(firstname, lastname, permission, email, password) VALUE("George", "Cook", 0, "GCook@gmail.com", "hfanyctmca");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Aaron", "Graham", 0, "AGraham@gmail.com", "kxodbcveez");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Kyle", "Jones", 0, "KJones@gmail.com", "ajnspipbyj");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Jerome", "Whitehead", 1, "JWhitehead@gmail.com", "kqzpgtuqsz");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Charles", "Tyler", 1, "CTyler@gmail.com", "kamyuqnvru");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Thomas", "Berry", 1, "TBerry@gmail.com", "zvtpqvnlqb");
+INSERT user(firstname, lastname, permission, email, password) VALUE("Ryan", "Mack", 2, "RMack@gmail.com", "yufxcpvifk");
