@@ -29,7 +29,7 @@
           </b-field>
           <button v-on:click="login">Login</button>
         </section>
-        
+
         <section class="modal-card-body" style="border-left: 3px solid grey">
           <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>New User Signup</b></p>
@@ -45,7 +45,7 @@
           <b-field label="Confirm Email">
             <b-input
             type="email"
-            v-model="email"
+            v-model="emailConf"
             placeholder="Confirm Email"
             required
             ></b-input>
@@ -64,7 +64,7 @@
           <b-field label="Confirm Password">
             <b-input
             type="password"
-            v-model="password"
+            v-model="passwordConf"
             password-reveal
             placeholder="Confirm Password"
             required
@@ -100,12 +100,19 @@ export default {
         );
     },
     signUp: function(){
-      console.log("sign up");
+      if (this.email == this.emailConf && this.password == this.passwordConf){
+        this.$store.dispatch("signup", {firstname: "Bill", lastname: "Hader", email: this.email, password: this.password} );
+      }
     }
   },
   data() {
     return {
       modalActive: false,
+      email: "",
+      emailConf: "",
+      password: "",
+      passwordConf: "",
+      error: false,
       formProps: {
         email: '',
         password: '',

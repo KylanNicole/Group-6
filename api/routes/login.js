@@ -4,7 +4,6 @@ import isAuth from '../middleware/isAuthenticated';
 export default (passport) => {
   const router = Router();
   router.post('/login', (req, res, next) => {
-    debugger;
     passport.authenticate('local', (err, user, info) => {
       if (err) {
         return next(err);

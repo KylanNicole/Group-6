@@ -1,18 +1,42 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
-import ToDo from '../entities/order';
+import Order from '../entities/order';
 
 const router = Router();
 router.route('/order')
   .all(isAuthenticated)
-  .get((req, res) => {
-    res.send(req.user.order); //@@ why todos?
+
+  .all((req, res, next) => {
+    debugger
+    getRepository(Order).findOrFail(
+      { where: { userId: req.user.id } },
+    ).then((_foundOrder) => {
+      req.order = _foundOrder;
+      next();
+    }, () => {
+      res.send(404);
+    });
   })
+  // .all((req, res, next) => {
+  //     debugger
+  //     getRepository(Order).find(
+  //       { where: { userId: req.user.id} },
+  //     ).then((_foundOrder) => {
+  //       req.order = _foundOrder;
+  //       next();
+  //     }, () => {
+  //       res.send(404); 
+  //     } )
+  // })
+  .get((req, res) => {
+    res.send(req.order);
+  })
+  
   .post((req, res) => {
     const { total_cost, total_weight, order_status, staff } = req.body;
     const manager = getManager();
-    const order = manager.create(ToDo, { total_cost, total_weight, order_status, staff });
+    const order = manager.create(Order, { total_cost, total_weight, order_status, staff });
     order.user = req.user;
     manager.save(order).then((savedOrder) => {
       res.send(savedOrder);
@@ -23,10 +47,11 @@ router.route('/order')
 router.route('/order/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
-    getRepository(ToDo).findOneOrFail(
+    debugger
+    getRepository(Order).findOneOrFail(
       { where: { userId: req.user.id, id: req.params.id } },
     ).then((_foundOrder) => {
-      req.todo = _foundOrder;
+      req.order = _foundOrder;
       next();
     }, () => {
       res.send(404);

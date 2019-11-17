@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 
 Vue.use(Vuex);
+Vue.use(Vuex);
 
 export const mutations = {
   login: function(state) {
@@ -31,13 +32,25 @@ export const actions = {
     const { email, password } = payload;
     return axios.post("/api/login", { email, password }).then(() => {
       commit("login");
-      return dispatch("loadTodos");
+      // return dispatch("loadTodos");
     });
   },
   logout: function({ commit }) {
     return axios.get("/api/logout").then(() => {
       commit("logout");
     });
+  },
+  signup: function({commit, dispatch}, payload){
+    const {firstname, lastname, email, password} = payload;
+    return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
+      commit("login");
+    })
+  },
+  getItems: function({commit, dispatch}, payload){
+    return axios.post("/api/getitems", payload).then((response) => {
+      // commit("login");
+      console.log(response);
+    })
   },
   addToDo({ commit }, toDo) {
     return axios.post("/api/todos", toDo).then(response => {
