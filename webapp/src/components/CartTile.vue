@@ -24,7 +24,7 @@ export default {
 .carttile {
     background-color: #EEEEEE;
     width: 80%;
-    margin: 0 auto 10px;
+    margin: 10px;
     display: block;
     padding: 5px;
     overflow: auto;
@@ -37,6 +37,5 @@ export default {
 img {
     width: 50px;
     display: inline;
-    //margin: 0 30px 0 10px;
 }
 </style>
