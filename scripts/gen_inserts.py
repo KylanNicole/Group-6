@@ -10,14 +10,14 @@ fake.seed_instance(123)
 f_name, l_name = fake.name().split(' ')
 
 # good as of 11-12
-base_user = "INSERT user(firstname, lastname, permission, credit_card_number, email, password) VALUE(\"{}\", \"{}\", {}, {}, \"{}\", \"{}\");"
+base_user = "INSERT user(firstname, lastname, permission, email, password) VALUE(\"{}\", \"{}\", {}, \"{}\", \"{}\");"
 # good as of 11-12
-base_order = "INSERT INTO order_(total_cost, total_weight, order_status, userId, staffId) VALUE({}, {}, {}, {}, {});"
+base_order = "INSERT INTO order_(total_cost, total_weight, order_status, userId, staff_id, address) VALUE({}, {}, {}, {}, {}, \"{}\");"
 # good as of 11-12
 base_order_item = "INSERT INTO order__item(cost, weight, orderId, itemId) VALUE({}, {}, {}, {});"
 # need to update the gen function for item
 base_item = "INSERT INTO item(title, unit_price, stock, description, image) VALUE(\"{}\", {}, {}, \"{}\", \"{}\");"
-base_item_tag = "INSERT INTO item_join_tag(itemID, tagID) VALUES({}, {});"
+base_item_tag = "INSERT INTO item__tags_tag(itemId, tagId) VALUES({}, {});"
 base_tag = "INSERT INTO tag(title) VALUE(\"{}\");"
 
 def write_db(file_name, df, sql_template):
@@ -44,8 +44,8 @@ def generate_users():
             perms = 1
         else:
             perms = 0
-        data.append([f_name, l_name, perms, ccid, aid, email, pass_word])
-    df = pd.DataFrame(data, columns=['f_name', 'l_name', 'perms', 'ccid', 'aid', 'email', 'pass'])
+        data.append([f_name, l_name, perms, email, pass_word])
+    df = pd.DataFrame(data, columns=['f_name', 'l_name', 'perms', 'email', 'pass'])
     return df
 
 def generate_orders():
@@ -60,8 +60,8 @@ def generate_orders():
         cust_id = random.randint(1, 4)
         staff_id = 6
         for j in range(len(subset_order_items)):
-            data.append([total_cost, total_weight, status, cust_id, staff_id])
-    df = pd.DataFrame(data, columns=['total_cost', 'total_weight', 'status', 'cust_id', 'staff_id'])
+            data.append([total_cost, total_weight, status, cust_id, staff_id, ' '.join(fake.address().split('\n'))])
+    df = pd.DataFrame(data, columns=['total_cost', 'total_weight', 'status', 'cust_id', 'staff_id', 'address'])
     return df
 
 def generate_order_items():
