@@ -7,8 +7,8 @@
 6 silly lifecycle api@1.0.0~preserve: no script for preserve, continuing
 7 info lifecycle api@1.0.0~serve: api@1.0.0
 8 verbose lifecycle api@1.0.0~serve: unsafe-perm in lifecycle true
-9 verbose lifecycle api@1.0.0~serve: PATH: /usr/share/npm/bin/node-gyp-bin:/home/eshui/school/307/Evan_Group_6/Group-6/api/node_modules/.bin:/home/eshui/.local/bin:/home/eshui/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files/WindowsApps/CanonicalGroupLimited.UbuntuonWindows_1804.2019.521.0_x64__79rhkp1fndgsc:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/Evan Shui/AppData/Local/Microsoft/WindowsApps:/mnt/c/tools/neovim/Neovim/bin:/mnt/c/Users/Evan Shui/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Evan Shui/AppData/Roaming/npm:/snap/bin
-10 verbose lifecycle api@1.0.0~serve: CWD: /home/eshui/school/307/Evan_Group_6/Group-6/api
+9 verbose lifecycle api@1.0.0~serve: PATH: /usr/share/npm/bin/node-gyp-bin:/home/eshui/school/Group-6/api/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+10 verbose lifecycle api@1.0.0~serve: CWD: /home/eshui/school/Group-6/api
 11 silly lifecycle api@1.0.0~serve: Args: [ '-c', 'node start.js' ]
 12 silly lifecycle api@1.0.0~serve: Returned: code: 1  signal: null
 13 info lifecycle api@1.0.0~serve: Failed to exec serve script
@@ -23,8 +23,8 @@
 14 verbose stack     at maybeClose (internal/child_process.js:925:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)
 15 verbose pkgid api@1.0.0
-16 verbose cwd /home/eshui/school/307/Evan_Group_6/Group-6/api
-17 error Linux 4.4.0-18362-Microsoft
+16 verbose cwd /home/eshui/school/Group-6/api
+17 error Linux 4.4.0-17134-Microsoft
 18 error argv "/usr/bin/node" "/usr/bin/npm" "run" "serve"
 19 error node v8.10.0
 20 error npm  v3.5.2
