@@ -7,3 +7,4 @@ INSERT user(firstname, lastname, permission, email, password) VALUE("Jerome", "W
 INSERT user(firstname, lastname, permission, email, password) VALUE("Charles", "Tyler", 1, "CTyler@gmail.com", "kamyuqnvru");
 INSERT user(firstname, lastname, permission, email, password) VALUE("Thomas", "Berry", 1, "TBerry@gmail.com", "zvtpqvnlqb");
 INSERT user(firstname, lastname, permission, email, password) VALUE("Ryan", "Mack", 2, "RMack@gmail.com", "yufxcpvifk");
+INSERT user(firstname, lastname, permission, email, password) VALUE("admin", "admin", 0, "admin", "pass");

@@ -45,6 +45,7 @@ def generate_users():
         else:
             perms = 0
         data.append([f_name, l_name, perms, email, pass_word])
+    data.append(["admin", "admin", 0, "admin", "pass"])
     df = pd.DataFrame(data, columns=['f_name', 'l_name', 'perms', 'email', 'pass'])
     return df
 
