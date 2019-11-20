@@ -1,15 +1,14 @@
 <template>
     <div>
-        <img :src='"@/assets/" + img + ""'>
-        <h4>{{name}}</h4>
+        <img :src='image'>
+        <h4>{{title}}</h4>
         <button>Edit</button>
         <button v-on:click="toggleDetails">Details</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
         <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind="{name, img, desc, tags}"/>
+            <SpiceInfo class="center" v-bind="{title, image, description, stock, unit_price, tags}"/>
         </div>
-        
     </div>
 </template>
 
@@ -19,10 +18,12 @@ export default {
     name: "SpiceTile",
     components: { SpiceInfo },
     props: {
-        name: String,
-        img: String,
-        desc: String,
-        tags: Array
+        description: String,
+        id: Number,
+        image: String,
+        stock: Number,
+        title: String,
+        unit_price: Number
     },
     methods: {
         toggleDetails() {
@@ -32,6 +33,7 @@ export default {
     data() {
         return {
             hideDetails: true,
+            tags: []
         }
     }
 }

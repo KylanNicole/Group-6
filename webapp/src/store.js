@@ -24,11 +24,14 @@ export const mutations = {
   },
   todosLoaded(state, todos) {
     state.todos = todos;
+  },
+  storeItems(state, items){
+    state.spices = items;
   }
 };
 
 export const actions = {
-  login: function({ commit, dispatch }, payload) {
+  login: function({ commit }, payload) {
     const { email, password } = payload;
     return axios.post("/api/login", { email, password }).then(() => {
       commit("login");
@@ -40,16 +43,15 @@ export const actions = {
       commit("logout");
     });
   },
-  signup: function({commit, dispatch}, payload){
+  signup: function({commit}, payload){
     const {firstname, lastname, email, password} = payload;
-    return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
+    return axios.post("/api/signup", {firstname, lastname, email, password}).then(() => {
       commit("login");
     })
   },
-  getItems: function({commit, dispatch}, payload){
-    return axios.post("/api/getitems", payload).then((response) => {
-      // commit("login");
-      console.log(response);
+  getItems: function({commit}, payload){
+    return axios.get("/api/item", payload).then((response) => {
+      commit("storeItems", response.data);
     })
   },
   addToDo({ commit }, toDo) {
@@ -85,7 +87,8 @@ export default new Vuex.Store({
     loginState: {
       loggedIn: false
     },
-    todoIdx: 0
+    todoIdx: 0,
+    spices: [],
   },
   mutations,
   actions

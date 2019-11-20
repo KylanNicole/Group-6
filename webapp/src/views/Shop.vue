@@ -22,7 +22,7 @@
             </div>
         </div>
         <div>
-            <SpiceTile v-for="spice in spices" v-bind="spice" />
+            <SpiceTile v-for="spice in getSpices" v-bind="spice" />
         </div>
     </div>
 </template>
@@ -34,73 +34,31 @@ export default {
     components: {
         SpiceTile
     },
+    computed: {
+      getSpices() {
+        console.log(this.$store.state.spices);
+        return this.$store.state.spices;
+      }
+    },
     methods: {
       getItems: function(query){
-        return this.$store.dispatch("getItems", query);
+        this.$store.dispatch("getItems", query);
       }
+    },
+    created(){
+      this.getItems("");
     },
     data() {
         return {
             filters: ["Price", "Name"],
             tags: ["Spicy", "Sweet", "Bitter", "Salty", "Umami"],
             sortby: "",
-            spices:
-            // getItems("paprika"),
-              [{
-                name: "Paprika",
-                img: "paprika.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Red"]
-              },
-              {
-                name:"Nutmeg",
-                img: "nutmeg.jpg",
-                desc: "This is a desc.",
-                tags: ["Bitter", "Brown"]
-              },
-              {
-                name: "Cinnamon",
-                img: "cinnamon.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Brown"]
-              },
-              {
-                name: "Paprika",
-                img: "paprika.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Red"]
-              },
-              {
-                name:"Nutmeg",
-                img: "nutmeg.jpg",
-                desc: "This is a desc.",
-                tags: ["Bitter", "Brown"]
-              },
-              {
-                name: "Cinnamon",
-                img: "cinnamon.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Brown"]
-              },
-              {
-                name: "Paprika",
-                img: "paprika.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Red"]
-              },
-              {
-                name:"Nutmeg",
-                img: "nutmeg.jpg",
-                desc: "This is a desc.",
-                tags: ["Bitter", "Brown"]
-
-              },
-              {
-                name: "Cinnamon",
-                img: "cinnamon.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Brown"]
-              }],
+            spices: [{
+              name: "hello",
+              img: "",
+              desc: "meep",
+              tag: []
+            }],
               colors: [{
                 name: "Red",
                 hex: "#FF0000"},

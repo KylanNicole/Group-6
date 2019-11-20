@@ -1,10 +1,10 @@
 <template>
     <div class="spice-info">
         <div class="desc">
-            <img :src='"@/assets/" + img + ""' />
-            <h4>{{name}}</h4>
+            <img :src='image' />
+            <h4>{{title}}</h4>
             <p>
-                {{desc}}
+                {{description}}
             </p>
         </div>
         <div class="purchase">
@@ -16,10 +16,10 @@
                     <option>oz</option>
                 </select>
             <br/>
-                <p>Price: $100</p>
+                <p>Price: $ {{unit_price}}</p>
             <br/>
                 <p>Stock: </p>
-                <input type="text" value="100" />
+                <input type="text" :value="stock" />
             <br/>
                 <button>Add to Cart</button>
             </form>
@@ -35,9 +35,11 @@
 export default {
     name: "SpiceInfo",
     props: {
-        name: String,
-        img: String,
-        desc: String,
+        title: String,
+        image: String,
+        description: String,
+        stock: Number,
+        unit_price: Number,
         tags: Array
     },
 }
