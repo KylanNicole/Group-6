@@ -36,29 +36,27 @@ export default {
     },
     computed: {
       getSpices() {
-        console.log(this.$store.state.spices);
-        return this.$store.state.spices;
+        return this.filterSpices(this.$store.state.spices);
       }
     },
     methods: {
-      getItems: function(query){
-        this.$store.dispatch("getItems", query);
+      filterSpices(spices){
+        return spices.filter( spice => {
+          return !this.filtered || spice.description.toLowerCase().includes("spicy") > 0
+        })
       }
     },
     created(){
-      this.getItems("");
+      this.$store.dispatch("getItems", "");
+      //this.spices = this.getSpices();
     },
     data() {
         return {
+            filtered: false,
             filters: ["Price", "Name"],
             tags: ["Spicy", "Sweet", "Bitter", "Salty", "Umami"],
             sortby: "",
-            spices: [{
-              name: "hello",
-              img: "",
-              desc: "meep",
-              tag: []
-            }],
+            spices: [],
               colors: [{
                 name: "Red",
                 hex: "#FF0000"},
