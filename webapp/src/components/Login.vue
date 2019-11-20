@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal :active.sync="modalActive" has-modal-card>
+    <b-modal :active.sync="modalActive" has-modal-card trap-focus>
       <div class="modal-card" style="width:auto">
         <!-- <header class="modal-card-head">
         <p class="modal-card-title">Login</p>
@@ -27,7 +27,7 @@
             required
             ></b-input>
           </b-field>
-          <!--<button v-on:click="login">Login</button>-->
+          <button v-on:click="login">Login</button>
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
