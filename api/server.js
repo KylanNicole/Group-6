@@ -13,7 +13,7 @@ import order from './routes/order';
 import tag from './routes/tag';
 import signup from './routes/signup'
 import select_item_tag from './routes/select_item_tag'
-import announcement from './routes/annoucement'
+import announcement from './routes/announcement'
 
 
 // Setting up port
@@ -39,7 +39,7 @@ app.use(order);
 app.use(tag);
 app.use(signup);
 app.use(select_item_tag);
-app.use(announcement); 
+app.use(announcement);
 
 
 

@@ -57,6 +57,10 @@ export const actions = {
       commit("addToDo", response.data);
     });
   },
+  addBanner({ commit }, banner) {
+    console.log(banner);
+    return axios.post("/api/announcement", banner);
+  },
   updateTodo({ commit }, toDo) {
     return axios.put(`/api/todos/${toDo.id}`, toDo).then(response => {
       commit("updateToDo", response.data);

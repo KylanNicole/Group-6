@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
+// import checkPermission from '../middleware/checkPermission';
 import Announcement from '../entities/announcement';
 
-// hello 
+
 
 const router = Router();
 router.route('/announcement')
-  .all(isAuthenticated)
+  // .all(isAuthenticated)
 
   .get((req, res) => {
 
@@ -19,20 +20,19 @@ router.route('/announcement')
     })
 
   })
-
   .post((req, res) => {
     const { title, description, link, color } = req.body;
     const manager = getManager();
     const announce = manager.create(Announcement, { title, description, link, color });
-    
+
     manager.save(announce).then((savedannounce) => {
       res.send(savedannounce);
     });
   });
 
-  
 
-  
+
+
 router.route('/announcement/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
@@ -52,12 +52,12 @@ router.route('/announcement/:id')
   .put((req, res) => {
     const foundAnnounce = req.announcement;
     const {title, description, link, color } = req.body;
-    
 
-    foundAnnounce.title = title;
-    foundAnnounce.description = description; 
-    foundAnnounce.link = link;
-    foundAnnounce.color = color; 
+
+    foundannounce.title = title;
+    foundannounce.description = description;
+    foundannounce.link = link;
+    foundannounce.color = color;
 
 
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
