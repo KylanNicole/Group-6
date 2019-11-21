@@ -1,17 +1,11 @@
 import MySQLdb
 import os
+import config
 
-# edit this variable too
-YOUR_NAME_HERE = "Evan"
-db_names = ["Evan", "Greg", "Anum", "Visal", "Cullen", "Kylan"]
-# edit this variable
-db_name = "Evan"
-assert db_name == YOUR_NAME_HERE
-
-db = MySQLdb.connect(host="group6-db.cta8e6xoxc6y.us-east-1.rds.amazonaws.com",
-        user="admin",
-        passwd="teamspice",
-        db=db_name)
+db = MySQLdb.connect(host=config.db_endpoint,
+        user=config.db_user,
+        passwd=config.db_pass,
+        db=config.db_name)
 
 def main():
     cur = db.cursor()

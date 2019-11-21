@@ -12,11 +12,10 @@ router.route('/signup')
 
 
   .post((req, res) => {
-    const { firstname, lastname, credit_card_number, email, password, addressId } = req.body;
-
-    debugger
+    const { firstname, lastname, email, password } = req.body;
+    console.log(firstname);
     const manager = getManager();
-    const user = manager.create(User, { firstname, lastname, permission : 3, credit_card_number, email, password, address : addressId});
+    const user = manager.create(User, { firstname, lastname, permission : 3, email, password });
     // tag.user = req.user;
     manager.save(user).then((savedUser) => {
       res.send(savedUser);
@@ -34,23 +33,23 @@ router.route('/signup/:id')
       }, () => {
           res.send(404);
       });
-      
+
   })
-  
+
 
 
   .put((req, res) => {
     const foundUser = req.user;
     const {  firstname, lastname, credit_card_number, email, password, address } = req.body;
 
-    foundUser.firstname = firstname; 
+    foundUser.firstname = firstname;
     foundUser.lastname = lastname;
     foundUser.credit_card_number = credit_card_number;
     foundUser.email = email;
     foundUser.password = password;
-    foundUser.address = address;  
-    
-  
+    foundUser.address = address;
+
+
     getManager().save(foundUser).then((updatedUser) => {
       res.send(updatedUser);
     });
