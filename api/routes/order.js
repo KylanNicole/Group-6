@@ -1,23 +1,18 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
-import Order from '../entities/order';
+import Order_ from '../entities/order';
 
 const router = Router();
 router.route('/order')
   .all(isAuthenticated)
 
-  .all((req, res, next) => {
-    debugger
-    getRepository(Order).findOrFail(
-      { where: { userId: req.user.id } },
-    ).then((_foundOrder) => {
-      req.order = _foundOrder;
-      next();
-    }, () => {
-      res.send(404);
-    });
-  })
+  // .all((req, res, next) => {
+  //   debugger
+
+  // })
+
+
   // .all((req, res, next) => {
   //     debugger
   //     getRepository(Order).find(
@@ -30,13 +25,25 @@ router.route('/order')
   //     } )
   // })
   .get((req, res) => {
-    res.send(req.order);
+    // debugger
+    getRepository(Order_).find(
+      { where: { user: req.user.id } }
+    ).then((_foundOrder) => {
+      // debugger
+      res.send(_foundOrder);
+
+      // req.order = _foundOrder;
+      // next();
+    }, () => {
+      debugger
+      res.send(404);
+    });
   })
   
   .post((req, res) => {
     const { total_cost, total_weight, order_status, staff } = req.body;
     const manager = getManager();
-    const order = manager.create(Order, { total_cost, total_weight, order_status, staff });
+    const order = manager.create(Order_, { total_cost, total_weight, order_status, staff });
     order.user = req.user;
     manager.save(order).then((savedOrder) => {
       res.send(savedOrder);
@@ -48,9 +55,10 @@ router.route('/order/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
     debugger
-    getRepository(Order).findOneOrFail(
-      { where: { userId: req.user.id, id: req.params.id } },
+    getRepository(Order_).findOneOrFail(
+      { where: { id: req.params.id } },
     ).then((_foundOrder) => {
+      debugger
       req.order = _foundOrder;
       next();
     }, () => {
@@ -72,6 +80,7 @@ router.route('/order/:id')
     });
   })
   .get((req, res) => {
+    debugger
     res.send(req.order);
   })
   .delete((req, res) => {

@@ -9,14 +9,17 @@ import Announcement from '../entities/announcement';
 const router = Router();
 router.route('/announcement')
   // .all(isAuthenticated)
-//   .get((req, res) => {
-//     const allItem = getRepository(Item)
-//     .createQueryBuilder("items")
-//     .getMany();
-//     debugger
-//     res.send(allItem)
 
-//   })
+  .get((req, res) => {
+
+    const itemManager = getManager(); // you can also get it via getConnection().getRepository() or getManager().getRepository()
+    itemManager.find(Announcement).then((_foundAnnouncment) => {
+      res.send(_foundAnnouncment);
+      }, () => {
+      res.send(404);
+    })
+
+  })
   .post((req, res) => {
     const { title, description, link, color } = req.body;
     const manager = getManager();
