@@ -6,23 +6,17 @@
             <p>Sort By:</p>
             <select v-model="sortby">
                 <option disabled value="">None</option>
-                <option v-for="filter in filters">{{filter}}</option>
+                <option v-for="filter in filters" :key="filter">{{filter}}</option>
             </select>
             <hr>
-            <p>Color:</p>
-            <div v-for="color in colors">
-                <input type="checkbox" :id="color.name" :value="color.name">
-                <label v-bind:style="{color : color.hex}" :for="color.name">{{color.name}}</label>
-            </div>
-            <hr>
             <p>Tags:</p>
-            <div v-for="tag in tags">
+            <div v-for="tag in tags" :key="tag">
                 <input type="checkbox" :id="tag" :value="tag">
                 <label class="tag" :for="tag">{{tag}}</label>
             </div>
         </div>
         <div>
-            <SpiceTile v-for="spice in spices" v-bind="spice" />
+            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" />
         </div>
     </div>
 </template>
@@ -34,92 +28,34 @@ export default {
     components: {
         SpiceTile
     },
-    methods: {
-      getItems: function(query){
-        return this.$store.dispatch("getItems", query);
+    computed: {
+      getSpices() {
+        return this.filterSpices(this.$store.state.spices);
       }
+    },
+    methods: {
+      filterSpices(spices){
+        return spices.filter( spice => {
+          return !this.filtered || spice.description.toLowerCase().includes("christmas") > 0
+        })
+      }
+    },
+    created(){
+      this.$store.dispatch("getItems", "");
+      this.$store.dispatch("getTags", "");
     },
     data() {
         return {
+            filtered: true,
             filters: ["Price", "Name"],
             tags: ["Spicy", "Sweet", "Bitter", "Salty", "Umami"],
             sortby: "",
-            spices:
-            // getItems("paprika"),
-              [{
-                name: "Paprika",
-                img: "paprika.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Red"]
-              },
-              {
-                name:"Nutmeg",
-                img: "nutmeg.jpg",
-                desc: "This is a desc.",
-                tags: ["Bitter", "Brown"]
-              },
-              {
-                name: "Cinnamon",
-                img: "cinnamon.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Brown"]
-              },
-              {
-                name: "Paprika",
-                img: "paprika.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Red"]
-              },
-              {
-                name:"Nutmeg",
-                img: "nutmeg.jpg",
-                desc: "This is a desc.",
-                tags: ["Bitter", "Brown"]
-              },
-              {
-                name: "Cinnamon",
-                img: "cinnamon.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Brown"]
-              },
-              {
-                name: "Paprika",
-                img: "paprika.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Red"]
-              },
-              {
-                name:"Nutmeg",
-                img: "nutmeg.jpg",
-                desc: "This is a desc.",
-                tags: ["Bitter", "Brown"]
+            spices: [],
+        }
+    }
+}
 
-              },
-              {
-                name: "Cinnamon",
-                img: "cinnamon.jpg",
-                desc: "This is a desc.",
-                tags: ["Spicy", "Brown"]
-              }],
-              colors: [{
-                name: "Red",
-                hex: "#FF0000"},
-                {
-                  name: "Green",
-                  hex: "#00FF00"},
-                  {
-                    name: "Orange",
-                    hex: "#FF8888"},
-                    {
-                      name: "Yellow",
-                      hex: "#FFFF00"},
-                      {
-                        name: "Blue",
-                        hex: "#0000Ff"}]
-                      }
-                    }
-                  }
-                  </script>
+</script>
 
 <style scoped>
 .filter {

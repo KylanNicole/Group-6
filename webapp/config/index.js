@@ -1,7 +1,7 @@
 export default {
-  proj: {
-    proxyTable: {
-      "/api": "http://localhost:3000"
+    dev: {
+      proxyTable: {
+        "/api": "http://localhost:3000"
+      }
     }
-  }
-};
+  };
