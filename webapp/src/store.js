@@ -25,8 +25,11 @@ export const mutations = {
   todosLoaded(state, todos) {
     state.todos = todos;
   },
-  storeItems(state, items){
+  storeItems(state, items) {
     state.spices = items;
+  },
+  storeTags(state, tags) {
+    state.tags = tags;
   }
 };
 
@@ -78,6 +81,11 @@ export const actions = {
     return axios.get("/api/checkLogin").then(() => {
       commit("login");
     });
+  },
+  getTags:function({commit}, payload) {
+    return axios.get("/api/tag", payload).then(response => {
+      commit("storeTags", response.data);
+    })
   }
 };
 
@@ -89,6 +97,8 @@ export default new Vuex.Store({
     },
     todoIdx: 0,
     spices: [],
+    orders: [],
+    tags: [],
   },
   mutations,
   actions
