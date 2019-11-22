@@ -6,9 +6,9 @@ import ToDo from '../entities/order_item';
 const router = Router();
 router.route('/order_item')
   .all(isAuthenticated)
-  .get((req, res) => {
-    res.send(req.user.order_item); //@@ why todos?
-  })
+  // .get((req, res) => {
+  //   res.send(req.user.order_item); //@@ why todos?
+  // })
   .post((req, res) => {
     const { cost, weight, order, item } = req.body;
     const manager = getManager();
@@ -23,6 +23,7 @@ router.route('/order_item')
 router.route('/order_item/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
+    debugger
     getRepository(order_item).findOneOrFail(
       { where: { userId: req.user.id, id: req.params.id } },
     ).then((_foundOrderItem) => {

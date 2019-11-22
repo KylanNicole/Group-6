@@ -24,8 +24,8 @@ router.route('/tag/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Tag).findOneOrFail(
-      { where: { userId: req.user.id, id: req.params.id } },
-    ).then((_foundTodo) => {
+      { where: { id: req.params.id } },
+    ).then((_foundTag) => {
       req.tag = _foundTag;
       next();
     }, () => {
@@ -47,8 +47,9 @@ router.route('/tag/:id')
   .get((req, res) => {
     res.send(req.tag);
   })
+
   .delete((req, res) => {
-    getManager().delete(ToDo, req.tag.id).then(() => {
+    getManager().delete(Tag, req.tag.id).then(() => {
       res.send(200);
     });
   });

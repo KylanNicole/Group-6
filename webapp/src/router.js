@@ -6,6 +6,7 @@ import Staff from "./views/Staff.vue"
 import ToDos from "./views/ToDos.vue";
 import PastOrders from "./views/PastOrders.vue";
 import Shop from "./views/Shop.vue";
+import BannerEdit from "./views/BannerEdit.vue";
 
 Vue.use(Router);
 
@@ -54,10 +55,27 @@ export default new Router({
       component: PastOrders
     },
     {
+      path: "/manage/banner",
+      name: "banner",
+      component: BannerEdit
+    },
+    {
       path: "/myaccount",
       name: "myaccount",
       component: () =>
         import("./views/CAccount.vue")
+    },
+    {
+      path: "/checkout",
+      name: "checkout",
+      component: () =>
+        import("./views/Checkout.vue")
+    },
+    {
+      path: "/confirmation",
+      name: "confirmation",
+      component: () =>
+        import("./views/Confirmation.vue")
     }
   ]
 });

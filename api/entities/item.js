@@ -30,13 +30,12 @@ import {
     @Column({ type: 'varchar' })
     image
   
-  
     @OneToMany( () => Order_Item, (order_item) => order_item.item )
     order_item
 
     @ManyToMany( () => Tag, (tag) => tag.item)
     @JoinTable()
-    join
+    Tags
 
     // @OneToMany(() => ToDo, (todo) => todo.user, { eager: true })
     // todos

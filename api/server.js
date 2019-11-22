@@ -6,13 +6,15 @@ import passport from 'passport';
 import config from './config/passport';
 
 import login from './routes/login';
-import address from './routes/address';
+
 import item from './routes/item';
 import order_items from './routes/order_item';
 import order from './routes/order';
 import tag from './routes/tag';
 import signup from './routes/signup'
-import select_item_tag from './routes/select_item_tag'
+import select_item_tag from './routes/select_item_tag';
+import announcement from './routes/annoucement';
+import cart from './routes/cart';
 
 
 // Setting up port
@@ -32,13 +34,14 @@ config();
 
 // wire up all the routes
 app.use(login(passport));
-// app.use(address);
 app.use(item);
 app.use(order_items);
 app.use(order);
 app.use(tag);
 app.use(signup);
 app.use(select_item_tag);
+app.use(announcement); 
+app.use(cart);
 
 
 

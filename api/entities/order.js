@@ -10,7 +10,7 @@ import User from './user';
 import Order_Item from './order_item';
   
   @Entity()
-  export default class Order {
+  export default class Order_ {
     @PrimaryGeneratedColumn()
     id
   
@@ -25,6 +25,9 @@ import Order_Item from './order_item';
   
     @Column({ type: 'int' })
     staff_id
+
+    @Column({ type: 'varchar'})
+    address 
   
     @ManyToOne(() => User, (user) => user.orders)
     user
