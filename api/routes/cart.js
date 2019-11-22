@@ -18,9 +18,30 @@ router.route('/cart')
     let totalCost = 0; 
     let totalWeight = 0; 
     const manager = getManager(); 
-    const myItem  = getRepository(Item)
+
+    getRepository(order_item).findOneOrFail(
+        { where: { userId: req.user.id, id: req.params.id } },
+      ).then((_foundOrderItem) => {
+        req.order_item = _foundOrderItem;
+        next();
+      }, () => {
+        res.send(404);
+      });
 
     Object.keys(order_items).forEach(function(key) {
+
+
+        // Grab a specific item by id ?? 
+        getRepository(Item).findOneOrFail(
+            { where: { id : parseInt(key)}}
+            ).then ((found_item) =>{
+
+                    found_item.stock -= order_items[key].weight;
+                    // how do I save this after updating its stock?
+
+                } 
+            )
+    
 
         // update the stock 
         const tempItem = myItem.findOne(parseInt(key)).then( () => {
@@ -40,6 +61,8 @@ router.route('/cart')
 
         console.log("passed");
     })
+
+    // I save the order but order doesn't cotain id 
 
     debugger
 
