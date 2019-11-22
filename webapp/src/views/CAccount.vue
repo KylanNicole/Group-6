@@ -61,3 +61,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+div {
+  background-color: #8d9b77;
+}
+</style>

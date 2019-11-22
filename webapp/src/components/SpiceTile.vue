@@ -1,15 +1,14 @@
 <template>
     <div>
-        <img :src='"@/assets/" + img + ""'>
-        <h4>{{name}}</h4>
+        <img :src='image'>
+        <h4>{{title}}</h4>
         <button>Edit</button>
         <button v-on:click="toggleDetails">Details</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
         <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind="{name, img, desc, tags}"/>
+            <SpiceInfo class="center" v-bind="{title, image, description, stock, unit_price, tags}"/>
         </div>
-        
     </div>
 </template>
 
@@ -19,19 +18,22 @@ export default {
     name: "SpiceTile",
     components: { SpiceInfo },
     props: {
-        name: String,
-        img: String,
-        desc: String,
-        tags: Array
+        description: String,
+        id: Number,
+        image: String,
+        stock: Number,
+        title: String,
+        unit_price: Number
     },
     methods: {
         toggleDetails() {
-            this.hideDetails = !this.hideDetails;
+            this.$refs.SpiceInfo.modalActive = true;
         }
     },
     data() {
         return {
             hideDetails: true,
+            tags: []
         }
     }
 }
@@ -41,8 +43,7 @@ export default {
 div {
     width: 200px;
     border-radius: 5px;
-    border-bottom: solid 1px darkgray;
-    background-color: #EEEEEE;
+    background-color: #8d9b77;
     padding: 10px;
     margin: 5px;
     display: inline-block;
@@ -60,9 +61,14 @@ h4 {
     text-align: center;
 }
 button {
-    width: 25%;
-    margin: auto;
+    background-color: #cc783c;
+    color: #fbf3e4;
+    border-color: #cc783c;
+    width: 100%;
+    margin: 5px;
+    font-weight: bold;
     display: block;
+    border-radius: 10px;
 }
 .hidden {
     display: none;

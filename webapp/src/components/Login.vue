@@ -7,7 +7,7 @@
       </header> -->
       <section class="login-modal-body">
         <section class="modal-card-body">
-          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
+          <span class="has-text-danger" v-if="formProps.error">Unsuccessful logging in.</span>
           <p><b>Existing Login</b></p>
           <b-field label="Email">
             <b-input
@@ -89,15 +89,7 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      this.error = false;
-      this.$store.dispatch("login", {email: this.email, password: this.password})
       .then(() => {
-            this.modalActive = false;
-          },
-          () => {
-            this.error = true;
-          });
-      // console.log(this.$store.dispatch("checkLoggedIn"));
     },
     signUp: function(){
       this.error = false;
@@ -121,8 +113,9 @@ export default {
       passwordConf: "",
       error: false,
       formProps: {
-        email: 'evan@you.com',
-        password: 'testing'
+        email: '',
+        password: '',
+        loginError: false
       }
     }
   }
@@ -132,13 +125,21 @@ export default {
 <style scoped>
 div{
   float: left;
+  background: #fbf3e4;
 }
 .login-modal-body{
   float: left;
-  background: #ffffff;
+  background: #fbf3e4;
 }
 .login-modal-body section{
   width: 50%;
   float: left;
+  background: #fbf3e4;
+}
+.login-modal-foot{
+  background: #8d9b77;
+}
+footer {
+  background: #8d9b77;
 }
 </style>
