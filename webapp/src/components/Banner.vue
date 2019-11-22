@@ -1,6 +1,7 @@
 <template>
     <!-- <div :style="background-color:'banner_data.color'"> -->
         <div>
+        <button>Delete Me</button>
         <div>
         <h3> {{ banner_data.title }}</h3>
         <p>{{ banner_data.description }}</p>

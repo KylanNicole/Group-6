@@ -7,48 +7,18 @@
   <!-- <button>X</button> -->
   <section>
     <h3>Banner Creation</h3>
-    <!-- Color:
-    <input name="banner_color" type="color">
-    <br/>
-    Title:
-    <input name="banner_title" type="text">
-    <br/>
-    Description:
-    <input name="banner_desc" type="text">
-    <br/>
-    Link:
-    <input name="banner_link" type="text">
-    <br/> -->
-    <!-- <input name="banner_img" type="file"> -->
-    <!-- <br/> -->
-
-    <b-field label="Color">
-      <input type="color"
-      v-model="color"
-      required
-      ></input>
-    </b-field>
-
-    <b-field label="Title">
+    <b-field label="Image Link">
       <b-input
-      v-model="title"
-      placeholder="Title"
+      v-model="img_link"
+      placeholder="Image Link"
       required
       ></b-input>
     </b-field>
 
-    <b-field label="Description">
+    <b-field label="Link To...">
       <b-input
-      v-model="description"
-      placeholder="Description"
-      required
-      ></b-input>
-    </b-field>
-
-    <b-field label="Link">
-      <b-input
-      v-model="link"
-      placeholder="Link"
+      v-model="link_to"
+      placeholder="Link to what page"
       required
       ></b-input>
     </b-field>
@@ -69,15 +39,13 @@ export default {
   },
   methods: {
     createBanner: function(){
-      this.$store.dispatch("addBanner", {title: this.title, description: this.description, link: this.link, color: this.color,})
+      this.$store.dispatch("addBanner", {img_link: this.img_link, link_to: this.link_to,})
     }
   },
   data(){
     return {
-      title: "",
-      color: "",
-      description: "",
-      link: ""
+      img_link: "",
+      link_to: ""
     }
   }
 }
