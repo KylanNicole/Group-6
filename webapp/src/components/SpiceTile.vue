@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         toggleDetails() {
-            this.hideDetails = !this.hideDetails;
+            this.$refs.SpiceInfo.modalActive = true;
         }
     },
     data() {
@@ -43,8 +43,7 @@ export default {
 div {
     width: 200px;
     border-radius: 5px;
-    border-bottom: solid 1px darkgray;
-    background-color: #EEEEEE;
+    background-color: #8d9b77;
     padding: 10px;
     margin: 5px;
     display: inline-block;
@@ -62,9 +61,14 @@ h4 {
     text-align: center;
 }
 button {
-    width: 25%;
-    margin: auto;
+    background-color: #cc783c;
+    color: #fbf3e4;
+    border-color: #cc783c;
+    width: 100%;
+    margin: 5px;
+    font-weight: bold;
     display: block;
+    border-radius: 10px;
 }
 .hidden {
     display: none;
