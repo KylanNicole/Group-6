@@ -21,9 +21,9 @@ router.route('/announcement')
   })
 
   .post((req, res) => {
-    const { title, description, link, color } = req.body;
+    const { img_link, link_to } = req.body;
     const manager = getManager();
-    const announce = manager.create(Announcement, { title, description, link, color });
+    const announce = manager.create(Announcement, { img_link, link_to });
     
     manager.save(announce).then((savedannounce) => {
       res.send(savedannounce);
@@ -51,14 +51,11 @@ router.route('/announcement/:id')
 
   .put((req, res) => {
     const foundAnnounce = req.announcement;
-    const {title, description, link, color } = req.body;
+    const {img_link, link_to } = req.body;
     
 
-    foundAnnounce.title = title;
-    foundAnnounce.description = description; 
-    foundAnnounce.link = link;
-    foundAnnounce.color = color; 
-
+    foundAnnounce.img_link = img_link;
+    foundAnnounce.link_to = link_to; 
 
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);

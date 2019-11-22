@@ -12,8 +12,9 @@ import order_items from './routes/order_item';
 import order from './routes/order';
 import tag from './routes/tag';
 import signup from './routes/signup'
-import select_item_tag from './routes/select_item_tag'
-import announcement from './routes/annoucement'
+import select_item_tag from './routes/select_item_tag';
+import announcement from './routes/annoucement';
+import cart from './routes/cart';
 
 
 // Setting up port
@@ -40,6 +41,7 @@ app.use(tag);
 app.use(signup);
 app.use(select_item_tag);
 app.use(announcement); 
+app.use(cart);
 
 
 

@@ -12,16 +12,10 @@ import {
     id
   
     @Column({ type: 'varchar' })
-    title
+    img_link
 
     @Column({ type: 'varchar' })
-    description
-
-    @Column({ type: 'varchar' })
-    link
-
-    @Column({ type: 'varchar' })
-    color 
+    link_to
 
   }
 
