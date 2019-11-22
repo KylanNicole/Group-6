@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <b-modal :active.sync="modalActive" has-modal-card trap-focus>
       <div class="modal-card" style="width:auto">
         <!-- <header class="modal-card-head">
@@ -7,7 +7,7 @@
       </header> -->
       <section class="login-modal-body">
         <section class="modal-card-body">
-          <span class="has-text-danger" v-if="formProps.error">Unsuccessful logging in.</span>
+          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>Existing Login</b></p>
           <b-field label="Email">
             <b-input
@@ -89,8 +89,14 @@ export default {
   name: "Login",
   methods: {
     login: function(){
+      this.$store.dispatch("login", {email: this.email, password: this.password})
       .then(() => {
-    },
+            this.modalActive = false;
+          },
+          () => {
+            this.error = true;
+          })
+        },
     signUp: function(){
       this.error = false;
       if (this.email == this.emailConf && this.password == this.passwordConf){
@@ -111,12 +117,7 @@ export default {
       emailConf: "",
       password: "",
       passwordConf: "",
-      error: false,
-      formProps: {
-        email: '',
-        password: '',
-        loginError: false
-      }
+      error: false
     }
   }
 };

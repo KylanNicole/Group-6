@@ -25,6 +25,7 @@ h1{
   text-align:center;
   font-weight: bold;
   background-color: rgba(82, 45, 26, 0.9);
+
 }
 h3 {
   margin: 40px 0 0;
@@ -54,6 +55,8 @@ a {
   position: relative;
   text-align: center;
   color: #fbf3e4;
+
+  background-image: url('../assets/background.jpg');
 }
 .top-right {
   position: absolute;

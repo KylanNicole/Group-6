@@ -1,6 +1,6 @@
 <template>
-  <div class="section">
-    <SpiceInfo/>
+  <div class="section" style="position: relative; z-index: 0;">
+    <!-- <SpiceInfo/> -->
     <HelloWorld/>
   </div>
 </template>

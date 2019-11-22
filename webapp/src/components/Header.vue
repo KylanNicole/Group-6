@@ -77,6 +77,7 @@ export default {
   top: 0;
   background-color: rgba(82, 45, 26, 0.8);
   display: block;
+  z-index: 10;
 }
 
 #brand {
