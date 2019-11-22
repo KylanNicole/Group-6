@@ -1,7 +1,7 @@
 <template>
     <div class="carttile">
-        <button style="float: right">X</button>
-        <h3 style="margin: 0">Spice Name</h3>
+        <b-button style="float: right">X</b-button>
+        <h3 style="margin:0; color: #cc783c;">Spice Name</h3>
         <img style="float: left" src="@/assets/logo.png">
         <div class="info">
             <input style="width: 50px" type="text">
@@ -21,15 +21,20 @@ export default {
 </script>
 
 <style scoped>
+h3{
+    color: #cc783c;
+    margin:0;
+}
 .carttile {
-    background-color: #EEEEEE;
+    background-color: #fbf3e4;
     width: 80%;
     margin: 10px;
     display: block;
     padding: 5px;
     overflow: auto;
-    border-bottom: solid 1px black;
+    border-bottom: solid 1px #5e5d5a;
     border-radius: 5px;
+    color: #cc783c;
 }
 .info {
     text-align: left;

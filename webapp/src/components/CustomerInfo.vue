@@ -34,7 +34,7 @@ div {
   width: 1000px;
   border-radius: 5px;
   border-bottom: solid 1px darkgray;
-  background-color: #eeeeee;
+  background-color: #8d9b77;
   padding: 10px;
   margin: 5px;
   display: inline-block;

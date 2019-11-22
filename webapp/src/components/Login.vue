@@ -115,13 +115,21 @@ export default {
 <style scoped>
 div{
   float: left;
+  background: #fbf3e4;
 }
 .login-modal-body{
   float: left;
-  background: #ffffff;
+  background: #fbf3e4;
 }
 .login-modal-body section{
   width: 50%;
   float: left;
+  background: #fbf3e4;
+}
+.login-modal-foot{
+  background: #8d9b77;
+}
+footer {
+  background: #8d9b77;
 }
 </style>

@@ -44,18 +44,19 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  //background-color: rgba(184, 107, 45, 1);
+  background-color: #fbf3e4;
 }
 
 .back-img{
-  display: none;
+  /*display: none;*/
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('./assets/background.jpg');
+  /*background-image: url('./assets/background.jpg');*/
   background-size: 100%;
   z-index: -1;
+  background-color: #fbf3e4;
 }
 </style>

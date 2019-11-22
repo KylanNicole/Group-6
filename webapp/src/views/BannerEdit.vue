@@ -1,4 +1,8 @@
 <template>
+<div>
+  <div style="float:right">
+  <Banner></Banner>
+  </div>
   <div style="border: solid 1px black; width: 50%; padding: 10px;">
   <!-- <button>X</button> -->
   <section>
@@ -53,11 +57,16 @@
     <button v-on:click="createBanner()">Save Banner</button>
   </section>
 </div>
+</div>
 </template>
 
 <script>
+import Banner from "@/components/Banner.vue"
 export default {
   name: "BannerEdit",
+  components: {
+    Banner
+  },
   methods: {
     createBanner: function(){
       this.$store.dispatch("addBanner", {title: this.title, description: this.description, link: this.link, color: this.color,})

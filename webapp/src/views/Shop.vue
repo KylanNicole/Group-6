@@ -121,17 +121,17 @@ export default {
                   }
                   </script>
 
-                  <style scoped>
-                  .filter {
-                    width: 200px;
-                    height: 100%;
-                    overflow: hidden;
-                    padding: 15px;
-                    border-right: solid 1px black;
-                    float: left;
-                  }
-                  .tag {
-                    background-color: lightgreen;
-                    border-radius: 5px;
-                  }
-                  </style>
+<style scoped>
+.filter {
+    width: 200px;
+    height: 100%;
+    overflow: hidden;
+    padding: 15px;
+    border-right: solid 1px black;
+    float: left;
+}
+.tag {
+    background-color: #8d9b77;
+    border-radius: 5px;
+}
+</style>
