@@ -4,7 +4,7 @@
         <button class="action-button">Claim</button>
         <button @click="clickMethod">Details</button>
         <div :class="{hide : hideDetails}">
-            <p>Description of details</p>
+            <p>{{details}}</p>
         </div>
     </div>
 </template>

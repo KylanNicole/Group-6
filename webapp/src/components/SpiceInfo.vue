@@ -1,28 +1,26 @@
 <template>
-  <div class="noclass">
-    <b-modal :active.sync="modalActive" has-modal-card>
-      <div class="modal-card" style="width:1000px; height:1000px">
-        <section class="spice-modal-body">
-          <section class="modal-card-body">
-            <div>
-              <img :src='"@/assets/" + img + ""' />
-              <h4>{{name}}</h4>
-              <p>{{desc}}</p>
-            </div>
-            <div>
-              <form>
-                <p>Amount:</p>
+    <div class="spice-info">
+        <div class="desc">
+            <img :src='image' />
+            <h4>{{title}}</h4>
+            <p>
+                {{description}}
+            </p>
+        </div>
+        <div class="purchase">
+            <form>
+                <p>Amount: </p>
                 <input type="text" />
                 <select>
                   <option default>g</option>
                   <option>oz</option>
                 </select>
-                <br />
-                <p>Price: $100</p>
-                <br />
-                <p>Stock:</p>
-                <input type="text" value="100" />
-                <br />
+            <br/>
+                <p>Price: $ {{unit_price}}</p>
+            <br/>
+                <p>Stock: </p>
+                <input type="text" :value="stock" />
+            <br/>
                 <button>Add to Cart</button>
               </form>
               <br />
@@ -39,19 +37,16 @@
 
 <script>
 export default {
-  name: "SpiceInfo",
-  props: {
-    name: String,
-    img: String,
-    desc: String,
-    tags: Array
-  },
-  data() {
-    return {
-      modalActive: false,
-    };
-  }
-};
+    name: "SpiceInfo",
+    props: {
+        title: String,
+        image: String,
+        description: String,
+        stock: Number,
+        unit_price: Number,
+        tags: Array
+    },
+}
 </script>
 
 <style scoped>
