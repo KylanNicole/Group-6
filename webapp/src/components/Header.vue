@@ -7,7 +7,10 @@
       </router-link>
     </div>
     <div id="user-links">
-      <button v-if="this.$store.dispatch('checkLoggedIn')" @click="logout">LOGOUT</button>
+      <div v-if="this.$store.state.loginState.loggedIn">
+        <h1><b>Hi, {{this.$store.state.loginState.user.firstname}}</b></h1>
+        <button @click="logout">LOGOUT</button>
+      </div>
       <button v-else @click="toggleLogin">LOGIN</button>
       <Login ref="login"/>
       <button @click="toggleCart">CART</button>

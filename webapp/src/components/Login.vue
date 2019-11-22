@@ -31,7 +31,6 @@
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
-          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>New User Signup</b></p>
           <b-field label="Email">
             <b-input
@@ -50,6 +49,7 @@
             required
             ></b-input>
           </b-field>
+          <span class="has-text-danger" v-if="email != emailConf">Emails do not match</span>
 
           <b-field label="Password">
             <b-input
@@ -69,6 +69,8 @@
             placeholder="Confirm Password"
             required
             ></b-input>
+            <span class="has-text-danger" v-if="password != passwordConf">Passwords do not match</span>
+
           </b-field>
           <button v-on:click="signUp">Sign Up</button>
         </section>
@@ -87,11 +89,26 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      this.$store.dispatch("login", {email: this.email, password: this.password});
+      this.error = false;
+      this.$store.dispatch("login", {email: this.email, password: this.password})
+      .then(() => {
+            this.modalActive = false;
+          },
+          () => {
+            this.error = true;
+          });
+      // console.log(this.$store.dispatch("checkLoggedIn"));
     },
     signUp: function(){
+      this.error = false;
       if (this.email == this.emailConf && this.password == this.passwordConf){
-        this.$store.dispatch("signup", {firstname: "Bill", lastname: "Hader", email: this.email, password: this.password} );
+        this.$store.dispatch("signup", {firstname: "Bill", lastname: "Hader", email: this.email, password: this.password} )
+        .then(() => {
+            this.modalActive = false;
+          },
+          () => {
+            this.error = true;
+          })
       }
     }
   },
