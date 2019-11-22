@@ -1,8 +1,5 @@
 <template>
 <div>
-  <div style="float:right">
-  <Banner></Banner>
-  </div>
   <div style="border: solid 1px black; width: 50%; padding: 10px;">
   <!-- <button>X</button> -->
   <section>
@@ -27,6 +24,11 @@
     <button v-on:click="createBanner()">Save Banner</button>
   </section>
 </div>
+<br>
+<h3> Current Banners</h3>
+  <div>
+  <Banner></Banner>
+  </div>
 </div>
 </template>
 

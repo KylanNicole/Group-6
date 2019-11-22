@@ -1,12 +1,8 @@
 <template>
     <!-- <div :style="background-color:'banner_data.color'"> -->
         <div>
-        <button>Delete Me</button>
         <div>
-        <h3> {{ banner_data.title }}</h3>
-        <p>{{ banner_data.description }}</p>
-        </div>
-        <div>
+        <b-button>Delete Me</b-button>
         <router-link :to="banner_data.link_to" style="margin: 0">
             <img :src="banner_data.img_link"/>
         </router-link>
