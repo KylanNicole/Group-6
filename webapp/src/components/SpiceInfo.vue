@@ -21,7 +21,7 @@
                 <p>Stock: </p>
                 <input type="text" :value="stock" />
             <br/>
-                <button>Add to Cart</button>
+                <button @click="addToCart">Add to Cart</button>
               </form>
               <br />
               <p>Tags</p>
@@ -46,6 +46,11 @@ export default {
         unit_price: Number,
         tags: Array
     },
+    methods: {
+      addToCart() {
+        
+      }
+    }
 }
 </script>
 

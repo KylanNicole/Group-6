@@ -16,8 +16,11 @@
     <router-link to="manage/banner">
       <div class="manageLink">Manage Banners</div>
     </router-link>
+    <router-link to="Spices">
+      <div class="manageLink">Manage Spices</div>
+    </router-link>
     <hr/>
-    <Order v-for="order in orders" v-bind="order"/>
+    <Order v-for="order in orders" :key="order" v-bind="order"/>
   </div>
 </template>
 
@@ -30,12 +33,19 @@ export default {
   components: {
     Order
   },
+  computed: {
+    getOrders() {
+      console.log(this.$store.orders);
+      return this.$store.state.orders;
+    }
+  },
+  created() {
+    this.$store.dispatch("getOrders");
+    this.orders = this.getOrders;
+  },
   data() {
     return {
-      orders: [
-        {id: 0, details: 'Meep!!!!'},
-        {id: 1, details: 'Meep2!!!'}
-      ]
+      orders: []
     }
   }
 };

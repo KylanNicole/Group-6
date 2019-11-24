@@ -31,7 +31,7 @@ router.route('/item')
 
   
 router.route('/item/:id')
-  .all(isAuthenticated)
+  //.all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Item).findOneOrFail(
       { where: { id: req.params.id } },
@@ -66,7 +66,7 @@ router.route('/item/:id')
   })
   .delete((req, res) => {
     getManager().delete(Item, req.item.id).then(() => {
-      res.send(200);
+      res.sendStatus(200);
     });
   });
 
