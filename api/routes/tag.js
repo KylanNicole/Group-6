@@ -1,13 +1,19 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
-import isAuthenticated from '../middleware/isAuthenticated';
+//import isAuthenticated from '../middleware/isAuthenticated';
 import Tag from '../entities/tag';
 
 const router = Router();
 router.route('/tag')
-  .all(isAuthenticated)
+  //.all(isAuthenticated)
   .get((req, res) => {
-    res.send(req.user.tag); //@@ why todos?
+    //res.send(req.user.tag); //@@ why todos?
+    const tagManager = getManager();
+    tagManager.find(Tag).then((foundTags) => {
+      res.send(foundTags);
+    }, () => {
+      res.send(404);
+    })
   })
   .post((req, res) => {
     const { title } = req.body;
@@ -21,7 +27,7 @@ router.route('/tag')
 
   
 router.route('/tag/:id')
-  .all(isAuthenticated)
+  //.all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Tag).findOneOrFail(
       { where: { id: req.params.id } },

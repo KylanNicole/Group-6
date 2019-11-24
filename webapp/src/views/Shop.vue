@@ -10,7 +10,7 @@
             </select>
             <hr>
             <p>Tags:</p>
-            <div v-for="tag in getTags" :key="tag">
+            <div v-for="tag in getTags" :key="tag.id">
                 <input type="checkbox" :id="tag" :value="tag.title" v-model="tags">
                 <label class="tag" :for="tag">{{tag.title}}</label>
             </div>

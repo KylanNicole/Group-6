@@ -30,6 +30,15 @@ export const mutations = {
   },
   storeTags(state, tags) {
     state.tags = tags;
+  },
+  updateSpice(state, spice) {
+    state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
+  },
+  deleteSpice(state, spice) {
+    state.spices = state.spices.filter(s => s.id !== spice.id);
+  },
+  createSpice(state, spice) {
+    state.spices = [...state.spices, { ...spice}];
   }
 };
 
@@ -62,7 +71,7 @@ export const actions = {
       commit("addToDo", response.data);
     });
   },
-  addBanner({ commit }, banner) {
+  addBanner({commit}, banner) {
     console.log(banner);
     return axios.post("/api/announcement", banner);
   },
@@ -89,6 +98,21 @@ export const actions = {
   getTags:function({commit}, payload) {
     return axios.get("/api/tag", payload).then(response => {
       commit("storeTags", response.data);
+    });
+  },
+  createSpice:function({commit}, payload) {
+    return axios.post("/api/item", payload).then(() => {
+      commit("createSpice", payload);
+    })
+  },
+  updateSpice:function({commit}, payload) {
+    return axios.put(`/api/item/${payload.id}`, payload).then(() => {
+      commit("updateSpice", payload);
+    })
+  },
+  deleteSpice:function({commit}, payload) {
+    return axios.delete(`/api/item/${payload.id}`, payload).then(() => {
+      commit("deleteSpice", payload);
     })
   }
 };
