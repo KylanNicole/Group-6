@@ -39,6 +39,9 @@ export const mutations = {
   },
   createSpice(state, spice) {
     state.spices = [...state.spices, { ...spice}];
+  },
+  addToCart(state, item) {
+    state.cart = [...state.cart, {... item}];
   }
 };
 
@@ -114,6 +117,9 @@ export const actions = {
     return axios.delete(`/api/item/${payload.id}`, payload).then(() => {
       commit("deleteSpice", payload);
     })
+  },
+  addToCart: function({commit}, payload) {
+    commit("addToCart", payload);
   }
 };
 
@@ -127,6 +133,7 @@ export default new Vuex.Store({
     spices: [],
     orders: [],
     tags: [],
+    cart: [],
   },
   mutations,
   actions
