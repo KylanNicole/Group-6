@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <b-modal :active.sync="modalActive" has-modal-card>
+  <div >
+    <b-modal :active.sync="modalActive" has-modal-card trap-focus>
       <div class="modal-card" style="width:auto">
         <!-- <header class="modal-card-head">
         <p class="modal-card-title">Login</p>
       </header> -->
       <section class="login-modal-body">
         <section class="modal-card-body">
-          <span class="has-text-danger" v-if="formProps.error">Unsuccessful logging in.</span>
+          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>Existing Login</b></p>
           <b-field label="Email">
             <b-input
@@ -31,7 +31,6 @@
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
-          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>New User Signup</b></p>
           <b-field label="Email">
             <b-input
@@ -50,6 +49,7 @@
             required
             ></b-input>
           </b-field>
+          <span class="has-text-danger" v-if="email != emailConf">Emails do not match</span>
 
           <b-field label="Password">
             <b-input
@@ -69,6 +69,8 @@
             placeholder="Confirm Password"
             required
             ></b-input>
+            <span class="has-text-danger" v-if="password != passwordConf">Passwords do not match</span>
+
           </b-field>
           <button v-on:click="signUp">Sign Up</button>
         </section>
@@ -87,21 +89,24 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      this.formProps.loginError = false;
-      this.$store
-        .dispatch("login", { email: this.formProps.email, password: this.formProps.password })
-        .then(
-          () => {
-            this.$emit("close");
+      this.$store.dispatch("login", {email: this.email, password: this.password})
+      .then(() => {
+            this.modalActive = false;
           },
           () => {
-            this.formProps.loginError = true;
-          }
-        );
-    },
+            this.error = true;
+          })
+        },
     signUp: function(){
+      this.error = false;
       if (this.email == this.emailConf && this.password == this.passwordConf){
-        this.$store.dispatch("signup", {firstname: "Bill", lastname: "Hader", email: this.email, password: this.password} );
+        this.$store.dispatch("signup", {firstname: "Bill", lastname: "Hader", email: this.email, password: this.password} )
+        .then(() => {
+            this.modalActive = false;
+          },
+          () => {
+            this.error = true;
+          })
       }
     }
   },
@@ -112,12 +117,7 @@ export default {
       emailConf: "",
       password: "",
       passwordConf: "",
-      error: false,
-      formProps: {
-        email: '',
-        password: '',
-        loginError: false
-      }
+      error: false
     }
   }
 };
