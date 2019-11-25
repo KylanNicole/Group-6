@@ -6,8 +6,8 @@ Vue.use(Vuex);
 Vue.use(Vuex);
 
 export const mutations = {
-  login: function(state) {
-    state.loginState = { ...state.loginState, loggedIn: true };
+  login: function(state, user) {
+    state.loginState = { ...state.loginState, loggedIn: true, user: user.data };
   },
   logout: function(state) {
     state.loginState = { ...state.loginState, loggedIn: false };
@@ -45,8 +45,8 @@ export const mutations = {
 export const actions = {
   login: function({ commit }, payload) {
     const { email, password } = payload;
-    return axios.post("/api/login", { email, password }).then(() => {
-      commit("login");
+    return axios.post("/api/login", { email, password }).then((response) => {
+      commit("login", response);
       // return dispatch("loadTodos");
     });
   },
@@ -57,8 +57,8 @@ export const actions = {
   },
   signup: function({commit}, payload){
     const {firstname, lastname, email, password} = payload;
-    return axios.post("/api/signup", {firstname, lastname, email, password}).then(() => {
-      commit("login");
+    return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
+      commit("login", response);
     })
   },
   getItems: function({commit}, payload){
@@ -121,7 +121,8 @@ export default new Vuex.Store({
   state: {
     todos: [],
     loginState: {
-      loggedIn: false
+      loggedIn: false,
+      user: {}
     },
     todoIdx: 0,
     spices: [],

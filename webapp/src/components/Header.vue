@@ -2,12 +2,16 @@
   <div id="header">
     <div id="brand">
       <router-link to="/" style="margin: 0;">
-        
+
         <h1>The Spice Cabinet</h1>
       </router-link>
     </div>
     <div id="user-links">
-      <button @click="toggleLogin">LOGIN</button>
+      <div v-if="this.$store.state.loginState.loggedIn">
+        <h1><b>Hi, {{this.$store.state.loginState.user.firstname}}</b></h1>
+        <button @click="logout">LOGOUT</button>
+      </div>
+      <button v-else @click="toggleLogin">LOGIN</button>
       <Login ref="login"/>
       <button @click="toggleCart">CART</button>
       <Cart :class="{hidden : hideCart}"/>
@@ -25,7 +29,7 @@
       </div>
       <!--<SearchBar/>-->
     </div>
-    
+
   </div>
 </template>
 
@@ -51,6 +55,9 @@ export default {
     },
     toggleLogin() {
       this.$refs.login.modalActive = true;
+    },
+    logout(){
+      this.$store.dispatch("logout");
     }
   }
 };
@@ -70,6 +77,7 @@ export default {
   top: 0;
   background-color: rgba(82, 45, 26, 0.8);
   display: block;
+  z-index: 10;
 }
 
 #brand {
