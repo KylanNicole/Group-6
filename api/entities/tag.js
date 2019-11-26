@@ -19,7 +19,7 @@ import {
     title
 
     @ManyToMany( () => Item, (item) => item.tag)
-    @JoinTable()
-    Items
+    //@JoinTable()
+    //Items
 
   }
