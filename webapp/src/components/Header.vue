@@ -36,7 +36,7 @@
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
-import Cart from "./Cart.vue"
+import Cart from "./Cart.vue";
 export default {
   name: "Header",
   components: {

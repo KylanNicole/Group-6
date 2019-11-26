@@ -79,8 +79,8 @@ export default {
       }
     },
     created(){
-      this.$store.dispatch("getItems", "");
       this.$store.dispatch("getTags", "");
+      this.$store.dispatch("getItems", "");
     },
     data() {
         return {

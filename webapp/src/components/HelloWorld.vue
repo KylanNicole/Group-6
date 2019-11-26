@@ -1,17 +1,31 @@
 <template>
-  <div class="container">
+  <div>
+    <div class="container">
       <img width=100%; src="../assets/background.jpg">
       <div class="top-right">
         <h1>The Spice Cabinet</h1>
       </div>
+
+      <!-- <Banner img_link="https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg" link_to="/Shop"/> -->
+    </div>
+    <template v-for="b in this.$store.state.banners">
+      <Banner :img_link="b.img_link" :link_to="b.link_to" />
+    </template>
   </div>
 </template>
 
 <script>
+import Banner from "./Banner.vue";
 export default {
   name: "HelloWorld",
+  components: {
+    Banner
+  },
   props: {
     msg: String
+  },
+  created(){
+    this.$store.dispatch("getBanners");
   }
 };
 </script>
