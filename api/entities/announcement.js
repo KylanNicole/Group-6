@@ -4,26 +4,17 @@ import {
     PrimaryGeneratedColumn,
   } from 'typeorm';
 
-  
+
   @Entity()
   export default class Announcement {
-    
+
     @PrimaryGeneratedColumn()
     id
-  
-    @Column({ type: 'varchar' })
-    title
 
     @Column({ type: 'varchar' })
-    description
+    img_link
 
     @Column({ type: 'varchar' })
-    link
-
-    @Column({ type: 'varchar' })
-    color 
+    link_to
 
   }
-
-  
-  

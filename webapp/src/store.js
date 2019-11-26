@@ -31,6 +31,9 @@ export const mutations = {
   storeTags(state, tags) {
     state.tags = tags;
   },
+  getBanners(state, banners){
+    state.banners = banners;
+  },
   updateSpice(state, spice) {
     state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
   },
@@ -83,6 +86,11 @@ export const actions = {
   addBanner({commit}, banner) {
     return axios.post("/api/announcement", banner);
   },
+  getBanners({commit}){
+    return axios.get("/api/announcement").then((response) => {
+      commit("getBanners", response.data);
+    })
+  },
   updateTodo({ commit }, toDo) {
     return axios.put(`/api/todos/${toDo.id}`, toDo).then(response => {
       commit("updateToDo", response.data);
@@ -104,7 +112,7 @@ export const actions = {
     });
   },
   getTags:function({commit}, payload) {
-    return axios.get("/api/tag", payload).then(response => {
+    return axios.get("/api/tag", payload).then((response) => {
       commit("storeTags", response.data);
     });
   },
@@ -146,6 +154,7 @@ export default new Vuex.Store({
     orders: [],
     tags: [],
     cart: [],
+    banners: []
   },
   mutations,
   actions
