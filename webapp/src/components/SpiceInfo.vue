@@ -6,6 +6,8 @@
             <p>
                 {{description}}
             </p>
+            <p>Tags</p>
+              <p class="tag" v-for="tag in tags">{{tag}}</p>
         </div>
         <div class="purchase">
             <form>
@@ -18,16 +20,9 @@
             <br/>
                 <p>Price: $ {{unit_price}}</p>
             <br/>
-                <p>Stock: </p>
-                <input type="text" :value="stock" />
-            <br/>
             </form>
               <button @click="addToCart">Add to Cart</button>
-              <br />
-              <p>Tags</p>
-              <p class="tag" v-for="tag in tags">{{tag}}</p>
             </div>
-            <button class="edit">Edit</button>
           </section>
         </section>
       </div>
