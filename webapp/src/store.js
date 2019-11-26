@@ -42,6 +42,12 @@ export const mutations = {
   },
   addToCart(state, item) {
     state.cart = [...state.cart, {... item}];
+  },
+  deleteCartItem(state, index) {
+    state.cart = state.cart.filter(item => item.index !== index);
+  },
+  updateCartItem(state, item) {
+    state.cart = state.cart.map(i => (i.index === item.index ? item : i));
   }
 };
 
@@ -61,7 +67,7 @@ export const actions = {
   signup: function({commit}, payload){
     const {firstname, lastname, email, password} = payload;
     return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
-      commit("login", response);
+      commit("login", response.data);
     })
   },
   getItems: function({commit}, payload){
@@ -75,7 +81,6 @@ export const actions = {
     });
   },
   addBanner({commit}, banner) {
-    console.log(banner);
     return axios.post("/api/announcement", banner);
   },
   updateTodo({ commit }, toDo) {
@@ -120,6 +125,12 @@ export const actions = {
   },
   addToCart: function({commit}, payload) {
     commit("addToCart", payload);
+  },
+  updateCartItem: function({commit}, payload) {
+    commit("updateCartItem", payload);
+  },
+  deleteCartItem: function({commit}, payload) {
+    commit("deleteCartItem", payload);
   }
 };
 

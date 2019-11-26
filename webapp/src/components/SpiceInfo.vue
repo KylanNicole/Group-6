@@ -10,7 +10,7 @@
         <div class="purchase">
             <form>
                 <p>Amount: </p>
-                <input type="text" />
+                <input type="number" v-model.number="amount" min="1" :max="stock"/>
                 <select>
                   <option default>g</option>
                   <option>oz</option>
@@ -21,8 +21,8 @@
                 <p>Stock: </p>
                 <input type="text" :value="stock" />
             <br/>
-                <button @click="addToCart">Add to Cart</button>
-              </form>
+            </form>
+              <button @click="addToCart">Add to Cart</button>
               <br />
               <p>Tags</p>
               <p class="tag" v-for="tag in tags">{{tag}}</p>
@@ -39,6 +39,7 @@
 export default {
     name: "SpiceInfo",
     props: {
+        id: Number,
         title: String,
         image: String,
         description: String,
@@ -48,7 +49,17 @@ export default {
     },
     methods: {
       addToCart() {
-        
+        if(this.amount > 0)
+        {
+          this.$store.dispatch("addToCart", {index: this.$store.state.cart.length, 
+          spice: this.$props, 
+          amount: this.amount});
+        }
+      }
+    },
+    data() {
+      return {
+        amount: 1
       }
     }
 }

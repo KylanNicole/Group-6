@@ -16,7 +16,7 @@
             </div>
         </div>
         <div>
-            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" />
+            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" v-if="spice.stock > 0"/>
         </div>
     </div>
 </template>
@@ -41,7 +41,7 @@ export default {
         return spices.filter( spice => {
           return !this.tags.length || this.tags.filter(tag => {
               return spice.description.toLowerCase().includes(tag) > 0
-            }).length > 0
+            }).length == this.tags.length
         })
       }
     },
