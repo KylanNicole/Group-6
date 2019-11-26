@@ -67,7 +67,7 @@ export const actions = {
   signup: function({commit}, payload){
     const {firstname, lastname, email, password} = payload;
     return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
-      commit("login", response.data);
+      commit("login", response);
     })
   },
   getItems: function({commit}, payload){
