@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
-//import isAuthenticated from '../middleware/isAuthenticated';
+import isAuthenticated from '../middleware/isAuthenticated';
 import Tag from '../entities/tag';
 
 const router = Router();
@@ -8,11 +8,12 @@ router.route('/tag')
   //.all(isAuthenticated)
   .get((req, res) => {
     //res.send(req.user.tag); //@@ why todos?
+    // res.send("hello");
     const tagManager = getManager();
     tagManager.find(Tag).then((foundTags) => {
       res.send(foundTags);
     }, () => {
-      res.send(404);
+      res.sendStatus(404);
     })
   })
   .post((req, res) => {
@@ -25,7 +26,7 @@ router.route('/tag')
     });
   });
 
-  
+
 router.route('/tag/:id')
   //.all(isAuthenticated)
   .all((req, res, next) => {
@@ -42,10 +43,10 @@ router.route('/tag/:id')
     const foundTag = req.tag;
     const { title, item } = req.body;
 
-    foundTag.title = title; 
-    foundTag.item = item; 
-    
-  
+    foundTag.title = title;
+    foundTag.item = item;
+
+
     getManager().save(foundTag).then((updatedTag) => {
       res.send(updatedTag);
     });
