@@ -6,8 +6,8 @@ Vue.use(Vuex);
 Vue.use(Vuex);
 
 export const mutations = {
-  login: function(state) {
-    state.loginState = { ...state.loginState, loggedIn: true };
+  login: function(state, user) {
+    state.loginState = { ...state.loginState, loggedIn: true, user: user.data };
   },
   logout: function(state) {
     state.loginState = { ...state.loginState, loggedIn: false };
@@ -30,14 +30,26 @@ export const mutations = {
   },
   storeTags(state, tags) {
     state.tags = tags;
+  },
+  getBanners(state, banners){
+    state.banners = banners;
+  },
+  updateSpice(state, spice) {
+    state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
+  },
+  deleteSpice(state, spice) {
+    state.spices = state.spices.filter(s => s.id !== spice.id);
+  },
+  createSpice(state, spice) {
+    state.spices = [...state.spices, { ...spice}];
   }
 };
 
 export const actions = {
   login: function({ commit }, payload) {
     const { email, password } = payload;
-    return axios.post("/api/login", { email, password }).then(() => {
-      commit("login");
+    return axios.post("/api/login", { email, password }).then((response) => {
+      commit("login", response);
       // return dispatch("loadTodos");
     });
   },
@@ -48,8 +60,8 @@ export const actions = {
   },
   signup: function({commit}, payload){
     const {firstname, lastname, email, password} = payload;
-    return axios.post("/api/signup", {firstname, lastname, email, password}).then(() => {
-      commit("login");
+    return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
+      commit("login", response);
     })
   },
   getItems: function({commit}, payload){
@@ -62,9 +74,13 @@ export const actions = {
       commit("addToDo", response.data);
     });
   },
-  addBanner({ commit }, banner) {
-    console.log(banner);
+  addBanner({commit}, banner) {
     return axios.post("/api/announcement", banner);
+  },
+  getBanners({commit}){
+    return axios.get("/api/announcement").then((response) => {
+      commit("getBanners", response.data);
+    })
   },
   updateTodo({ commit }, toDo) {
     return axios.put(`/api/todos/${toDo.id}`, toDo).then(response => {
@@ -87,8 +103,23 @@ export const actions = {
     });
   },
   getTags:function({commit}, payload) {
-    return axios.get("/api/tag", payload).then(response => {
+    return axios.get("/api/tag", payload).then((response) => {
       commit("storeTags", response.data);
+    });
+  },
+  createSpice:function({commit}, payload) {
+    return axios.post("/api/item", payload).then(() => {
+      commit("createSpice", payload);
+    })
+  },
+  updateSpice:function({commit}, payload) {
+    return axios.put(`/api/item/${payload.id}`, payload).then(() => {
+      commit("updateSpice", payload);
+    })
+  },
+  deleteSpice:function({commit}, payload) {
+    return axios.delete(`/api/item/${payload.id}`, payload).then(() => {
+      commit("deleteSpice", payload);
     })
   }
 };
@@ -97,12 +128,14 @@ export default new Vuex.Store({
   state: {
     todos: [],
     loginState: {
-      loggedIn: false
+      loggedIn: false,
+      user: {}
     },
     todoIdx: 0,
     spices: [],
     orders: [],
     tags: [],
+    banners: []
   },
   mutations,
   actions

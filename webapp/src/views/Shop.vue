@@ -10,9 +10,9 @@
             </select>
             <hr>
             <p>Tags:</p>
-            <div v-for="tag in tags" :key="tag">
-                <input type="checkbox" :id="tag" :value="tag">
-                <label class="tag" :for="tag">{{tag}}</label>
+            <div v-for="tag in getTags" :key="tag.id">
+                <input type="checkbox" :id="tag" :value="tag.title" v-model="tags">
+                <label class="tag" :for="tag">{{tag.title}}</label>
             </div>
         </div>
         <div>
@@ -31,24 +31,29 @@ export default {
     computed: {
       getSpices() {
         return this.filterSpices(this.$store.state.spices);
+      },
+      getTags() {
+        return this.$store.state.tags;
       }
     },
     methods: {
       filterSpices(spices){
         return spices.filter( spice => {
-          return !this.filtered || spice.description.toLowerCase().includes("christmas") > 0
+          return !this.tags.length || this.tags.filter(tag => {
+              return spice.description.toLowerCase().includes(tag) > 0
+            }).length > 0
         })
       }
     },
     created(){
-      this.$store.dispatch("getItems", "");
       this.$store.dispatch("getTags", "");
+      this.$store.dispatch("getItems", "");
     },
     data() {
         return {
-            filtered: true,
+            filtered: false,
             filters: ["Price", "Name"],
-            tags: ["Spicy", "Sweet", "Bitter", "Salty", "Umami"],
+            tags: [],
             sortby: "",
             spices: [],
         }

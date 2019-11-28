@@ -7,6 +7,7 @@ import ToDos from "./views/ToDos.vue";
 import PastOrders from "./views/PastOrders.vue";
 import Shop from "@/views/Shop.vue";
 import BannerEdit from "./views/BannerEdit.vue";
+import SpiceManage from "./views/SpiceManage.vue";
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
       path: "/manage/banner",
       name: "banner",
       component: BannerEdit
+    },
+    {
+      path: "/Spices",
+      name: "Spices",
+      component: SpiceManage
     },
     {
       path: "/myaccount",

@@ -27,6 +27,7 @@ export default {
     },
     methods: {
         toggleDetails() {
+            this.hideDetails = !this.hideDetails;
             this.$refs.SpiceInfo.modalActive = true;
         }
     },

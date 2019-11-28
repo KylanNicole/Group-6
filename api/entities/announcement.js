@@ -4,13 +4,13 @@ import {
     PrimaryGeneratedColumn,
   } from 'typeorm';
 
-  
+
   @Entity()
   export default class Announcement {
-    
+
     @PrimaryGeneratedColumn()
     id
-  
+
     @Column({ type: 'varchar' })
     img_link
 
@@ -18,6 +18,3 @@ import {
     link_to
 
   }
-
-  
-  
