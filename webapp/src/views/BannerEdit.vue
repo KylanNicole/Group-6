@@ -27,7 +27,7 @@
 <br>
 <h3> Current Banners</h3>
   <div>
-  <Banner></Banner>
+  <Banner img_link="https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg"></Banner>
   </div>
 </div>
 </template>
