@@ -15,7 +15,8 @@
       <Login ref="login"/>
       <button @click="toggleCart">CART</button>
       <Cart :class="{hidden : hideCart}"/>
-      <router-link to="dashboard" style="margin: 0">
+      <router-link v-if="this.$store.state.loginState.loggedIn &&
+          this.$store.state.loginState.user.permission < 3" to="/dashboard" style="margin: 0">
         <button>DASHBOARD</button>
       </router-link>
       <!--<button>TRACK</button>-->
@@ -36,7 +37,7 @@
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
-import Cart from "./Cart.vue";
+import Cart from "./Cart.vue"
 export default {
   name: "Header",
   components: {
