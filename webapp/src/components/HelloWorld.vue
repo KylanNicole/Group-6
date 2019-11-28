@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <img width=100%; src="../assets/background.jpg">
+      <img width=100%; z-index=-3; src="../assets/background.jpg">
       <div class="top-right">
         <h1>The Spice Cabinet</h1>
       </div>

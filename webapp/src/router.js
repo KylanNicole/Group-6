@@ -5,7 +5,7 @@ import Dashboard from "./views/Dashboard.vue";
 import Staff from "./views/Staff.vue"
 import ToDos from "./views/ToDos.vue";
 import PastOrders from "./views/PastOrders.vue";
-import Shop from "./views/Shop.vue";
+import Shop from "@/views/Shop.vue";
 import BannerEdit from "./views/BannerEdit.vue";
 
 Vue.use(Router);

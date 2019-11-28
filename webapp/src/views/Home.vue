@@ -1,20 +1,25 @@
 <template>
   <div class="section">
-    <SpiceInfo/>
+    <div z-index=-15>
     <HelloWorld/>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
-import SpiceInfo from "@/components/SpiceInfo.vue";
 
 export default {
   name: "home",
   components: {
     HelloWorld,
-    SpiceInfo
   }
 };
 </script>
+
+<style scoped>
+div {
+  background-image: "@/assets/background.jpg";
+}
+</style>
