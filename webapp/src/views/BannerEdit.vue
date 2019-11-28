@@ -26,9 +26,13 @@
 </div>
 <br>
 <h3> Current Banners</h3>
-  <div>
-  <Banner img_link="https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg"></Banner>
-  </div>
+    <div>
+      <ul>
+        <li v-for="b in this.$store.state.banners">
+      <banner :img_link="b.img_link" :link_to="b.link_to"/>
+      </li>
+        </ul>
+    </div>
 </div>
 </template>
 
@@ -49,6 +53,9 @@ export default {
       img_link: "",
       link_to: ""
     }
+  },
+  created(){
+    this.$store.dispatch("getBanners");
   }
 }
 </script>
@@ -73,5 +80,13 @@ button:hover{
 h3 {
   font-size: 20pt;
   font-weight: bold;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
 }
 </style>
