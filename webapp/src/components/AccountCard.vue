@@ -1,14 +1,15 @@
 <template>
   <div>
     <div class="manageLink">
-      <p>Alice Kwan</p>
+      <p>{{firstname + " " + lastname}}<br>
+        {{email}}</p>
       <b-field label="Permissions">
-        <b-select v-model="perm">
-          <option value="0">Customer</option>
-          <option value="1">Staff</option>
-          <option value="2">Admin</option>
+        <b-select v-model="p">
+          <option value="3">Customer</option>
+          <option value="2">Staff</option>
+          <option value="1">Admin</option>
         </b-select>
-        <button v-on:click="changePerms()">Save</button>
+        <button v-on:click="this.changePerms">Save</button>
       </b-field>
     </div>
     <br>
@@ -18,14 +19,21 @@
 <script>
 export default {
   name: "account_card",
+  props: {
+    firstname: String,
+    lastname: String,
+    email: String,
+    perm: Number
+  },
   data(){
     return {
-      perm : 0
+      p : this.perm
     };
   },
   methods: {
-    changePerms : function(){
-      console.log("changed to " + this.perm)
+    changePerms: function(){
+      this.$store.dispatch("updatePerm", {email: this.email, perm: this.p});
+
     }
   }
 };

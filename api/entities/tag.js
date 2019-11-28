@@ -20,6 +20,6 @@ import {
 
     @ManyToMany( () => Item, (item) => item.tag)
     //@JoinTable()
-    //Items
+    Items
 
   }
