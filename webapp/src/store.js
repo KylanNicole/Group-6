@@ -43,6 +43,15 @@ export const mutations = {
   },
   createSpice(state, spice) {
     state.spices = [...state.spices, { ...spice}];
+  },
+  addToCart(state, item) {
+    state.cart = [...state.cart, {... item}];
+  },
+  deleteCartItem(state, index) {
+    state.cart = state.cart.filter(item => item.index !== index);
+  },
+  updateCartItem(state, item) {
+    state.cart = state.cart.map(i => (i.index === item.index ? item : i));
   }
 };
 
@@ -146,6 +155,15 @@ export const actions = {
     return axios.delete(`/api/item/${payload.id}`, payload).then(() => {
       commit("deleteSpice", payload);
     })
+  },
+  addToCart: function({commit}, payload) {
+    commit("addToCart", payload);
+  },
+  updateCartItem: function({commit}, payload) {
+    commit("updateCartItem", payload);
+  },
+  deleteCartItem: function({commit}, payload) {
+    commit("deleteCartItem", payload);
   }
 };
 
@@ -160,6 +178,7 @@ export default new Vuex.Store({
     spices: [],
     orders: [],
     tags: [],
+    cart: [],
     banners: []
   },
   mutations,

@@ -1,9 +1,10 @@
 <template>
-  <!-- <div :style="background-color:'banner_data.color'"> -->
   <div>
     <router-link :to="link_to" style="margin: 0">
       <img :src="img_link"/>
+      <br>
     </router-link>
+    <br>
   </div>
 </template>
 
@@ -33,8 +34,6 @@ div {
   height: 100px;
   border-color: darkslategrey;
   border-radius: 8cm;
-}
-.BigBanner {
-  background-color: #8d9b77;
+  display: block;
 }
 </style>

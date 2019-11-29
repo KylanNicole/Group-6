@@ -1,22 +1,48 @@
 <template>
     <div class="carttile">
-        <b-button style="float: right">X</b-button>
-        <h3 style="margin:0; color: #cc783c;">Spice Name</h3>
-        <img style="float: left" src="@/assets/logo.png">
+        <button style="float: right" @click="deleteItem">X</button>
+        <h3 style="margin:0; color: #cc783c;">{{spice.title}}</h3>
+        <img style="float: left" :src="spice.image">
         <div class="info">
-            <input style="width: 50px" type="text">
+            <input style="width: 50px" type="number" min="1" v-model.number="amount" :max="spice.stock">
             <select>
                 <option default>g</option>
                 <option>oz</option>
             </select>
-            <p style="margin: 0">Price: $10</p>
+            <p style="margin: 0">Price: ${{(spice.unit_price * amount).toFixed(2)}}</p>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "CartTile"
+    name: "CartTile",
+    props: {
+        index: Number
+    },
+    methods: {
+        deleteItem() {
+            this.$store.dispatch("deleteCartItem", this.index);
+        }
+    },
+    computed: {
+        spice() {
+            return this.$store.state.cart.find(item => {
+                return item.index == this.$props.index
+            }).spice;
+        },
+        amount: {
+            get: function() {
+                return this.$store.state.cart.find(item => {
+                    return item.index == this.$props.index
+                }).amount;
+            },
+            set: function(val) {
+                this.$store.dispatch("updateCartItem", {index: this.index, spice: this.spice, amount: val});
+            }
+        }
+    }
+    // TODO Compute the amount from the store and update according
 }
 </script>
 
