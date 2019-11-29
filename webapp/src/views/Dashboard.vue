@@ -20,18 +20,30 @@
       <div class="manageLink">Manage Spices</div>
     </router-link>
     <hr/>
-    <Order v-for="order in orders" :key="order" v-bind="order"/>
+    <section v-if="this.$store.state.loginState.user.permission <= 1">
+      <b-field label="Create New Alert">
+        <b-input type="textarea" v-model="text" />
+      </b-field>
+      <button v-on:click="createAlert">Submit</button>
+    </section>
+    <b>Announcements</b>
+    <template v-for="i in alerts.length">
+      <Alert v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
+    </template>
+    <!-- <Order v-for="order in orders" :key="order" v-bind="order"/> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Order from "@/components/Order.vue"
+import Alert from "@/components/Alert.vue"
 
 export default {
   name: "dashboard",
   components: {
-    Order
+    Order,
+    Alert
   },
   // computed: {
   //   getOrders() {
@@ -39,15 +51,29 @@ export default {
   //   }
   // },
   created() {
-    this.$store.dispatch("getOrders");
-    this.order = this.$store.state.orders;
+    // this.$store.dispatch("getOrders");
+    // this.order = this.$store.state.orders;
+    // console.log(this.$store.dispatch("getAlerts"));
+    this.$store.dispatch("getAlerts").then((response) => {
+      this.alerts = response;
+    });
 
     // this.orders = this.computed.getOrders();
   },
   data() {
     return {
       permStr: ["Owner", "Admin", "Staff", "Error"],
-      orders: []
+      orders: [],
+      alerts: [],
+      text: ""
+    }
+  },
+  methods: {
+    createAlert: function(){
+      this.$store.dispatch("createAlert", {text: this.text}).then((response) => {
+        this.alerts.push(response);
+        this.text = "";
+      });
     }
   }
 };

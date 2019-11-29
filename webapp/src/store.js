@@ -76,13 +76,21 @@ export const actions = {
   },
   getAccounts({ commit }){
     return axios.get("/api/users").then((response) => {
-      console.log(response);
+      return response.data;
+    })
+  },
+  createAlert({commit}, payload) {
+    return axios.post("/api/staff_alert", payload).then((response) => {
+      return response.data;
+    })
+  },
+  getAlerts({commit}){
+    return axios.get("/api/staff_alert").then((response) => {
       return response.data;
     })
   },
   updatePerm({ commit }, payload){
     return axios.put("/api/updatePerm", payload).then((response) => {
-      console.log(response);
     })
   },
   getItems: function({commit}, payload){

@@ -41,9 +41,7 @@ export default {
     }
   },
   created(){
-    this.getAccounts().then(() => {
-      console.log(this.accounts[0].email);
-    });
+    this.getAccounts();
   }
 };
 </script>
