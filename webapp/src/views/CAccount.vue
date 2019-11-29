@@ -1,8 +1,8 @@
 <template>
-  <div class="CustomerAccount">
+  <div class="CustomerAccount" v-if="this.$store.dispatch('authorized', 3)">
     <h1>My Account</h1>
-    <h3>Name: {{ user_data[0].f_name }} {{ user_data[0].l_name }}</h3>
-    <h3>Email: {{ user_data[0].email }}</h3>
+    <h3>Name: {{ this.$store.state.loginState.user.firstname }} {{ this.$store.state.loginState.user.lastname }}</h3>
+    <h3>Email: {{ this.$store.state.loginState.user.email }}</h3>
     <br />
     <h2>My Orders</h2>
     <table>
@@ -23,18 +23,6 @@ export default {
   name: "custaccount",
   data: function() {
     return {
-      user_data: [
-        {
-          uid: 0,
-          f_name: "Beanut",
-          l_name: "Putter",
-          ccid: 123,
-          address_id: 4,
-          email: "mchammer@email.com",
-          Pass: "youcanttouchthis",
-          Permission: 0
-        }
-      ],
       orders: [
         {
           uid: 1,

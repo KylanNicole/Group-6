@@ -50,9 +50,9 @@ export default (passport) => {
         var limitedUsers = [];
         var u;
         for (u in foundUsers) {
-          limitedUsers.push({firstname: u.firstname, lastname: u.lastname, email: u.email, permission: u.permission});
+          limitedUsers.push({firstname: foundUsers[u].firstname, lastname: foundUsers[u].lastname, email: foundUsers[u].email, permission: foundUsers[u].permission});
         }
-        res.send(foundUsers);
+        res.send(limitedUsers);
       }, () => {
         res.send(404);
       });
