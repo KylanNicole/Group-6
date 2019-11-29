@@ -1,18 +1,21 @@
 <template>
-    <div>
-        <div id="add-spice" >
-            <button @click="hideFields = false">NEW SPICE</button>
-            <div id="spice-form" :class="{hide : hideFields}">
-                <img :src="newSpice.image"/>
-                <h4>New Spice</h4>
-                <input type="text" placeholder="Name" v-model="newSpice.title"/>
-                <input type="text" placeholder="Image URL" v-model="newSpice.image"/>
-                <textarea placeholder="Description" v-model="newSpice.description"/>
-                <input type="text" placeholder="Unit Price" v-model="newSpice.unit_price"/>
-                <input type="text" placeholder="Stock Amount" v-model="newSpice.stock"/>
-                <button @click="addSpice">ADD</button>
-                <button @click="clearInput">CANCEL</button>
-            </div>
+    <div id="manage-spice" >
+        <router-link to="/dashboard">
+        <div style="float: left;">
+            Back
+        </div>
+        </router-link>
+        <button @click="hideFields = false">NEW SPICE</button>
+        <div id="spice-form" :class="{hide : hideFields}">
+            <img :src="newSpice.image"/>
+            <h4>New Spice</h4>
+            <input type="text" placeholder="Name" v-model="newSpice.title"/>
+            <input type="text" placeholder="Image URL" v-model="newSpice.image"/>
+            <textarea placeholder="Description" v-model="newSpice.description"/>
+            <input type="text" placeholder="Unit Price" v-model="newSpice.unit_price"/>
+            <input type="text" placeholder="Stock Amount" v-model="newSpice.stock"/>
+            <button @click="addSpice">ADD</button>
+            <button @click="clearInput">CANCEL</button>
         </div>
         <SpiceEdit v-for="spice in getSpices" :key="spice.id" v-bind="spice" v-on:changed="updateSpices"/>
     </div>
@@ -85,6 +88,10 @@ button {
 
 button:hover {
     color: #9ad466;
+}
+#manage-spice {
+    width: 60%;
+    margin: 30px auto;
 }
 
 #spice-form {
