@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1 style="font-size:62pt;">Dashboard</h1>
+    <h1 style="font-size:62pt; text-align:center; color:#da782f;">Dashboard</h1>
   <div v-if="this.$store.dispatch('authorized', 2)" class="section">
     <div id="accountInfo">
       <p>
@@ -84,19 +84,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #accountInfo{
   background: #6e795d;
   border-radius: 5px;
   color: #eeeeee;
   font-weight: bold;
   font-size: 18pt;
-}
-h1{
-  text-align: center;
-  color: #da782f;
-  padding: 0px;
-  margin-bottom: 5px;
 }
 
 .manageLink{
