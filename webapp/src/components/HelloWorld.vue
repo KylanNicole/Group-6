@@ -16,8 +16,8 @@
     </template>
     </div> -->
     <div>
-      <ul>
-        <li v-for="b in this.$store.state.banners">
+      <ul v-for="b in this.$store.state.banners">
+        <li>
       <banner :img_link="b.img_link" :link_to="b.link_to"/>
       </li>
         </ul>
