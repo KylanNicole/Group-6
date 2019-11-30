@@ -115,7 +115,6 @@ button {
   border-radius: 0;
   color: #7aa256;
   cursor: pointer;
-  font-weight: bold;
 }
 
 ul {
