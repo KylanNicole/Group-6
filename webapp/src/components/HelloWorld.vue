@@ -6,19 +6,11 @@
         <h1>The Spice Cabinet</h1>
       </div>
 
-      <!-- <Banner img_link="https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg" link_to="/Shop"/> -->
     </div>
-    <!-- <div display:block>
-    <template v-for="b in this.$store.state.banners">
-      <div display:block>
-      <banner :img_link="b.img_link" :link_to="b.link_to"/>
-      </div>
-    </template>
-    </div> -->
     <div>
-      <ul v-for="b in this.$store.state.banners">
+      <ul v-for="b in banners.length">
         <li>
-      <banner :img_link="b.img_link" :link_to="b.link_to"/>
+      <banner v-bind:img_link="banners[banners.length-b].img_link" v-bind:link_to="banners[banners.length-b].link_to"/>
       </li>
         </ul>
     </div>
@@ -37,6 +29,11 @@ export default {
   },
   created(){
     this.$store.dispatch("getBanners");
+  },
+  data(){
+    return {
+      banners: [{img_link:"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Xyr9Zw5XAPMmiamYfxaelwHaE8%26pid%3DApi&f=1", link_to:"Shop"}, {img_link:"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.3ugoBJEmtsd_B-ZR31f_uwHaFj%26pid%3DApi&f=1", link_to:"Shop"}]
+    }
   }
 };
 </script>
