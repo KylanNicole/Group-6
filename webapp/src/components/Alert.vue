@@ -1,9 +1,7 @@
 <template>
   <div>
     <h1>{{this.author}} {{this.timestamp}}</h1>
-    <hr/>
     <p>{{this.text}}</p>
-    <hr/>
   </div>
 </template>
 
@@ -21,19 +19,17 @@ export default {
 <style scoped>
 div {
   width: auto;
-  height: 100px;
-  border-color: darkslategrey;
-  /* border-radius: 8cm; */
+  border-color: #7aa256;
   display: block;
-  background-color: #cccccc;
+  background-color: #fbf3e4;
   padding-bottom: 5px;
 }
-hr{
-  border-top: 1px solid black;
-  margin-top: 1px;
-  margin-bottom: 0px
-}
 p{
-  background-color: grey;
+  background-color: #fbf3e4;
+}
+h1{
+  background-color: #cc783c;
+  font-weight: bold;
+  border-bottom: solid 2px #7aa256;
 }
 </style>
