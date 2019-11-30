@@ -8,9 +8,20 @@
 
       <!-- <Banner img_link="https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg" link_to="/Shop"/> -->
     </div>
+    <!-- <div display:block>
     <template v-for="b in this.$store.state.banners">
-      <Banner :img_link="b.img_link" :link_to="b.link_to" />
+      <div display:block>
+      <banner :img_link="b.img_link" :link_to="b.link_to"/>
+      </div>
     </template>
+    </div> -->
+    <div>
+      <ul>
+        <li v-for="b in this.$store.state.banners">
+      <banner :img_link="b.img_link" :link_to="b.link_to"/>
+      </li>
+        </ul>
+    </div>
   </div>
 </template>
 
