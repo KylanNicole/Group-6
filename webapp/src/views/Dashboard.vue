@@ -81,8 +81,11 @@ export default {
 
 <style>
 #accountInfo{
-  background-color: #aaaaaa;
-
+  background: #6e795d;
+  border-radius: 5px;
+  color: #eeeeee;
+  font-weight: bold;
+  font-size: 24px;
 }
 .manageLink{
   background-color: #cccccc;
@@ -91,5 +94,14 @@ export default {
   display: inline-block;
   padding: 4px;
   margin: 4px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+}
+li {
+  display: inline-block;
+  margin: 10px;
 }
 </style>
