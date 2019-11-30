@@ -20,12 +20,14 @@
       <div class="manageLink">Manage Spices</div>
     </router-link>
     <hr/>
+    <br>
     <section v-if="this.$store.state.loginState.user.permission <= 1">
       <b-field label="Create New Alert">
         <b-input type="textarea" v-model="text" />
       </b-field>
       <button v-on:click="createAlert">Submit</button>
     </section>
+    <br>
     <b>Announcements</b>
     <template v-for="i in alerts.length">
       <Alert v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
@@ -87,13 +89,33 @@ export default {
   font-weight: bold;
   font-size: 24px;
 }
+
 .manageLink{
-  background-color: #cccccc;
-  border-radius: 5px;
-  /* width: 100%; */
-  display: inline-block;
-  padding: 4px;
-  margin: 4px;
+  float:left;
+  margin-left: -1px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+.manageLink:hover {
+  color: #9ad466;
+}
+
+button {
+  margin-left: -1px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 ul {
