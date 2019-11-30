@@ -63,10 +63,6 @@ div{
   cursor: pointer;
 }
 
-/* .manageLink:hover {
-  color: #9ad466;
-} */
-
 button {
   margin-left: -1px;
   margin-top: 5px;
