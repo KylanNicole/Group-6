@@ -15,17 +15,17 @@
       <Login ref="login"/>
       <button @click="toggleCart">CART</button>
       <Cart :class="{hidden : hideCart}"/>
-      <router-link to="dashboard" style="margin: 0">
+      <router-link :to="{name: 'dashboard'}" style="margin: 0">
         <button>DASHBOARD</button>
       </router-link>
       <!--<button>TRACK</button>-->
     </div>
     <div id="links">
       <div class="center">
-      <router-link to="Shop" >SPICES</router-link>
-      <router-link to="Shop" >HERBS</router-link>
-      <router-link to="Shop" >SALTS</router-link>
-      <router-link to="Shop" >FLAVORS</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'spice'}}">SPICES</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'herb'}}">HERBS</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'salt'}}">SALTS</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
       </div>
       <!--<SearchBar/>-->
     </div>

@@ -35,12 +35,12 @@ export default {
   },
   computed: {
     getOrders() {
-      console.log(this.$store.orders);
+      //console.log(this.$store.orders);
       return this.$store.state.orders;
     }
   },
   created() {
-    this.$store.dispatch("getOrders");
+    //this.$store.dispatch("getOrders");
     this.orders = this.getOrders;
   },
   data() {
