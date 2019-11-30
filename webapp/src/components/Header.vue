@@ -8,35 +8,38 @@
     </div>
     <div id="user-links">
       <div v-if="this.$store.state.loginState.loggedIn">
-        <h1><b>Hi, {{this.$store.state.loginState.user.firstname}}</b></h1>
+        <router-link to="/myaccount"><h1><b>Hi,
+          {{this.$store.state.loginState.user.firstname}}</b></h1>
+        </router-link>
         <button @click="logout">LOGOUT</button>
       </div>
       <button v-else @click="toggleLogin">LOGIN</button>
       <Login ref="login"/>
       <button @click="toggleCart">CART</button>
       <Cart :class="{hidden : hideCart}"/>
-      <router-link to="dashboard" style="margin: 0">
-        <button>DASHBOARD</button>
-      </router-link>
-      <!--<button>TRACK</button>-->
-    </div>
-    <div id="links">
-      <div class="center">
+      <router-link v-if="this.$store.state.loginState.loggedIn &&
+      this.$store.state.loginState.user.permission < 3" to="/dashboard" style="margin: 0">
+      <button>DASHBOARD</button>
+    </router-link>
+    <!--<button>TRACK</button>-->
+  </div>
+  <div id="links">
+    <div class="center">
       <router-link to="Shop" >SPICES</router-link>
       <router-link to="Shop" >HERBS</router-link>
       <router-link to="Shop" >SALTS</router-link>
       <router-link to="Shop" >FLAVORS</router-link>
-      </div>
-      <!--<SearchBar/>-->
     </div>
-
+    <!--<SearchBar/>-->
   </div>
+
+</div>
 </template>
 
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
-import Cart from "./Cart.vue";
+import Cart from "./Cart.vue"
 export default {
   name: "Header",
   components: {

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <!-- {{this.$store.dispatch("checkLogin")}} -->
       <Header/>
       <router-view/>
       <Footer/>
