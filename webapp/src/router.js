@@ -46,7 +46,7 @@ export default new Router({
       component: Staff
     },
     {
-      path: "/Shop",
+      path: "/Shop/:tag",
       name: "Shop",
       component: Shop
     },
