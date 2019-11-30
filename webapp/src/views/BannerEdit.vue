@@ -27,9 +27,8 @@
 <br>
 <h3> Current Banners</h3>
     <div>
-      <ul v-for="b in this.$store.state.banners.length">
+      <ul v-for="b in this.$store.state.banners">
         <li>
-          <p>{{this.$store.state.banners[0].img_link}}</p>
       <banner :img_link="b.img_link" :link_to="b.link_to"/>
       </li>
         </ul>
