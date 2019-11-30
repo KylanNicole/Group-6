@@ -8,15 +8,15 @@
       </p>
     </div>
     <router-link to="/manage/staff">
-      <div class="manageLink">Manage Staff</div>
+      <div class="manageLink" v-if="this.$store.state.loginState.user.permission <= 0">Manage Staff</div>
     </router-link>
-    <router-link to="/manage/orders">
+    <router-link to="/manage/orders" v-if="this.$store.state.loginState.user.permission <= 2">
       <div class="manageLink">Manage Orders</div>
     </router-link>
-    <router-link to="/manage/banner">
+    <router-link to="/manage/banner" v-if="this.$store.state.loginState.user.permission <= 1">
       <div class="manageLink">Manage Banners</div>
     </router-link>
-    <router-link to="/Spices">
+    <router-link to="/Spices" v-if="this.$store.state.loginState.user.permission <= 1">
       <div class="manageLink">Manage Spices</div>
     </router-link>
     <hr/>
