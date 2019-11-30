@@ -1,5 +1,6 @@
 <template>
     <div>
+      <h1>Shipping Info</h1>
         <form>
         <input type="text" name="fname" placeholder="Name"></input>
         <h2>Street Address</h2>
@@ -8,7 +9,6 @@
         <input type="text" name="state" placeholder="State"></input><br>
         <input type="text" name="Zip" placeholder="Zip"></input><br>
         <input type="checkbox" value="checkbox">Pick up in store</input><br>
-        <input type="submit" value="Submit">
         </form>
     </div>
 </template>
@@ -42,8 +42,8 @@ div {
   border-bottom: solid 1px darkgray;
   background-color: #8d9b77;
   padding: 10px;
-  margin: 5px;
-  display: inline-block;
+  margin: 10px auto 10px auto;
+  display: block;
 }
 img {
   width: 150px;
@@ -51,6 +51,10 @@ img {
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+h1 {
+  font-weight: bold;
+  font-size: 16pt;
 }
 h4 {
   font-weight: bold;
