@@ -2,24 +2,31 @@
   <div id="header">
     <div id="brand">
       <router-link to="/" style="margin: 0;">
-
         <h1>The Spice Cabinet</h1>
       </router-link>
     </div>
+
     <div id="user-links">
-      <div v-if="this.$store.state.loginState.loggedIn">
-        <h1><b>Hi, {{this.$store.state.loginState.user.firstname}}</b></h1>
-        <button @click="logout">LOGOUT</button>
+      <div v-if="this.$store.state.loginState.loggedIn" style="display: inline">
+        <router-link to="/myaccount"><b>Hi,
+          {{this.$store.state.loginState.user.firstname}}</b>
+        </router-link>
+        <button @click="logout" class="user-button">LOGOUT</button>
       </div>
-      <button v-else @click="toggleLogin">LOGIN</button>
+      <div v-else style="display: inline">
+        <button @click="toggleLogin" class="user-button">LOGIN</button>
+        
+      </div>
       <Login ref="login"/>
-      <button @click="toggleCart">CART</button>
+      <button @click="toggleCart" class="user-button">CART</button>
       <Cart :class="{hidden : hideCart}"/>
-      <router-link :to="{name: 'dashboard'}" style="margin: 0">
-        <button>DASHBOARD</button>
+      <router-link v-if="this.$store.state.loginState.loggedIn &&
+      this.$store.state.loginState.user.permission < 3" to="/dashboard" style="margin: 0">
+        <button class="user-button">DASHBOARD</button>
+        
       </router-link>
-      <!--<button>TRACK</button>-->
     </div>
+
     <div id="links">
       <div class="center">
       <router-link :to="{ name: 'Shop', params: { tag: 'spice'}}">SPICES</router-link>
@@ -27,16 +34,17 @@
       <router-link :to="{ name: 'Shop', params: { tag: 'salt'}}">SALTS</router-link>
       <router-link :to="{ name: 'Shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
       </div>
-      <!--<SearchBar/>-->
     </div>
-
+    
   </div>
+
+</div>
 </template>
 
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
-import Cart from "./Cart.vue";
+import Cart from "./Cart.vue"
 export default {
   name: "Header",
   components: {
@@ -109,7 +117,7 @@ a:hover {
   float: right;
 }
 
-#user-links button{
+.user-button{
   margin-left: -1px;;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0);
@@ -117,6 +125,7 @@ a:hover {
   border-radius: 0;
   color: #7aa256;
   cursor: pointer;
+  display: inline;
 }
 
 #user-links button:hover{

@@ -1,13 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import router from "./router.js";
 
 Vue.use(Vuex);
 Vue.use(Vuex);
 
 export const mutations = {
   login: function(state, user) {
-    state.loginState = { ...state.loginState, loggedIn: true, user: user.data };
+    state.loginState = { ...state.loginState, loggedIn: true, user: user};
   },
   logout: function(state) {
     state.loginState = { ...state.loginState, loggedIn: false };
@@ -58,7 +59,7 @@ export const actions = {
   login: function({ commit }, payload) {
     const { email, password } = payload;
     return axios.post("/api/login", { email, password }).then((response) => {
-      commit("login", response);
+      commit("login", response.data);
       // return dispatch("loadTodos");
     });
   },
@@ -70,7 +71,26 @@ export const actions = {
   signup: function({commit}, payload){
     const {firstname, lastname, email, password} = payload;
     return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
-      commit("login", response);
+      commit("login", response.data);
+    })
+  },
+  getAccounts({ commit }){
+    return axios.get("/api/users").then((response) => {
+      return response.data;
+    })
+  },
+  createAlert({commit}, payload) {
+    return axios.post("/api/staff_alert", payload).then((response) => {
+      return response.data;
+    })
+  },
+  getAlerts({commit}){
+    return axios.get("/api/staff_alert").then((response) => {
+      return response.data;
+    })
+  },
+  updatePerm({ commit }, payload){
+    return axios.put("/api/updatePerm", payload).then((response) => {
     })
   },
   getItems: function({commit}, payload){
@@ -107,9 +127,22 @@ export const actions = {
     });
   },
   checkLoggedIn({ commit }) {
-    return axios.get("/api/checkLogin").then(() => {
-      commit("login");
+    return axios.get("/api/checkLogin").then((response) => {
+      commit("login", response.data);
+    }).catch((error) => {
+      console.log(error);
     });
+  },
+  authorized({ commit }, permReq){
+    axios.get("/api/checkLogin").then((response) => {
+      if (response.data.permission > permReq) {
+        router.push("/");
+      }
+    }).catch((error) => {
+      if (error.response && error.response.status == 401){
+        router.push("/");
+      }
+    })
   },
   getTags:function({commit}, payload) {
     return axios.get("/api/tag", payload).then((response) => {
