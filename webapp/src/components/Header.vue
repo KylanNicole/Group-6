@@ -28,10 +28,10 @@
     </div>
     <div id="links">
       <div class="center">
-        <router-link to="Shop">SPICES</router-link>
-        <router-link to="Shop">HERBS</router-link>
-        <router-link to="Shop">SALTS</router-link>
-        <router-link to="Shop">FLAVORS</router-link>
+        <router-link to="/Shop">SPICES</router-link>
+        <router-link to="/Shop">HERBS</router-link>
+        <router-link to="/Shop">SALTS</router-link>
+        <router-link to="/Shop">FLAVORS</router-link>
       </div>
       <!--<SearchBar/>-->
     </div>
