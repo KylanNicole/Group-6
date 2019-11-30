@@ -1,4 +1,6 @@
 <template>
+<div>
+    <h1 style="font-size:62pt;">Dashboard</h1>
   <div v-if="this.$store.dispatch('authorized', 2)" class="section">
     <div id="accountInfo">
       <p>
@@ -33,6 +35,7 @@
       <Alert v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
     </template>
     <!-- <Order v-for="order in orders" :key="order" v-bind="order"/> -->
+  </div>
   </div>
 </template>
 
@@ -87,7 +90,13 @@ export default {
   border-radius: 5px;
   color: #eeeeee;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18pt;
+}
+h1{
+  text-align: center;
+  color: #da782f;
+  padding: 0px;
+  margin-bottom: 5px;
 }
 
 .manageLink{
