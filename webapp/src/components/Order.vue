@@ -1,10 +1,13 @@
 <template>
     <div class="order">
         <h1>Order ID: {{id}}</h1>
-        <button class="action-button">Claim</button>
         <button @click="clickMethod">Details</button>
         <div :class="{hide : hideDetails}">
-            <p>{{details}}</p>
+            <p>Price: ${{total_cost}}</p>
+            <p>Weight: {{total_weight}}</p>
+            <p>Items: {{item_list}}</p>
+            <p>Status: {{status}}</p>
+            <p>Customer ID: {{customer_id}}</p>
         </div>
     </div>
 </template>
@@ -14,7 +17,11 @@ export default {
     name: "Order",
     props: {
         id: Number,
-        details: String
+        total_cost: Number,
+        total_weight: Number,
+        item_list: String,
+        status: Number,
+        customer_id: Number
     },
     data() {
         return {
@@ -30,6 +37,9 @@ export default {
 </script>
 
 <style scoped>
+div{
+    width:1000px;
+}
 .order {
     border: solid 1px black;
 }
