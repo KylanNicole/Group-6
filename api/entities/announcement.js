@@ -10,19 +10,11 @@ import {
 
     @PrimaryGeneratedColumn()
     id
-<<<<<<< HEAD
   
     @Column({ type: 'varchar' })
     img_link
 
     @Column({ type: 'varchar' })
-=======
-
-    @Column({ type: 'varchar' })
-    img_link
-
-    @Column({ type: 'varchar' })
->>>>>>> upstream/master
     link_to
 
   }
