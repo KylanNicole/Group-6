@@ -1,15 +1,14 @@
 <template>
-    <div>
-        <img :src='"@/assets/" + img + ""'>
-        <h4>{{name}}</h4>
-        <button>Edit</button>
-        <button v-on:click="toggleDetails">Details</button>
+    <div class="spice-tile">
+        <img :src='image'>
+        <h4>{{title}}</h4>
+        <router-link to="Spices"><button>EDIT</button></router-link>
+        <button v-on:click="toggleDetails">DETAILS</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
         <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind="{name, img, desc, tags}"/>
+            <SpiceInfo class="center" v-bind="$props"/>
         </div>
-        
     </div>
 </template>
 
@@ -19,34 +18,36 @@ export default {
     name: "SpiceTile",
     components: { SpiceInfo },
     props: {
-        name: String,
-        img: String,
-        desc: String,
-        tags: Array
+        description: String,
+        id: Number,
+        image: String,
+        stock: Number,
+        title: String,
+        unit_price: Number
     },
     methods: {
         toggleDetails() {
             this.hideDetails = !this.hideDetails;
+            //this.$refs.SpiceInfo.modalActive = true;
         }
     },
     data() {
         return {
             hideDetails: true,
+            tags: []
         }
     }
 }
 </script>
 
 <style scoped>
-div {
+.spice-tile {
     width: 200px;
     border-radius: 5px;
-    border-bottom: solid 1px darkgray;
-    background-color: #EEEEEE;
+    background-color: #8d9b77;
     padding: 10px;
     margin: 5px;
     display: inline-block;
-    cursor: pointer;
 }
 img {
     width: 150px;
@@ -60,7 +61,12 @@ h4 {
     text-align: center;
 }
 button {
-    width: 25%;
+    background-color: transparent;
+    color: #fbf3e4;
+    border: solid 1px #cc783c;
+    margin: 5px 0px 5px -1px;
+    padding: 5px;
+    cursor: pointer;
     margin: auto;
     display: block;
 }
@@ -75,10 +81,6 @@ button {
     margin: auto;
     padding: 0;
     background-color: rgba(0, 0, 0, 0);
-}
-.center {
-    display: block;
-    margin: auto;
 }
 .background {
     width: 100%;

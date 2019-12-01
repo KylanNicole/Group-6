@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
+// import checkPermission from '../middleware/checkPermission';
 import Announcement from '../entities/announcement';
 
-// hello 
+
 
 const router = Router();
 router.route('/announcement')
@@ -19,20 +20,19 @@ router.route('/announcement')
     })
 
   })
-
   .post((req, res) => {
     const { img_link, link_to } = req.body;
     const manager = getManager();
     const announce = manager.create(Announcement, { img_link, link_to });
-    
+
     manager.save(announce).then((savedannounce) => {
       res.send(savedannounce);
     });
   });
 
-  
 
-  
+
+
 router.route('/announcement/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {

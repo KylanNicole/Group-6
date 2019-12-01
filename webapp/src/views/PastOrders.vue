@@ -5,7 +5,9 @@
     <table>
       <tbody>
         <tr v-for="order in orders" :key="order">
-          <td><b>Order ID:</b> {{ order.uid }}</td>
+          <!-- <td><b>Order ID:</b> {{ order.uid }}</td> -->
+          <td><Order :id="order.uid" :total_cost="order.total_cost" :total_weight="order.total_weight" :item_list="order.item_list" :status="order.status" :customer_id="order.customer_id"></Order></td>
+          <td><button>Claim</button></td>
         </tr>
       </tbody>
     </table>
@@ -18,8 +20,12 @@
 </template>
 
 <script>
+import Order from "@/components/Order.vue"
 export default {
   name: "custaccount",
+  components: {
+    Order
+  },
   data: function() {
     return {
       orders: [

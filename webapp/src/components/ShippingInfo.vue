@@ -40,7 +40,7 @@ div {
   width: 500px;
   border-radius: 5px;
   border-bottom: solid 1px darkgray;
-  background-color: #eeeeee;
+  background-color: #8d9b77;
   padding: 10px;
   margin: 5px;
   display: inline-block;
@@ -83,7 +83,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: #8d9b77;
   z-index: 0;
 }
 </style>

@@ -6,23 +6,17 @@ import {
 
 
   @Entity()
-  export default class Announcement {
+  export default class StaffAlert {
 
     @PrimaryGeneratedColumn()
     id
-<<<<<<< HEAD
-  
-    @Column({ type: 'varchar' })
-    img_link
 
     @Column({ type: 'varchar' })
-=======
+    author
 
     @Column({ type: 'varchar' })
-    img_link
+    text
 
-    @Column({ type: 'varchar' })
->>>>>>> upstream/master
-    link_to
-
+    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
+    time
   }
