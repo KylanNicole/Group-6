@@ -20,6 +20,7 @@ router.route('/cart')
 
     let itemPromises = Object.keys(order_items).map((itemID) => {
         return getRepository(Item).findOneOrFail(itemID).then((myItem) => {
+            debugger;
             let item_weigth = order_items[itemID].weight;
             let order_item = manager.create(Order_Item);
             let item_cost = myItem.unit_price * item_weigth; 
