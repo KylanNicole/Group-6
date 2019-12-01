@@ -8,7 +8,6 @@ const router = Router();
 router.route('/item')
   // .all(isAuthenticated)
   .get((req, res) => {
-
     const itemManager = getManager(); // you can also get it via getConnection().getRepository() or getManager().getRepository()
     itemManager.find(Item).then((_foundAllItem) => {
       res.send(_foundAllItem);

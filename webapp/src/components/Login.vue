@@ -7,7 +7,7 @@
       </header> -->
       <section class="login-modal-body">
         <section class="modal-card-body">
-          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
+          <span class="has-text-danger" v-if="formProps.error">Unsuccessful logging in.</span>
           <p><b>Existing Login</b></p>
           <b-field label="Email">
             <b-input
@@ -27,7 +27,7 @@
             required
             ></b-input>
           </b-field>
-          <!--<button v-on:click="login">Login</button>-->
+          <button v-on:click="login">Login</button>
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
@@ -87,7 +87,17 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      this.$store.dispatch("login", {email: this.email, password: this.password});
+      this.formProps.loginError = false;
+      this.$store
+        .dispatch("login", { email: this.formProps.email, password: this.formProps.password })
+        .then(
+          () => {
+            this.$emit("close");
+          },
+          () => {
+            this.formProps.loginError = true;
+          }
+        );
     },
     signUp: function(){
       if (this.email == this.emailConf && this.password == this.passwordConf){
@@ -104,8 +114,9 @@ export default {
       passwordConf: "",
       error: false,
       formProps: {
-        email: 'evan@you.com',
-        password: 'testing'
+        email: '',
+        password: '',
+        loginError: false
       }
     }
   }
@@ -115,13 +126,21 @@ export default {
 <style scoped>
 div{
   float: left;
+  background: #fbf3e4;
 }
 .login-modal-body{
   float: left;
-  background: #ffffff;
+  background: #fbf3e4;
 }
 .login-modal-body section{
   width: 50%;
   float: left;
+  background: #fbf3e4;
+}
+.login-modal-foot{
+  background: #8d9b77;
+}
+footer {
+  background: #8d9b77;
 }
 </style>
