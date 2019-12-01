@@ -49,6 +49,7 @@ router.route('/announcement/:id')
 
 
 
+
   .put((req, res) => {
     const foundAnnounce = req.announcement;
     const {img_link, link_to } = req.body;
@@ -63,6 +64,7 @@ router.route('/announcement/:id')
   })
 
   .get((req, res) => {
+    debugger;
     res.send(req.announcement);
   })
 
