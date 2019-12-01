@@ -5,24 +5,17 @@
             <hr>
             <p>Sort By:</p>
             <select v-model="sortby">
-                <option disabled value="">None</option>
-                <option v-for="filter in filters">{{filter}}</option>
+                <option v-for="filter in filters" :key="filter.id" :value="filter.id">{{filter.name}}</option>
             </select>
             <hr>
-            <p>Color:</p>
-            <div v-for="color in colors">
-                <input type="checkbox" :id="color.name" :value="color.name">
-                <label v-bind:style="{color : color.hex}" :for="color.name">{{color.name}}</label>
-            </div>
-            <hr>
             <p>Tags:</p>
-            <div v-for="tag in tags">
-                <input type="checkbox" :id="tag" :value="tag">
-                <label class="tag" :for="tag">{{tag}}</label>
+            <div v-for="tag in getTags" :key="tag.id">
+                <input type="checkbox" :id="tag" :value="tag.title" v-model="tags">
+                <label class="tag" :for="tag">{{tag.title}}</label>
             </div>
         </div>
         <div>
-            <SpiceTile v-for="spice in spices" v-bind="spice" />
+            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" v-if="spice.stock > 0"/>
         </div>
     </div>
 </template>
@@ -34,85 +27,77 @@ export default {
     components: {
         SpiceTile
     },
+    computed: {
+      getSpices() {
+        var filtered = this.filterSpices(this.$store.state.spices);
+        if(this.sortby == 0) {
+          filtered = filtered.sort(this.alphaSortAscend);
+        } else if (this.sortby == 1) {
+          filtered = filtered.sort(this.alphaSortDescend);
+        } else if (this.sortby == 2) {
+          filtered = filtered.sort(this.priceSortAscend);
+        } else if (this.sortby == 3) {
+          filtered = filtered.sort(this.priceSortDescend);
+        }
+        return filtered;
+      },
+      getTags() {
+        return this.$store.state.tags;
+      }
+    },
+    methods: {
+      filterSpices(spices){
+        return spices.filter( spice => {
+          return !this.tags.length || this.tags.filter(tag => {
+              return spice.description.toLowerCase().includes(tag) > 0
+            }).length == this.tags.length
+        })
+      },
+      priceSortAscend:function(a, b) {
+        if(a.unit_price < b.unit_price) {
+          return -1;
+        }
+        return 1;
+      },
+      priceSortDescend:function(a, b) {
+        if(a.unit_price > b.unit_price) {
+          return -1;
+        }
+        return 1;
+      },
+      alphaSortAscend:function(a, b) {
+        if(a.title  < b.title) {
+          return -1;
+        }
+        return 1;
+      },
+      alphaSortDescend:function(a, b) {
+        if(a.title > b.title) {
+          return -1;
+        }
+        return 1;
+      }
+    },
+    created(){
+      this.$store.dispatch("getTags", "");
+      this.$store.dispatch("getItems", "");
+    },
     data() {
         return {
-            filters: ["Price", "Name"],
-            tags: ["Spicy", "Sweet", "Bitter", "Salty", "Umami"],
-            sortby: "",
-            spices: [
-                {
-                    name: "Paprika",
-                    img: "paprika.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Red"]
-                },
-                {
-                    name:"Nutmeg",
-                    img: "nutmeg.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Bitter", "Brown"]
-                },
-                {
-                    name: "Cinnamon",
-                    img: "cinnamon.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Brown"]
-                },
-                {
-                    name: "Paprika",
-                    img: "paprika.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Red"]
-                },
-                {
-                    name:"Nutmeg",
-                    img: "nutmeg.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Bitter", "Brown"]
-                },
-                {
-                    name: "Cinnamon",
-                    img: "cinnamon.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Brown"]
-                },
-                {
-                    name: "Paprika",
-                    img: "paprika.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Red"]
-                },
-                {
-                    name:"Nutmeg",
-                    img: "nutmeg.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Bitter", "Brown"]
-                    
-                },
-                {
-                    name: "Cinnamon",
-                    img: "cinnamon.jpg",
-                    desc: "This is a desc.",
-                    tags: ["Spicy", "Brown"]
-                }],
-            colors: [{
-                name: "Red",
-                hex: "#FF0000"},
-                {
-                name: "Green",
-                hex: "#00FF00"},
-                {
-                name: "Orange",
-                hex: "#FF8888"},
-                {
-                name: "Yellow",
-                hex: "#FFFF00"},
-                {
-                name: "Blue",
-                hex: "#0000Ff"}]
+            filtered: false,
+            filters: [
+              {id: 0, name: "Name (A-Z)"},
+              {id: 1, name: "Name (Z-A)"},
+              {id: 2, name: "Price (Low-High)"},
+              {id: 3, name: "Price (High-Low)"}
+            ],
+            tags: [],
+            sortby: 0,
+            spices: [],
         }
     }
 }
+
 </script>
 
 <style scoped>
@@ -125,7 +110,7 @@ export default {
     float: left;
 }
 .tag {
-    background-color: lightgreen;
+    background-color: #8d9b77;
     border-radius: 5px;
 }
 </style>

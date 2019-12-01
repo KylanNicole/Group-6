@@ -1,91 +1,123 @@
 <template>
     <div class="spice-info">
         <div class="desc">
-            <img :src='"@/assets/" + img + ""' />
-            <h4>{{name}}</h4>
+            <img :src='image' />
+            <h4>{{title}}</h4>
             <p>
-                {{desc}}
+                {{description}}
             </p>
+            <p>Tags</p>
+              <p class="tag" v-for="tag in tags">{{tag}}</p>
         </div>
         <div class="purchase">
             <form>
                 <p>Amount: </p>
-                <input type="text" />
+                <input type="number" v-model.number="amount" min="1" :max="stock"/>
                 <select>
-                    <option default>g</option>
-                    <option>oz</option>
+                  <option default>g</option>
+                  <option>oz</option>
                 </select>
             <br/>
-                <p>Price: $100</p>
+                <p>Price: $ {{unit_price}}</p>
             <br/>
-                <p>Stock: </p>
-                <input type="text" value="100" />
-            <br/>
-                <button>Add to Cart</button>
             </form>
-            <br/>
-                <p>Tags</p>
-                <p class="tag" v-for="tag in tags">{{tag}}</p>
-        </div>
-        <button class="edit">Edit</button>
-    </div>
+              <button @click="addToCart">Add to Cart</button>
+            </div>
+          </section>
+        </section>
+      </div>
+    </b-modal>
+  </div>
 </template>
 
 <script>
 export default {
     name: "SpiceInfo",
     props: {
-        name: String,
-        img: String,
-        desc: String,
+        id: Number,
+        title: String,
+        image: String,
+        description: String,
+        stock: Number,
+        unit_price: Number,
         tags: Array
     },
+    methods: {
+      addToCart() {
+        if(this.amount > 0)
+        {
+          this.$store.dispatch("addToCart", {index: this.$store.state.cart.length, 
+          spice: this.$props, 
+          amount: this.amount});
+        }
+      }
+    },
+    data() {
+      return {
+        amount: 1
+      }
+    }
 }
 </script>
 
 <style scoped>
 img {
-    width: 50%;
-    height: 50%;
-    margin: auto;
+  width: 50%;
+  height: 50%;
+  margin: auto;
 }
 h4 {
-    font-weight: bold;
+  font-weight: bold;
 }
 p {
-    font-size: 10pt;
+  font-size: 10pt;
 }
-
+div {
+  background-color: #fbf3e4;
+}
 .spice-info {
-    border: solid 1px black;
-    border-radius: 5px;
-    padding: 10px;
-    overflow: hidden;
-    width: 100%;
-    background-color: #F0F0F0;
+  border: solid 1px black;
+  border-radius: 5px;
+  padding: 10px;
+  overflow: hidden;
+  width: 100%;
+  background-color: #fbf3e4;
 }
 .desc {
-    float: left;
-    width: 50%;
-    display:inline;
-    border-right: solid 1px black;
-    margin-right: 15px;
+  float: left;
+  width: 50%;
+  display: inline;
+  border-right: solid 1px black;
+  margin-right: 15px;
 }
 
-.purchase{
-    display: inline;
+.purchase {
+  display: inline;
 }
 
-.purchase p{
-    display: inline;
+.purchase p {
+  display: inline;
 }
 .edit {
-    display:block;
+  display: block;
 }
 .tag {
-    background-color: lightgreen;
-    border-radius: 5px;
-    padding: 0 10px 0 10px;
-    margin: 0 1px;
+  background-color: #8d9b77;
+  border-radius: 5px;
+  padding: 0 10px 0 10px;
+  margin: 0 1px;
+}
+.spice-modal-body {
+  float: left;
+  background: #fbf3e4;
+}
+.spice-modal-body section {
+  width: 50%;
+  float: left;
+  background: #fbf3e4;
+}
+
+.noclass {
+    background-color: rgb(0,0,0,0);
 }
 </style>

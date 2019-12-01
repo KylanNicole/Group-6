@@ -23,9 +23,6 @@ export default class User {
   @Column({ type: 'int' })
   permission
 
-  @Column({ type: 'int' })
-  credit_card_number
-
   @Column({ type: 'varchar'})
   email
 

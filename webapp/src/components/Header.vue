@@ -2,37 +2,46 @@
   <div id="header">
     <div id="brand">
       <router-link to="/" style="margin: 0;">
-        
         <h1>The Spice Cabinet</h1>
       </router-link>
     </div>
     <div id="user-links">
-      <button @click="toggleLogin">LOGIN</button>
-      <Login ref="login"/>
+      <div v-if="this.$store.state.loginState.loggedIn" style="float:right;">
+        <router-link to="/myaccount">
+        <button>{{this.$store.state.loginState.user.firstname}}</button>
+        </router-link>
+        <button @click="logout">LOGOUT</button>
+      </div>
+      <button v-else @click="toggleLogin">LOGIN</button>
+      <Login ref="login" />
       <button @click="toggleCart">CART</button>
-      <Cart :class="{hidden : hideCart}"/>
-      <router-link to="dashboard" style="margin: 0">
+      <Cart :class="{hidden : hideCart}" />
+      <router-link
+        v-if="this.$store.state.loginState.loggedIn &&
+      this.$store.state.loginState.user.permission < 3"
+        to="/dashboard"
+        style="margin: 0"
+      >
         <button>DASHBOARD</button>
       </router-link>
       <!--<button>TRACK</button>-->
     </div>
     <div id="links">
       <div class="center">
-      <router-link to="Shop" >SPICES</router-link>
-      <router-link to="Shop" >HERBS</router-link>
-      <router-link to="Shop" >SALTS</router-link>
-      <router-link to="Shop" >FLAVORS</router-link>
+        <router-link to="/Shop">SPICES</router-link>
+        <router-link to="/Shop">HERBS</router-link>
+        <router-link to="/Shop">SALTS</router-link>
+        <router-link to="/Shop">FLAVORS</router-link>
       </div>
       <!--<SearchBar/>-->
     </div>
-    
   </div>
 </template>
 
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
-import Cart from "./Cart.vue"
+import Cart from "./Cart.vue";
 export default {
   name: "Header",
   components: {
@@ -43,7 +52,7 @@ export default {
   data() {
     return {
       hideCart: true
-    }
+    };
   },
   methods: {
     toggleCart() {
@@ -51,6 +60,9 @@ export default {
     },
     toggleLogin() {
       this.$refs.login.modalActive = true;
+    },
+    logout() {
+      this.$store.dispatch("logout");
     }
   }
 };
@@ -58,8 +70,8 @@ export default {
 
 <style scoped>
 @font-face {
-  font-family: 'Brand Font';
-  src: url('../assets/day-roman.regular.ttf') format('truetype');
+  font-family: "Brand Font";
+  src: url("../assets/day-roman.regular.ttf") format("truetype");
 }
 
 #header {
@@ -70,6 +82,7 @@ export default {
   top: 0;
   background-color: rgba(82, 45, 26, 0.8);
   display: block;
+  z-index: 10;
 }
 
 #brand {
@@ -97,12 +110,11 @@ a:hover {
 }
 
 #user-links {
-  display: inline;
   float: right;
 }
 
-#user-links button{
-  margin-left: -1px;;
+#user-links button {
+  margin-left: -1px;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0);
   border: solid 1px #7aa256;
@@ -111,7 +123,7 @@ a:hover {
   cursor: pointer;
 }
 
-#user-links button:hover{
+#user-links button:hover {
   color: #9ad466;
 }
 

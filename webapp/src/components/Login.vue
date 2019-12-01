@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <b-modal :active.sync="modalActive" has-modal-card>
+  <div >
+    <b-modal :active.sync="modalActive" has-modal-card trap-focus>
       <div class="modal-card" style="width:auto">
         <!-- <header class="modal-card-head">
         <p class="modal-card-title">Login</p>
@@ -27,11 +27,10 @@
             required
             ></b-input>
           </b-field>
-          <!--<button v-on:click="login">Login</button>-->
+          <button v-on:click="login">Login</button>
         </section>
-        
+
         <section class="modal-card-body" style="border-left: 3px solid grey">
-          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
           <p><b>New User Signup</b></p>
           <b-field label="Email">
             <b-input
@@ -45,11 +44,12 @@
           <b-field label="Confirm Email">
             <b-input
             type="email"
-            v-model="email"
+            v-model="emailConf"
             placeholder="Confirm Email"
             required
             ></b-input>
           </b-field>
+          <span class="has-text-danger" v-if="email != emailConf">Emails do not match</span>
 
           <b-field label="Password">
             <b-input
@@ -64,11 +64,13 @@
           <b-field label="Confirm Password">
             <b-input
             type="password"
-            v-model="password"
+            v-model="passwordConf"
             password-reveal
             placeholder="Confirm Password"
             required
             ></b-input>
+            <span class="has-text-danger" v-if="password != passwordConf">Passwords do not match</span>
+
           </b-field>
           <button v-on:click="signUp">Sign Up</button>
         </section>
@@ -87,19 +89,35 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      console.log("log in");
-    },
+      this.$store.dispatch("login", {email: this.email, password: this.password})
+      .then(() => {
+            this.modalActive = false;
+          },
+          () => {
+            this.error = true;
+          })
+        },
     signUp: function(){
-      console.log("sign up");
+      this.error = false;
+      if (this.email == this.emailConf && this.password == this.passwordConf){
+        this.$store.dispatch("signup", {firstname: "Bill", lastname: "Hader", email: this.email, password: this.password} )
+        .then(() => {
+            this.modalActive = false;
+          },
+          () => {
+            this.error = true;
+          })
+      }
     }
   },
   data() {
     return {
       modalActive: false,
-      formProps: {
-        email: 'evan@you.com',
-        password: 'testing'
-      }
+      email: "",
+      emailConf: "",
+      password: "",
+      passwordConf: "",
+      error: false
     }
   }
 };
@@ -108,13 +126,21 @@ export default {
 <style scoped>
 div{
   float: left;
+  background: #fbf3e4;
 }
 .login-modal-body{
   float: left;
-  background: #ffffff;
+  background: #fbf3e4;
 }
 .login-modal-body section{
   width: 50%;
   float: left;
+  background: #fbf3e4;
+}
+.login-modal-foot{
+  background: #8d9b77;
+}
+footer {
+  background: #8d9b77;
 }
 </style>
