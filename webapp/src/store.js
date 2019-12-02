@@ -75,7 +75,7 @@ export const actions = {
     })
   },
   getAccounts({ commit }){
-    return axios.get("/api/users").then((response) => {
+    return axios.get("/api/staff").then((response) => {
       return response.data;
     })
   },

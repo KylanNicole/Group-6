@@ -5,7 +5,7 @@
         {{email}}</p>
       <b-field label="Permissions">
         <b-select v-model="p">
-          <option value="3">Customer</option>
+          <option value="3">Remove Staff</option>
           <option value="2">Staff</option>
           <option value="1">Admin</option>
         </b-select>
@@ -32,8 +32,9 @@ export default {
   },
   methods: {
     changePerms: function(){
-      this.$store.dispatch("updatePerm", {email: this.email, perm: this.p});
-
+      this.$store.dispatch("updatePerm", {email: this.email, perm: this.p}).then(() => {
+        this.$emit('perm-change');
+      });
     }
   }
 };
