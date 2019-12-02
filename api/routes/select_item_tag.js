@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
 import Item from '../entities/item';
+import Tag from '../entities/tag';
 
 
 const router = Router();
