@@ -5,35 +5,35 @@
         <h1>The Spice Cabinet</h1>
       </router-link>
     </div>
+
     <div id="user-links">
-      <div v-if="this.$store.state.loginState.loggedIn" style="float:right;">
-        <router-link to="/myaccount">
-        <button>{{this.$store.state.loginState.user.firstname}}</button>
+      <div v-if="this.$store.state.loginState.loggedIn" style="display: inline">
+        <router-link to="/myaccount"><b>Hi,
+          {{this.$store.state.loginState.user.firstname}}</b>
         </router-link>
-        <button @click="logout">LOGOUT</button>
+        <button @click="logout" class="user-button">LOGOUT</button>
       </div>
-      <button v-else @click="toggleLogin">LOGIN</button>
-      <Login ref="login" />
-      <button @click="toggleCart">CART</button>
-      <Cart :class="{hidden : hideCart}" />
-      <router-link
-        v-if="this.$store.state.loginState.loggedIn &&
-      this.$store.state.loginState.user.permission < 3"
-        to="/dashboard"
-        style="margin: 0"
-      >
-        <button>DASHBOARD</button>
+      <div v-else style="display: inline">
+        <button @click="toggleLogin" class="user-button">LOGIN</button>
+        
+      </div>
+      <Login ref="login"/>
+      <button @click="toggleCart" class="user-button">CART</button>
+      <Cart :class="{hidden : hideCart}"/>
+      <router-link v-if="this.$store.state.loginState.loggedIn &&
+      this.$store.state.loginState.user.permission < 3" to="/dashboard" style="margin: 0">
+        <button class="user-button">DASHBOARD</button>
+        
       </router-link>
-      <!--<button>TRACK</button>-->
     </div>
+
     <div id="links">
       <div class="center">
-        <router-link to="/Shop">SPICES</router-link>
-        <router-link to="/Shop">HERBS</router-link>
-        <router-link to="/Shop">SALTS</router-link>
-        <router-link to="/Shop">FLAVORS</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'spice'}}">SPICES</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'herb'}}">HERBS</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'salt'}}">SALTS</router-link>
+      <router-link :to="{ name: 'Shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
       </div>
-      <!--<SearchBar/>-->
     </div>
   </div>
 </template>
@@ -113,14 +113,15 @@ a:hover {
   float: right;
 }
 
-#user-links button {
-  margin-left: -1px;
+.user-button{
+  margin-left: -1px;;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0);
   border: solid 1px #7aa256;
   border-radius: 0;
   color: #7aa256;
   cursor: pointer;
+  display: inline;
 }
 
 #user-links button:hover {

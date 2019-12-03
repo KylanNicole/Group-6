@@ -32,8 +32,8 @@ import Order_Item from './order_item';
     @ManyToOne(() => User, (user) => user.orders)
     user
 
-    @OneToMany(() => Order_Item, (order_item) => order_item.order)
-    order_item 
+    @OneToMany(() => Order_Item, (order_item) => order_item.order, {cascade : true})
+    order_items 
  
   }
   

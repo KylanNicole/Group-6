@@ -1,11 +1,17 @@
 <template>
     <div class="back">
         <div>
-            <CartTile></CartTile>
+            <div id="purchases">
+                <CartTile v-for="item in cartItems" :index="item.index" style="margin: auto;"/>
+            </div>
             <ShippingInfo></ShippingInfo>
             <BillingInfo></BillingInfo>
             <br>
             <b-button>Place Order</b-button>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
 </template>
@@ -23,6 +29,11 @@ export default {
         ShippingInfo,
         BillingInfo,
         CartTile
+    },
+    computed: {
+        cartItems() {
+            return this.$store.state.cart;
+        },
     },
     data() {
         return {
@@ -47,6 +58,19 @@ export default {
 </script>
 
 <style scoped>
+#purchases {
+    width: 40%;
+    margin: auto;
+    background-color: #8d9b77;
+    padding: 10px;
+    margin-top: 30px;
+    border: solid 1px black;
+}
+button {
+    margin: auto;
+    display: block;
+}
+
 .back {
     background-color: #fbf3e4;
 }
