@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div v-if="this.$store.dispatch('authorized', 2)" style="float:right;" >
-    <button>delete baner</button>
+      <div v-if="this.$store.state.loginState.loggedIn &&
+      this.$store.state.loginState.user.permission < 3" to="/dashboard" style="float:right;">
+        <button @click="deleteBanner">DELETE</button>
     </div>
 
     <router-link :to="link_to" style="margin: 0">
@@ -17,18 +18,24 @@ export default {
   name: "Banner",
   data() {
     return {
-      hideDetails: true,
-      banner_data:
-      {
-        img_link: "https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg",
-        link_to: "/Shop"
+      updatedInfo: {
+          id: this.id,
+          img_link: this.img_link,
+          link_to: this.link_to
       }
     };
   },
   props: {
     img_link: String,
-    link_to: String
-  }
+    link_to: String,
+    id: Number
+  },
+    methods: {
+        deleteBanner() {
+            this.$store.dispatch("deleteBanner", this.updatedInfo);
+            this.$emit('changed');
+        }
+    }
 };
 </script>
 
