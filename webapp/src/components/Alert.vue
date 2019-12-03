@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <h1>{{this.author}} {{this.timestamp}}</h1>
+  <div style="border: 1px solid darkslategrey;">
+    <div class="alert-header">
+      <h1><b>{{this.author}}</b> | {{this.timestamp}}</h1>
+    </div>
     <p>{{this.text}}</p>
   </div>
 </template>
@@ -18,18 +20,20 @@ export default {
 
 <style scoped>
 div {
-  width: auto;
-  border-color: #7aa256;
+  width: 30%;
   display: block;
-  background-color: #fbf3e4;
-  padding-bottom: 5px;
+  background-color: white;
+  margin-bottom: 20px;
+}
+.alert-header{
+  width: 100%;
+  border-bottom: 1px solid black;
+  margin-bottom: 1px;
+  padding: 4px;
 }
 p{
-  background-color: #fbf3e4;
-}
-h1{
-  background-color: #cc783c;
-  font-weight: bold;
-  border-bottom: solid 2px #7aa256;
+  background-color: #F0F0F0;
+  word-wrap: break-word;
+  padding: 4px;
 }
 </style>

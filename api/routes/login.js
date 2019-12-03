@@ -43,14 +43,16 @@ export default (passport) => {
       res.sendStatus(401);
     }
   });
-  router.get('/users', isAuth, (req, res) => {
+  router.get('/staff', isAuth, (req, res) => {
     if (req.user.permission == 0){
       const userManager = getManager(); // you can also get it via getConnection().getRepository() or getManager().getRepository()
       userManager.find(User).then((foundUsers) => {
         var limitedUsers = [];
         var u;
         for (u in foundUsers) {
-          limitedUsers.push({firstname: foundUsers[u].firstname, lastname: foundUsers[u].lastname, email: foundUsers[u].email, permission: foundUsers[u].permission});
+          if (foundUsers[u].permission < 3){
+            limitedUsers.push({firstname: foundUsers[u].firstname, lastname: foundUsers[u].lastname, email: foundUsers[u].email, permission: foundUsers[u].permission});
+          }
         }
         res.send(limitedUsers);
       }, () => {

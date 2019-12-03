@@ -7,16 +7,16 @@ import {
     JoinTable,
   } from 'typeorm';
 
-  import Item from './item';
+import Item from './item';
 
-  @Entity()
-  export default class Tag {
+@Entity()
+export default class Tag {
 
-    @PrimaryGeneratedColumn()
-    id
+  @PrimaryGeneratedColumn()
+  id
 
-    @Column({ type: 'varchar' })
-    title
+  @Column({ type: 'varchar' })
+  title
 
     @ManyToMany( () => Item, (item) => item.tag)
     //@JoinTable()

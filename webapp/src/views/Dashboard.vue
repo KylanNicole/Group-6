@@ -1,7 +1,6 @@
 <template>
-<div>
-    <h1 style="font-size:62pt; text-align:center; color:#da782f;">Dashboard</h1>
-  <div v-if="this.$store.dispatch('authorized', 2)" class="section">
+  <div v-if="this.$store.dispatch('authorized', 2)" class="section" >
+
     <div id="accountInfo">
       <p>
         Name: {{this.$store.state.loginState.user.firstname + " " + this.$store.state.loginState.user.lastname}}<br>
@@ -10,15 +9,15 @@
       </p>
     </div>
     <router-link to="/manage/staff">
-      <div class="manageLink">Manage Staff</div>
+      <div class="manageLink" v-if="this.$store.state.loginState.user.permission <= 0">Manage Staff</div>
     </router-link>
-    <router-link to="/manage/orders">
+    <router-link to="/manage/orders" v-if="this.$store.state.loginState.user.permission <= 2">
       <div class="manageLink">Manage Orders</div>
     </router-link>
-    <router-link to="/manage/banner">
+    <router-link to="/manage/banner" v-if="this.$store.state.loginState.user.permission <= 1">
       <div class="manageLink">Manage Banners</div>
     </router-link>
-    <router-link to="/Spices">
+    <router-link to="/Spices" v-if="this.$store.state.loginState.user.permission <= 1">
       <div class="manageLink">Manage Spices</div>
     </router-link>
     <hr/>
@@ -29,11 +28,10 @@
       </b-field>
       <button v-on:click="createAlert">Submit</button>
     </section>
-    <br>
-    <b>Announcements</b>
-    <template v-for="i in alerts.length">
-      <Alert v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
-    </template>
+    <div>
+      <b>Announcements</b>
+      <Alert v-for="i in alerts.length" v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
+    </div>
     <!-- <Order v-for="order in orders" :key="order" v-bind="order"/> -->
   </div>
   </div>
@@ -49,6 +47,12 @@ export default {
   components: {
     Order,
     Alert
+  },
+  computed: {
+    getOrders() {
+      //console.log(this.$store.orders);
+      return this.$store.state.orders;
+    }
   },
   // computed: {
   //   getOrders() {
@@ -84,13 +88,9 @@ export default {
 };
 </script>
 
-<style scoped>
-#accountInfo{
-  background: #6e795d;
-  border-radius: 5px;
-  color: #eeeeee;
-  font-weight: bold;
-  font-size: 18pt;
+<style>
+#accountInfo {
+  background-color: #aaaaaa;
 }
 
 .manageLink{
