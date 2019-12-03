@@ -49,16 +49,14 @@ router.route('/announcement/:id')
 
 
 
+
   .put((req, res) => {
     const foundAnnounce = req.announcement;
-    const {title, description, link, color } = req.body;
+    const {img_link, link_to } = req.body;
+    
 
-
-    foundannounce.title = title;
-    foundannounce.description = description;
-    foundannounce.link = link;
-    foundannounce.color = color;
-
+    foundAnnounce.img_link = img_link;
+    foundAnnounce.link_to = link_to; 
 
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);
@@ -66,6 +64,7 @@ router.route('/announcement/:id')
   })
 
   .get((req, res) => {
+    debugger;
     res.send(req.announcement);
   })
 
