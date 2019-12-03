@@ -8,7 +8,7 @@ import Announcement from '../entities/announcement';
 
 const router = Router();
 router.route('/announcement')
-  .all(isAuthenticated)
+  // .all(isAuthenticated)
 
   .get((req, res) => {
 
