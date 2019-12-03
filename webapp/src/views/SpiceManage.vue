@@ -46,7 +46,6 @@ export default {
         },
         updateSpices() {
             this.$store.dispatch("getItems", "");
-            console.log("reloaded items");
         }
     },
     mounted() {
