@@ -8,6 +8,10 @@
             <BillingInfo></BillingInfo>
             <br>
             <b-button>Place Order</b-button>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
 </template>
@@ -57,7 +61,7 @@ export default {
 #purchases {
     width: 40%;
     margin: auto;
-    background-color: white;
+    background-color: #8d9b77;
     padding: 10px;
     margin-top: 30px;
     border: solid 1px black;
