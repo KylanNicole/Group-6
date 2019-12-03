@@ -7,71 +7,75 @@
       </header> -->
       <section class="login-modal-body">
         <section class="modal-card-body">
-          <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
-          <p><b>Existing Login</b></p>
-          <b-field label="Email">
-            <b-input
-            type="email"
-            v-model="email"
-            placeholder="Your email"
-            required
-            ></b-input>
-          </b-field>
+          <div>
+            <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
+            <p><b>Existing Login</b></p>
+            <b-field label="Email">
+              <b-input
+              type="email"
+              v-model="email"
+              placeholder="Your email"
+              required
+              ></b-input>
+            </b-field>
 
-          <b-field label="Password">
-            <b-input
-            type="password"
-            v-model="password"
-            password-reveal
-            placeholder="Your password"
-            required
-            ></b-input>
-          </b-field>
+            <b-field label="Password">
+              <b-input
+              type="password"
+              v-model="password"
+              password-reveal
+              placeholder="Your password"
+              required
+              ></b-input>
+            </b-field>
+          </div>
           <button v-on:click="login">Login</button>
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
-          <p><b>New User Signup</b></p>
-          <b-field label="Email">
-            <b-input
-            type="email"
-            v-model="email"
-            placeholder="Your email"
-            required
-            ></b-input>
-          </b-field>
+          <div class="fields">
+            <span class="has-text-danger" v-if="error">Emails do not match</span>
+            <p><b>New User Signup</b></p>
+            <b-field label="Email">
+              <b-input
+              type="email"
+              v-model="email"
+              placeholder="Your email"
+              required
+              ></b-input>
+            </b-field>
 
-          <b-field label="Confirm Email">
-            <b-input
-            type="email"
-            v-model="emailConf"
-            placeholder="Confirm Email"
-            required
-            ></b-input>
-          </b-field>
-          <span class="has-text-danger" v-if="email != emailConf">Emails do not match</span>
+            <b-field label="Confirm Email">
+              <b-input
+              type="email"
+              v-model="emailConf"
+              placeholder="Confirm Email"
+              required
+              ></b-input>
+            </b-field>
+            <span class="has-text-danger" v-if="email != emailConf">Emails do not match</span>
 
-          <b-field label="Password">
-            <b-input
-            type="password"
-            v-model="password"
-            password-reveal
-            placeholder="Your password"
-            required
-            ></b-input>
-          </b-field>
+            <b-field label="Password">
+              <b-input
+              type="password"
+              v-model="password"
+              password-reveal
+              placeholder="Your password"
+              required
+              ></b-input>
+            </b-field>
 
-          <b-field label="Confirm Password">
-            <b-input
-            type="password"
-            v-model="passwordConf"
-            password-reveal
-            placeholder="Confirm Password"
-            required
-            ></b-input>
-            <span class="has-text-danger" v-if="password != passwordConf">Passwords do not match</span>
-
-          </b-field>
+            <b-field label="Confirm Password">
+              <b-input
+              type="password"
+              v-model="passwordConf"
+              password-reveal
+              placeholder="Confirm Password"
+              required
+              ></b-input>
+              <span class="has-text-danger" v-if="password != passwordConf">Passwords do not match</span>
+            </b-field>
+          </div>
           <button v-on:click="signUp">Sign Up</button>
         </section>
       </section>
@@ -142,5 +146,9 @@ div{
 }
 footer {
   background: #8d9b77;
+}
+
+section button {
+  margin-top: 10px;
 }
 </style>
