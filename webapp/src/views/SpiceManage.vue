@@ -1,5 +1,6 @@
 <template>
-    <div id="manage-spice" >
+    <div id="manage-spice" v-if="this.$store.state.loginState.loggedIn &&
+        this.$store.state.loginState.user.permission < 2">
         <router-link to="/dashboard">
         <div style="float: left;">
             Back
