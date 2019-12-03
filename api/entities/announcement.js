@@ -10,7 +10,7 @@ import {
 
     @PrimaryGeneratedColumn()
     id
-
+  
     @Column({ type: 'varchar' })
     img_link
 
