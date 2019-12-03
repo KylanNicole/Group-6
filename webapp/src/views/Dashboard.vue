@@ -1,7 +1,6 @@
 <template>
-<div>
-    <h1 style="font-size:62pt;">Dashboard</h1>
-  <div v-if="this.$store.dispatch('authorized', 2)" class="section">
+  <div v-if="this.$store.dispatch('authorized', 2)" class="section" >
+
     <div id="accountInfo">
       <p>
         Name: {{this.$store.state.loginState.user.firstname + " " + this.$store.state.loginState.user.lastname}}<br>
@@ -29,11 +28,10 @@
       </b-field>
       <button v-on:click="createAlert">Submit</button>
     </section>
-    <br>
-    <b>Announcements</b>
-    <template v-for="i in alerts.length">
-      <Alert v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
-    </template>
+    <div>
+      <b>Announcements</b>
+      <Alert v-for="i in alerts.length" v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
+    </div>
     <!-- <Order v-for="order in orders" :key="order" v-bind="order"/> -->
   </div>
   </div>
@@ -49,6 +47,12 @@ export default {
   components: {
     Order,
     Alert
+  },
+  computed: {
+    getOrders() {
+      //console.log(this.$store.orders);
+      return this.$store.state.orders;
+    }
   },
   // computed: {
   //   getOrders() {
@@ -85,19 +89,8 @@ export default {
 </script>
 
 <style>
-#accountInfo{
-  background: #6e795d;
-  border-radius: 5px;
-  color: #eeeeee;
-  font-weight: bold;
-  font-size: 18pt;
-}
-h1{
-  text-align: center;
-  color: #da782f;
-  padding: 0px;
-  margin-bottom: 5px;
-}
+#accountInfo {
+  background-color: #aaaaaa;
 
 .manageLink{
   float:left;
