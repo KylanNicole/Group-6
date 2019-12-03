@@ -3,7 +3,7 @@
         <img :src='image'>
         <h4>{{title}}</h4>
         <router-link to="Spices" v-if="this.$store.state.loginState.loggedIn &&
-        this.$store.state.loginState.user.permission < 3">
+        this.$store.state.loginState.user.permission < 2">
             <button>EDIT</button>
         </router-link>
         <button v-on:click="toggleDetails">DETAILS</button>
