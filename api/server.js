@@ -48,8 +48,6 @@ app.use(announcement);
 app.use(cart);
 
 
-
-
 // app.use(todo);
 
 // respond with "hello world" when a GET request is made to the homepage
