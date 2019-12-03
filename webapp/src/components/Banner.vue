@@ -1,7 +1,7 @@
 <template>
   <div>
       <div v-if="this.$store.state.loginState.loggedIn &&
-      this.$store.state.loginState.user.permission < 3" to="/dashboard" style="float:right;">
+      this.$store.state.loginState.user.permission < 2" to="/dashboard" style="float:right;">
         <button @click="deleteBanner">DELETE</button>
     </div>
 
