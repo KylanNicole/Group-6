@@ -8,9 +8,9 @@
 
     </div>
     <div>
-      <ul v-for="b in banners.length">
+      <ul v-for="b in this.$store.state.banners">
         <li>
-      <banner v-bind:img_link="banners[banners.length-b].img_link" v-bind:link_to="banners[banners.length-b].link_to"/>
+      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to"/>
       </li>
         </ul>
     </div>
@@ -29,11 +29,6 @@ export default {
   },
   created(){
     this.$store.dispatch("getBanners");
-  },
-  data(){
-    return {
-      banners: [{img_link:"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Xyr9Zw5XAPMmiamYfxaelwHaE8%26pid%3DApi&f=1", link_to:"Shop"}, {img_link:"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.3ugoBJEmtsd_B-ZR31f_uwHaFj%26pid%3DApi&f=1", link_to:"Shop"}]
-    }
   }
 };
 </script>
