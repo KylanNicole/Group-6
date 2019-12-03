@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div v-if="this.$store.dispatch('authorized', 2)" style="float:right;" >
+    <button>delete baner</button>
+    </div>
+
     <router-link :to="link_to" style="margin: 0">
       <img :src="img_link"/>
       <br>
@@ -35,5 +39,12 @@ div {
   border-color: darkslategrey;
   border-radius: 8cm;
   display: block;
+}
+
+button{
+  background:red;
+  border-color:red;
+  border-radius:3px;
+  color:white;
 }
 </style>
