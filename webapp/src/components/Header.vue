@@ -35,16 +35,13 @@
       <router-link :to="{ name: 'Shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
       </div>
     </div>
-    
   </div>
-
-</div>
 </template>
 
 <script>
 import SearchBar from "./SearchBar.vue";
 import Login from "./Login.vue";
-import Cart from "./Cart.vue"
+import Cart from "./Cart.vue";
 export default {
   name: "Header",
   components: {
@@ -55,7 +52,7 @@ export default {
   data() {
     return {
       hideCart: true
-    }
+    };
   },
   methods: {
     toggleCart() {
@@ -64,7 +61,7 @@ export default {
     toggleLogin() {
       this.$refs.login.modalActive = true;
     },
-    logout(){
+    logout() {
       this.$store.dispatch("logout");
     }
   }
@@ -73,8 +70,8 @@ export default {
 
 <style scoped>
 @font-face {
-  font-family: 'Brand Font';
-  src: url('../assets/day-roman.regular.ttf') format('truetype');
+  font-family: "Brand Font";
+  src: url("../assets/day-roman.regular.ttf") format("truetype");
 }
 
 #header {
@@ -113,7 +110,6 @@ a:hover {
 }
 
 #user-links {
-  display: inline;
   float: right;
 }
 
@@ -128,7 +124,7 @@ a:hover {
   display: inline;
 }
 
-#user-links button:hover{
+#user-links button:hover {
   color: #9ad466;
 }
 

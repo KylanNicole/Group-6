@@ -1,5 +1,6 @@
 <template>
   <div v-if="this.$store.dispatch('authorized', 2)" class="section" >
+
     <div id="accountInfo">
       <p>
         Name: {{this.$store.state.loginState.user.firstname + " " + this.$store.state.loginState.user.lastname}}<br>
@@ -8,18 +9,19 @@
       </p>
     </div>
     <router-link to="/manage/staff">
-      <div class="manageLink">Manage Staff</div>
+      <div class="manageLink" v-if="this.$store.state.loginState.user.permission <= 0">Manage Staff</div>
     </router-link>
-    <router-link to="/manage/orders">
+    <router-link to="/manage/orders" v-if="this.$store.state.loginState.user.permission <= 2">
       <div class="manageLink">Manage Orders</div>
     </router-link>
-    <router-link to="/manage/banner">
+    <router-link to="/manage/banner" v-if="this.$store.state.loginState.user.permission <= 1">
       <div class="manageLink">Manage Banners</div>
     </router-link>
-    <router-link to="/Spices">
+    <router-link to="/Spices" v-if="this.$store.state.loginState.user.permission <= 1">
       <div class="manageLink">Manage Spices</div>
     </router-link>
     <hr/>
+    <br>
     <section v-if="this.$store.state.loginState.user.permission <= 1">
       <b-field label="Create New Alert">
         <b-input type="textarea" v-model="text" />
@@ -31,6 +33,7 @@
       <Alert v-for="i in alerts.length" v-bind:author="alerts[alerts.length-i].author" v-bind:text="alerts[alerts.length-i].text" v-bind:timestamp="alerts[alerts.length-i].time" />
     </div>
     <!-- <Order v-for="order in orders" :key="order" v-bind="order"/> -->
+  </div>
   </div>
 </template>
 
@@ -88,14 +91,40 @@ export default {
 <style>
 #accountInfo {
   background-color: #aaaaaa;
-}
 
 .manageLink{
-  background-color: #cccccc;
-  border-radius: 5px;
-  /* width: 100%; */
+  float:left;
+  margin-left: -1px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+.manageLink:hover {
+  color: #9ad466;
+}
+
+button {
+  margin-left: -1px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+}
+li {
   display: inline-block;
-  padding: 4px;
-  margin: 4px;
+  margin: 10px;
 }
 </style>

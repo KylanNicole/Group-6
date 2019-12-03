@@ -4,14 +4,11 @@
     <h3>Name: {{ this.$store.state.loginState.user.firstname }} {{ this.$store.state.loginState.user.lastname }}</h3>
     <h3>Email: {{ this.$store.state.loginState.user.email }}</h3>
     <br />
-    <h2>My Orders</h2>
+    <h2 style="font-size:24pt; text-align:center; color:#da782f;">My Orders</h2>
     <table>
       <tbody>
         <tr v-for="order in orders" :key="order">
-          <td>{{ order.total_cost }}</td>
-          <td>{{ order.total_weight }}</td>
-          <td>{{ order.item_list }}</td>
-          <td>{{ order.status }}</td>
+          <td><Order :id="order.uid" :total_cost="order.total_cost" :total_weight="order.total_weight" :item_list="order.item_list" :status="order.status" :customer_id="order.customer_id"></Order></td>
         </tr>
       </tbody>
     </table>
@@ -19,8 +16,12 @@
 </template>
 
 <script>
+import Order from "@/components/Order.vue"
 export default {
   name: "custaccount",
+  components: {
+    Order
+  },
   data: function() {
     return {
       orders: [
@@ -52,6 +53,15 @@ export default {
 
 <style scoped>
 div {
-  background-color: #8d9b77;
+  /* background-color: #8d9b77; */
+}
+h1{
+  text-align: center;
+  color: #da782f;
+  font-size: 62pt;
+}
+h3{
+  font-size: 18pt;
+  margin-left: 40px;
 }
 </style>
