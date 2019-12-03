@@ -44,6 +44,7 @@ export default {
 <style scoped>
 div {
   width: 1000px;
+  background-color: white;
 }
 .order {
   border: solid 1px black;
@@ -53,6 +54,13 @@ h2 {
 }
 button {
   float: right;
+  margin-left: -1px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
 }
 .hide {
   display: none;

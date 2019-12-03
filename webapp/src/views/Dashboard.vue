@@ -88,7 +88,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #accountInfo {
   background-color: white;
   border: solid 1px black;

@@ -64,3 +64,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+button {
+  margin-left: -1px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+</style>

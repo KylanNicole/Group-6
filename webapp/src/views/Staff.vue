@@ -7,7 +7,7 @@
       </div>
     </router-link>
     <br>
-    <b-field label="Add Staff Member">
+    <b-field label="Add Staff Member" style="margin-left:5px;">
       <br>
       <b-input
       type="email"
@@ -73,7 +73,7 @@
 
 .manageLink{
   float:left;
-  margin-left: -1px;
+  margin-left: 5px;
   margin-top: 5px;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0);
@@ -88,7 +88,8 @@
 }
 
 button {
-  margin-left: -1px;
+  margin-left: 5px;
+  margin-right: 5px;
   margin-top: 5px;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0);
@@ -106,4 +107,10 @@ li {
   display: inline-block;
   margin: 10px;
 }
+
+br{
+  display:block;
+  margin:5px;
+}
+
 </style>
