@@ -4,21 +4,22 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
     ManyToMany,
+    JoinTable,
   } from 'typeorm';
 
-  import Item from './item';
-  
-  @Entity()
-  export default class Tag {
-    
-    @PrimaryGeneratedColumn()
-    id
-  
-    @Column({ type: 'varchar' })
-    title
+import Item from './item';
+
+@Entity()
+export default class Tag {
+
+  @PrimaryGeneratedColumn()
+  id
+
+  @Column({ type: 'varchar' })
+  title
 
     @ManyToMany( () => Item, (item) => item.tag)
-    item
+    //@JoinTable()
+    Items
 
   }
-  

@@ -14,7 +14,7 @@ import tag from './routes/tag';
 import signup from './routes/signup'
 import select_item_tag from './routes/select_item_tag'
 import announcement from './routes/announcement'
-
+import staff_alert from './routes/staff_alert'
 
 // Setting up port
 const PORT = process.env.PORT || 3000;
@@ -35,8 +35,10 @@ config();
 app.use(login(passport));
 app.use(item);
 app.use(order_items);
+// app.use(login);
 app.use(order);
 app.use(tag);
+app.use(staff_alert);
 app.use(signup);
 app.use(select_item_tag);
 app.use(announcement);

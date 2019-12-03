@@ -1,17 +1,42 @@
 <template>
-  <div class="container">
+  <div>
+    <div class="container">
       <img width=100%; src="../assets/background.jpg">
       <div class="top-right">
         <h1>The Spice Cabinet</h1>
       </div>
+
+      <!-- <Banner img_link="https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg" link_to="/Shop"/> -->
+    </div>
+    <!-- <div display:block>
+    <template v-for="b in this.$store.state.banners">
+      <div display:block>
+      <banner :img_link="b.img_link" :link_to="b.link_to"/>
+      </div>
+    </template>
+    </div> -->
+    <div>
+      <ul>
+        <li v-for="b in this.$store.state.banners">
+      <banner :img_link="b.img_link" :link_to="b.link_to"/>
+      </li>
+        </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import Banner from "./Banner.vue";
 export default {
   name: "HelloWorld",
+  components: {
+    Banner
+  },
   props: {
     msg: String
+  },
+  created(){
+    this.$store.dispatch("getBanners");
   }
 };
 </script>
@@ -25,6 +50,7 @@ h1{
   text-align:center;
   font-weight: bold;
   background-color: rgba(82, 45, 26, 0.9);
+
 }
 h3 {
   margin: 40px 0 0;
@@ -54,6 +80,8 @@ a {
   position: relative;
   text-align: center;
   color: #fbf3e4;
+
+  background-image: url('../assets/background.jpg');
 }
 .top-right {
   position: absolute;

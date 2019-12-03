@@ -8,7 +8,7 @@ import Announcement from '../entities/announcement';
 
 const router = Router();
 router.route('/announcement')
-  // .all(isAuthenticated)
+  .all(isAuthenticated)
 
   .get((req, res) => {
 
@@ -21,9 +21,9 @@ router.route('/announcement')
 
   })
   .post((req, res) => {
-    const { title, description, link, color } = req.body;
+    const { img_link, link_to } = req.body;
     const manager = getManager();
-    const announce = manager.create(Announcement, { title, description, link, color });
+    const announce = manager.create(Announcement, { img_link, link_to });
 
     manager.save(announce).then((savedannounce) => {
       res.send(savedannounce);

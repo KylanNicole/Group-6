@@ -5,11 +5,11 @@
         </div>
         <div class="hide_scroll">
             <div class="content">
-                <CartTile v-for="id in 5"/>
+                <CartTile v-for="item in cartItems" :index="item.index"/>
             </div>
         </div>
         <div class="footer">
-            <p style="display:inline;">Total: $100</p>
+            <p style="display:inline;">Total: ${{cartPrice.toFixed(2)}}</p>
             <router-link to="checkout" style="float: right; display:inline;">Go To Checkout</router-link>
         </div>
     </div>
@@ -19,7 +19,21 @@
 import CartTile from "./CartTile.vue"
 export default {
     name: "Cart",
-    components: { CartTile }
+    components: { CartTile },
+    computed: {
+        cartItems() {
+            return this.$store.state.cart;
+        },
+        cartPrice() {
+            const prices = this.$store.state.cart.map(item => {
+                return item.spice.unit_price * item.amount});
+            var sum = 0;
+            prices.filter(price => {
+                sum += price;
+            })
+            return sum;
+        }
+    }
 }
 </script>
 
@@ -47,6 +61,7 @@ h1 {
     padding: 10px;
     border-bottom: solid 1px #7aa256;
     background-color: rgba(82, 45, 26, 1);
+    border-radius: 5px 5px 0px 0px;
 }
 .hide_scroll {
     overflow: hidden;
@@ -60,6 +75,7 @@ h1 {
     border-top: solid 1px #7aa256;
     padding: 10px;
     background-color: rgba(82, 45, 26, 1);
+    border-radius: 0px 0px 5px 5px;
 }
 #exit {
     float: right;

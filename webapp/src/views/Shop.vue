@@ -5,18 +5,17 @@
             <hr>
             <p>Sort By:</p>
             <select v-model="sortby">
-                <option disabled value="">None</option>
-                <option v-for="filter in filters" :key="filter">{{filter}}</option>
+                <option v-for="filter in filters" :key="filter.id" :value="filter.id">{{filter.name}}</option>
             </select>
             <hr>
             <p>Tags:</p>
-            <div v-for="tag in tags" :key="tag">
-                <input type="checkbox" :id="tag" :value="tag">
-                <label class="tag" :for="tag">{{tag}}</label>
+            <div v-for="tag in getTags" :key="tag.id">
+                <input type="checkbox" :id="tag" :value="tag.title" v-model="tags">
+                <label class="tag" :for="tag">{{tag.title}}</label>
             </div>
         </div>
         <div>
-            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" />
+            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" v-if="spice.stock > 0"/>
         </div>
     </div>
 </template>
@@ -30,26 +29,70 @@ export default {
     },
     computed: {
       getSpices() {
-        return this.filterSpices(this.$store.state.spices);
+        var filtered = this.filterSpices(this.$store.state.spices);
+        if(this.sortby == 0) {
+          filtered = filtered.sort(this.alphaSortAscend);
+        } else if (this.sortby == 1) {
+          filtered = filtered.sort(this.alphaSortDescend);
+        } else if (this.sortby == 2) {
+          filtered = filtered.sort(this.priceSortAscend);
+        } else if (this.sortby == 3) {
+          filtered = filtered.sort(this.priceSortDescend);
+        }
+        return filtered;
+      },
+      getTags() {
+        return this.$store.state.tags;
       }
     },
     methods: {
       filterSpices(spices){
         return spices.filter( spice => {
-          return !this.filtered || spice.description.toLowerCase().includes("christmas") > 0
+          return !this.tags.length || this.tags.filter(tag => {
+              return spice.description.toLowerCase().includes(tag) > 0
+            }).length == this.tags.length
         })
+      },
+      priceSortAscend:function(a, b) {
+        if(a.unit_price < b.unit_price) {
+          return -1;
+        }
+        return 1;
+      },
+      priceSortDescend:function(a, b) {
+        if(a.unit_price > b.unit_price) {
+          return -1;
+        }
+        return 1;
+      },
+      alphaSortAscend:function(a, b) {
+        if(a.title  < b.title) {
+          return -1;
+        }
+        return 1;
+      },
+      alphaSortDescend:function(a, b) {
+        if(a.title > b.title) {
+          return -1;
+        }
+        return 1;
       }
     },
     created(){
-      this.$store.dispatch("getItems", "");
       this.$store.dispatch("getTags", "");
+      this.$store.dispatch("getItems", "");
     },
     data() {
         return {
-            filtered: true,
-            filters: ["Price", "Name"],
-            tags: ["Spicy", "Sweet", "Bitter", "Salty", "Umami"],
-            sortby: "",
+            filtered: false,
+            filters: [
+              {id: 0, name: "Name (A-Z)"},
+              {id: 1, name: "Name (Z-A)"},
+              {id: 2, name: "Price (Low-High)"},
+              {id: 3, name: "Price (High-Low)"}
+            ],
+            tags: [],
+            sortby: 0,
             spices: [],
         }
     }
