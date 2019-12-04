@@ -35,6 +35,9 @@ export const mutations = {
   getBanners(state, banners){
     state.banners = banners;
   },
+  deleteBanner(state,banner){
+    state.banners = state.banners.filter(b => b.id !== banner.id);
+  },
   updateSpice(state, spice) {
     state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
   },
@@ -109,6 +112,11 @@ export const actions = {
   getBanners({commit}){
     return axios.get("/api/announcement").then((response) => {
       commit("getBanners", response.data);
+    })
+  },
+  deleteBanner:function({commit}, payload) {
+    return axios.delete(`/api/announcement/${payload.id}`).then(() => {
+      commit("deleteBanner", payload);
     })
   },
   updateTodo({ commit }, toDo) {

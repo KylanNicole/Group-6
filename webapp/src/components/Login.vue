@@ -33,17 +33,32 @@
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
-          <div class="fields">
-            <span class="has-text-danger" v-if="error">Emails do not match</span>
-            <p><b>New User Signup</b></p>
-            <b-field label="Email">
-              <b-input
-              type="email"
-              v-model="email"
-              placeholder="Your email"
-              required
-              ></b-input>
-            </b-field>
+          <p><b>New User Signup</b></p>
+          
+          <b-field label="First Name">
+            <b-input
+            v-model="firstname"
+            placeholder="John"
+            required
+            ></b-input>
+          </b-field>
+
+          <b-field label="Last Name">
+            <b-input
+            v-model="lastname"
+            placeholder="Smith"
+            required
+            ></b-input>
+          </b-field>
+
+          <b-field label="Email">
+            <b-input
+            type="email"
+            v-model="email"
+            placeholder="Your email"
+            required
+            ></b-input>
+          </b-field>
 
             <b-field label="Confirm Email">
               <b-input
@@ -95,28 +110,30 @@ export default {
     login: function(){
       this.$store.dispatch("login", {email: this.email, password: this.password})
       .then(() => {
-            this.modalActive = false;
-          },
-          () => {
-            this.error = true;
-          })
-        },
+        this.modalActive = false;
+      },
+      () => {
+        this.error = true;
+      })
+    },
     signUp: function(){
       this.error = false;
       if (this.email == this.emailConf && this.password == this.passwordConf){
-        this.$store.dispatch("signup", {firstname: "Bill", lastname: "Hader", email: this.email, password: this.password} )
+        this.$store.dispatch("signup", {firstname: this.firstname, lastname: this.lastname, email: this.email, password: this.password} )
         .then(() => {
-            this.modalActive = false;
-          },
-          () => {
-            this.error = true;
-          })
+          this.modalActive = false;
+        },
+        () => {
+          this.error = true;
+        })
       }
     }
   },
   data() {
     return {
       modalActive: false,
+      firstname: "",
+      lastname: "",
       email: "",
       emailConf: "",
       password: "",

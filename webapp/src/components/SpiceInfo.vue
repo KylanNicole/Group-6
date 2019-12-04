@@ -18,7 +18,7 @@
                   <option>oz</option>
                 </select>
             <br/>
-                <p>Price: $ {{unit_price}}</p>
+                <p>{{getPrice}}</p>
             <br/>
             </form>
               <button @click="addToCart">Add to Cart</button>
@@ -37,17 +37,23 @@ export default {
         id: Number,
         title: String,
         image: String,
+        sale: Number,
         description: String,
         stock: Number,
         unit_price: Number,
         tags: Array
     },
+    computed: {
+      getPrice(){
+        return (this.sale > 0.0 ? "" + (this.sale * 100) + "% off!" : "") + " $" + (this.amount * this.unit_price * (1.0 - this.sale)).toFixed(2);
+      }
+    },
     methods: {
       addToCart() {
         if(this.amount > 0)
         {
-          this.$store.dispatch("addToCart", {index: this.$store.state.cart.length, 
-          spice: this.$props, 
+          this.$store.dispatch("addToCart", {index: this.$store.state.cart.length,
+          spice: this.$props,
           amount: this.amount});
         }
       }
