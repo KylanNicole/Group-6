@@ -10,7 +10,7 @@
     <div>
       <ul v-for="b in this.$store.state.banners">
         <li>
-      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to"/>
+      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to" v-bind:id="b.id"/>
       </li>
         </ul>
     </div>
