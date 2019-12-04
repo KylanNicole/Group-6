@@ -1,7 +1,7 @@
 <template>
     <div id="manage-spice" v-if="this.$store.dispatch('authorized', 1)">
         <router-link to="/dashboard">
-        <div style="float: left;">
+        <div style="display: block;">
             Back
         </div>
         </router-link>
@@ -86,20 +86,20 @@ input {
 
 button {
     border: solid 1px #7aa256;
-    margin: 5px;
+    margin: 5px auto 5px auto;
     padding: 5px;
     background-color: white;
     text-align: center;
     color: #7aa256;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
+    display: block;
 }
 
 button:hover {
     color: #9ad466;
 }
 #manage-spice {
-    width: 60%;
     margin: 30px auto;
 }
 
