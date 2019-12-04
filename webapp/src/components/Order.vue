@@ -1,6 +1,6 @@
 <template>
-  <div class="order">
-    <h2>Order ID: {{id}}</h2>
+  <div class="order" style="background-color:rgba(82, 45, 26, 0.8);">
+    <h2><b>Order ID:</b> {{id}}</h2>
     <button>Claim</button>
     <button @click="clickMethod">Details</button>
     <div :class="{hide : hideDetails}">
