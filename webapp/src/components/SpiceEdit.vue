@@ -12,7 +12,7 @@
             <p>Sale Amount</p>
             <input type="text" v-model="updatedInfo.sale"/>
             <p>Stock Amount</p>
-            <input type="text" v-model="updatedInfo.stock"/>
+            <input type="text" v-model.number="updatedInfo.stock"/>
             <p>Description</p>
             <textarea v-model="updatedInfo.description"/>
             <p>Image URL</p>

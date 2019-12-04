@@ -2,22 +2,19 @@
     <div class="back">
         <div>
             <div id="purchases">
-                <CartTile v-for="item in cartItems" :index="item.index" style="margin: auto;"/>
+                <h4>Your Items</h4>
+                <CartTile v-for="item in cartItems" :key="item.index" :index="item.index" style="margin: auto;"/>
             </div>
             <ShippingInfo></ShippingInfo>
             <BillingInfo></BillingInfo>
             <br>
-            <b-button>Place Order</b-button>
-            <br>
-            <br>
-            <br>
-            <br>
+            <button v-if="cartItems.length > 0">Place Order</button>
+        
         </div>
     </div>
 </template>
 
 <script>
-import CustomerInfo from "@/components/CustomerInfo.vue"
 import ShippingInfo from "@/components/ShippingInfo.vue"
 import BillingInfo from "@/components/BillingInfo.vue"
 import CartTile from "@/components/CartTile.vue"
@@ -25,7 +22,6 @@ import CartTile from "@/components/CartTile.vue"
 export default {
     name: "Checkout",
     components: {
-        CustomerInfo,
         ShippingInfo,
         BillingInfo,
         CartTile
@@ -69,6 +65,13 @@ export default {
 button {
     margin: auto;
     display: block;
+}
+
+h4 {
+    font-size: 16pt;
+    text-align: center;
+    border-bottom: solid 1px black;
+    margin-bottom: 10px;
 }
 
 .back {

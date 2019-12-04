@@ -1,5 +1,5 @@
 <template>
-    <div id="manage-spice" >
+    <div id="manage-spice" v-if="this.$store.dispatch('authorized', 1)">
         <router-link to="/dashboard">
         <div style="float: left;">
             Back
@@ -47,7 +47,6 @@ export default {
         },
         updateSpices() {
             this.$store.dispatch("getItems", "");
-            console.log("reloaded items");
         }
     },
     mounted() {

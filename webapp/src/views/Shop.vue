@@ -48,6 +48,9 @@ export default {
       },
       getTags() {
         return this.$store.state.tags;
+      },
+      selectedTags() {
+        return [this.$route.params.tag];
       }
     },
     methods: {
