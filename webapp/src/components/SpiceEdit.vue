@@ -89,10 +89,11 @@ export default {
 <style scoped>
 .edit {
     border: solid 1px black;
-    margin: 5px;
+    margin: 5px auto 5px auto;
     padding: 5px;
     background-color: white;
     overflow: hidden;
+    width: 50%;
 }
 h1 {
     display: inline;

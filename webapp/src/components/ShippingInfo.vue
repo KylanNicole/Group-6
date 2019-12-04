@@ -2,18 +2,18 @@
     <div class="body">
       <h1>Shipping Info</h1>
         <form>
-        <input type="text" name="fname" v-model="user_data.f_name" placeholder="First Name"></input>
-        <input type="text" name="lname" v-model="user_data.l_name" placeholder="Last Name"></input>
+        <input type="text" name="fname" v-model="user_data.f_name" placeholder="First Name">
+        <input type="text" name="lname" v-model="user_data.l_name" placeholder="Last Name">
         <br/>
         <div v-if="!inStore">
           <h1>Street Address</h1>
-          <input type="text" name="address" placeholder="Street Address" v-model="address.street"></input>
-          <input type="text" name="City" placeholder="City" v-model="address.city"></input>
-          <input type="text" name="state" placeholder="State" v-model="address.state"></input>
-          <input type="text" name="Zip" placeholder="Zip" v-model="address.zip"></input>
+          <input type="text" name="address" placeholder="Street Address" v-model="address.street">
+          <input type="text" name="City" placeholder="City" v-model="address.city">
+          <input type="text" name="state" placeholder="State" v-model="address.state">
+          <input type="text" name="Zip" placeholder="Zip" v-model="address.zip">
         </div>
         <input type="checkbox" value="checkbox" v-model="inStore" style="display: inline"/>
-        <label>  Pick up in store</label>
+        <label>Pick up in store</label>
         </form>
     </div>
 </template>

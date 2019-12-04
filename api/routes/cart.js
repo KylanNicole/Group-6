@@ -13,45 +13,52 @@ router.route('/cart')
   .post((req, res) => {
     
     const manager = getManager(); 
-    let totalCost = 0;
-    let totalWeight = 0; 
 
-    const { address , order_items } = req.body;
+    const { address, order_items } = req.body;
 
-    let itemPromises = Object.keys(order_items).map((itemID) => {
-        return getRepository(Item).findOneOrFail(itemID).then((myItem) => {
+    let itemPromises = order_items.filter((item) => {
+        return getRepository(Item).findOneOrFail(item.spice.id).then((myItem) => {
             debugger;
-            let item_weigth = order_items[itemID].weight;
-            let order_item = manager.create(Order_Item);
-            let item_cost = myItem.unit_price * item_weigth; 
-            totalWeight += item_weigth;
-            totalCost += item_cost;
-            order_item.cost = item_cost;
-            order_item.weight = item_weigth;
-            order_item.item = myItem; 
-            myItem.stock = myItem.stock - item_weigth;
-            return getManager().save(myItem).then(()=> {
-                return order_item; 
-            })
+            let item_weight = item.amount;
+            
+            myItem.stock = myItem.stock - item_weight;
+            return getManager().save(myItem);
         })
+    })
+
+    let totalCost = 0;
+    let totalWeight = 0;
+    order_items.filter(item => {
+        totalWeight += item.amount;
+        totalCost += item.spice.unit_price * item.amount * (1.0 - item.spice.sale);
     })
     
     return Promise.all(itemPromises).then((orderItems) => {
-        let myOrder = manager.create(Order_); 
         debugger;
+        let myOrder = manager.create(Order_);
         myOrder.total_cost = totalCost;
         myOrder.total_weight = totalWeight;
         myOrder.address = address; 
         myOrder.order_items = orderItems; 
         myOrder.user = req.user;
         myOrder.staff_id = 2; 
-        myOrder.order_status = 3; 
+        myOrder.order_status = 3;
         return getManager().save(myOrder).then((savedOrder) => {
+            order_items.filter(item => {
+                return getRepository(Item).findOneOrFail(item.spice.id).then((myItem) => {
+                    let item_cost = myItem.unit_price * item.amount;
+                    let order_item = manager.create(Order_Item);
+                    order_item.cost = item_cost;
+                    order_item.weight = item.amount;
+                    order_item.item = myItem;
+                    order_item.order = myOrder;
+                    getManager().save(order_item);
+                })
+            })
             res.send(savedOrder);
         })
 
     })
-
 });
 
   export default router;

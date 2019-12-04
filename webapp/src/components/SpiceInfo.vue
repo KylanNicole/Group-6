@@ -21,12 +21,8 @@
                 <p>{{getPrice}}</p>
             <br/>
             </form>
-              <button @click="addToCart">Add to Cart</button>
-            </div>
-          </section>
-        </section>
-      </div>
-    </b-modal>
+            <button @click="addToCart">Add to Cart</button>
+        </div>
   </div>
 </template>
 

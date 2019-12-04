@@ -1,5 +1,5 @@
 <template>
-    <div class="spice-tile" v-on:click="toggleDetails">
+    <div class="spice-tile">
         <img :src='image'>
         <h4>{{title}}</h4>
         <router-link to="Spices" v-if="this.$store.state.loginState.loggedIn &&

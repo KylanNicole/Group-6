@@ -14,10 +14,10 @@ import Order_Item from './order_item';
     @PrimaryGeneratedColumn()
     id
   
-    @Column({ type: 'int' })
+    @Column({ type: 'float' })
     total_cost
   
-    @Column({ type: 'int' })
+    @Column({ type: 'float' })
     total_weight
   
     @Column({ type: 'int' })
