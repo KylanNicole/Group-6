@@ -43,16 +43,6 @@ router.route('/announcement/:id')
     });
   })
 
-<<<<<<< HEAD
-
-  .put((req, res) => {
-    const foundAnnounce = req.announcement;
-    const {img_link, link_to } = req.body;
-    
-
-    foundAnnounce.img_link = img_link;
-    foundAnnounce.link_to = link_to; 
-=======
   .put((req, res) => {
     const foundAnnounce = req.announcement;
     const {img_link, link_to } = req.body;
@@ -60,8 +50,6 @@ router.route('/announcement/:id')
 
     foundAnnounce.img_link = img_link;
     foundAnnounce.link_to = link_to;
->>>>>>> upstream/master
-
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);
     });

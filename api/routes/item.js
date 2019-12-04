@@ -16,19 +16,11 @@ router.route('/item')
     })
   })
   .post((req, res) => {
-<<<<<<< HEAD
-    const { title, unit_price, stock, description, image} = req.body;
+    const { title, unit_price, stock, description, image, sale} = req.body;
 
     const manager = getManager();
-    const item = manager.create(Item, { title, unit_price, stock, description, image});
-    
-=======
-    const { title, unit_price, stock, description, image, sale, order_item, tag } = req.body;
+    const item = manager.create(Item, { title, unit_price, stock, description, image, sale});
 
-    const manager = getManager();
-    const item = manager.create(Item, { title, unit_price, stock, description, image, sale, order_item, tag });
-
->>>>>>> upstream/master
     //item.user = req.user;
 
 

@@ -6,11 +6,6 @@ import User from '../entities/user';
 const router = Router();
 router.route('/signup')
 //   .all(isAuthenticated)
-.get((req, res) => {
-  res.send("guccimate"); //@@ why todos?
-})
-
-
 .post((req, res) => {
   const { firstname, lastname, email, password } = req.body;
   console.log(firstname);
@@ -33,30 +28,12 @@ router.route('/signup/:id')
   }, () => {
     res.send(404);
   });
-<<<<<<< HEAD
-
-})
-
-
-
-.put((req, res) => {
-  const foundUser = req.user;
-  const {  firstname, lastname, credit_card_number, email, password, address } = req.body;
-
-  foundUser.firstname = firstname;
-  foundUser.lastname = lastname;
-  foundUser.credit_card_number = credit_card_number;
-  foundUser.email = email;
-  foundUser.password = password;
-  foundUser.address = address;
-=======
 
 })
 
 .put((req, res) => {
   const foundUser = req.user;
   const {  firstname, lastname, email, password } = req.body;
->>>>>>> upstream/master
 
   foundUser.firstname = firstname;
   foundUser.lastname = lastname;
