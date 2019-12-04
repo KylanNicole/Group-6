@@ -1,6 +1,7 @@
 <template>
-  <div class="order" style="margin-left:40px; background-color: rgba(82, 45, 26, 0.8);">
-    <h2><b>Order Number:</b> {{id}}</h2>
+  <div class="order">
+    <h2>Order ID: {{id}}</h2>
+    <button>Claim</button>
     <button @click="clickMethod">Details</button>
     <div :class="{hide : hideDetails}">
       <p><b>Price:</b> ${{total_cost}}</p>
@@ -46,7 +47,11 @@ div {
   color:white;
 }
 .order {
+
   border: solid 1px #7aa256;
+  /* border: solid 1px black; */
+  overflow: hidden;
+  padding: 5px;
 }
 h2 {
   display: inline;

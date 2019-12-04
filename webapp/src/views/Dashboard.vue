@@ -94,7 +94,7 @@ export default {
   border: solid 1px black;
 }
 
-.manageLink{
+.manageLink {
   float:left;
   margin-left: -1px;
   margin-top: 5px;

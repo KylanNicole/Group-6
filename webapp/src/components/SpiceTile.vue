@@ -1,8 +1,11 @@
 <template>
-    <div class="spice-tile">
+    <div class="spice-tile" v-on:click="toggleDetails">
         <img :src='image'>
         <h4>{{title}}</h4>
-        <router-link to="Spices"><button>EDIT</button></router-link>
+        <router-link to="Spices" v-if="this.$store.state.loginState.loggedIn &&
+        this.$store.state.loginState.user.permission <= 1">
+            <button>EDIT</button>
+        </router-link>
         <button v-on:click="toggleDetails">DETAILS</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
@@ -21,6 +24,7 @@ export default {
         description: String,
         id: Number,
         image: String,
+        sale: Number,
         stock: Number,
         title: String,
         unit_price: Number
