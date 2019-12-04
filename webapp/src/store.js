@@ -144,11 +144,11 @@ export const actions = {
   authorized({ commit }, permReq){
     axios.get("/api/checkLogin").then((response) => {
       if (response.data.permission > permReq) {
-        router.push("/");
+        router.push({path: "/"});
       }
     }).catch((error) => {
       if (error.response && error.response.status == 401){
-        router.push("/");
+        router.push({path: "/"});
       }
     })
   },

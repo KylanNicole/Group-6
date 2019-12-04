@@ -1,5 +1,5 @@
 <template>
-  <div class="CustomerAccount">
+  <div class="CustomerAccount" v-if="this.$store.dispatch('authorized', 2)">
     <h1><b>Past Orders</b></h1>
     <br />
     <table>

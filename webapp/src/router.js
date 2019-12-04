@@ -61,7 +61,7 @@ export default new Router({
       component: BannerEdit
     },
     {
-      path: "/Spices",
+      path: "/Spices/:id",
       name: "Spices",
       component: SpiceManage
     },

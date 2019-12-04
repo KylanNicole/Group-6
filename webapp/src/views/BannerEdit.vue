@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="this.$store.dispatch('authorized', 1)">
   <div style="border: solid 1px black; width: 50%; padding: 10px;">
   <!-- <button>X</button> -->
   <section>

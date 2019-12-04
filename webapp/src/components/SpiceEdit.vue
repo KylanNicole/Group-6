@@ -39,7 +39,8 @@ export default {
         stock: Number,
         description: String,
         image: String,
-        sale: Number
+        sale: Number,
+        active: Boolean
     },
     data() {
         return {
@@ -55,6 +56,11 @@ export default {
                 image: this.image,
                 sale: this.sale
             }
+        }
+    },
+    created() {
+        if(this.active) {
+            this.updateSpice();
         }
     },
     methods: {

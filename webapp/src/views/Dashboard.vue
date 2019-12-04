@@ -1,6 +1,5 @@
 <template>
   <div v-if="this.$store.dispatch('authorized', 2)" class="section" >
-
     <div id="accountInfo">
       <p>
         <b>Name:</b> {{this.$store.state.loginState.user.firstname + " " + this.$store.state.loginState.user.lastname}}<br>
@@ -8,20 +7,22 @@
         <b>Account Permissions:</b> {{this.permStr[this.$store.state.loginState.user.permission]}}<br>
       </p>
     </div>
-    <router-link to="/manage/staff">
-      <div class="manageLink" v-if="this.$store.state.loginState.user.permission <= 0">Manage Staff</div>
-    </router-link>
-    <router-link to="/manage/orders" v-if="this.$store.state.loginState.user.permission <= 2">
-      <div class="manageLink">Manage Orders</div>
-    </router-link>
-    <router-link to="/manage/banner" v-if="this.$store.state.loginState.user.permission <= 1">
-      <div class="manageLink">Manage Banners</div>
-    </router-link>
-    <router-link to="/Spices" v-if="this.$store.state.loginState.user.permission <= 1">
-      <div class="manageLink">Manage Spices</div>
-    </router-link>
+    <div id="manage-nav">
+      <router-link to="/manage/staff">
+        <div class="manageLink" v-if="this.$store.state.loginState.user.permission <= 0">Manage Staff</div>
+      </router-link>
+      <router-link to="/manage/orders" v-if="this.$store.state.loginState.user.permission <= 2">
+        <div class="manageLink">Manage Orders</div>
+      </router-link>
+      <router-link to="/manage/banner" v-if="this.$store.state.loginState.user.permission <= 1">
+        <div class="manageLink">Manage Banners</div>
+      </router-link>
+      <router-link :to="{name: 'Spices', params: {id: 0}}" v-if="this.$store.state.loginState.user.permission <= 1">
+        <div class="manageLink">Manage Spices</div>
+      </router-link>
+    </div>
     <hr/>
-    <br>
+    <br/>
     <section v-if="this.$store.state.loginState.user.permission <= 1">
       <b-field label="Create New Alert">
         <b-input type="textarea" v-model="text" />
@@ -94,6 +95,10 @@ export default {
   border: solid 1px black;
 }
 
+#manage-nav {
+  display: inline-block;
+}
+
 .manageLink {
   float:left;
   margin-left: -1px;
@@ -119,6 +124,14 @@ button {
   border-radius: 0;
   color: #7aa256;
   cursor: pointer;
+}
+
+hr {
+  margin: 0;
+  background-color: darkgray;
+  display: block;
+  width: 100%;
+  height: 1px;
 }
 
 ul {
