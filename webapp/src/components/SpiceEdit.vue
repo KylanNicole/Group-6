@@ -9,6 +9,8 @@
             <input type="text" v-model="updatedInfo.title"/>
             <p>Unit Price</p>
             <input type="text" v-model="updatedInfo.unit_price"/>
+            <p>Sale Amount</p>
+            <input type="text" v-model="updatedInfo.sale"/>
             <p>Stock Amount</p>
             <input type="text" v-model="updatedInfo.stock"/>
             <p>Description</p>
@@ -35,7 +37,8 @@ export default {
         unit_price: Number,
         stock: Number,
         description: String,
-        image: String
+        image: String,
+        sale: Number
     },
     data() {
         return {
@@ -48,7 +51,8 @@ export default {
                 unit_price: this.unit_price,
                 stock: this.stock,
                 description: this.description,
-                image: this.image
+                image: this.image,
+                sale: this.sale
             }
         }
     },

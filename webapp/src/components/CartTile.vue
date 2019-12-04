@@ -9,7 +9,7 @@
                 <option default>g</option>
                 <option>oz</option>
             </select>
-            <p style="margin: 0">Price: ${{(spice.unit_price * amount).toFixed(2)}}</p>
+            <p style="margin: 0">Price: ${{(spice.unit_price * amount * (1.0 - spice.sale)).toFixed(2)}}</p>
         </div>
     </div>
 </template>

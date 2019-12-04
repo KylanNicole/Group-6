@@ -9,7 +9,7 @@ import {
   } from 'typeorm';
   import Order_Item from './order_item';
   import Tag from './tag';
-  
+
   @Entity()
   export default class Item {
     @PrimaryGeneratedColumn()
@@ -17,19 +17,22 @@ import {
 
     @Column( { type: 'varchar' })
     title
-  
+
     @Column({ type: 'int' })
     unit_price
-  
+
     @Column({ type: 'int' })
     stock
-  
+
     @Column({ type: 'varchar' })
     description
-  
+
     @Column({ type: 'varchar' })
     image
-  
+
+    @Column({ type: 'float', default: () => 0.0})
+    sale
+
     @OneToMany( () => Order_Item, (order_item) => order_item.item )
     order_item
 
@@ -40,4 +43,3 @@ import {
     // @OneToMany(() => ToDo, (todo) => todo.user, { eager: true })
     // todos
   }
-  
