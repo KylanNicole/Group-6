@@ -24,26 +24,26 @@ router.route('/order')
   //       res.send(404); 
   //     } )
   // })
-  .get((req, res) => {
-    // debugger
-    getRepository(Order_).find(
-      { where: { user: req.user.id } }
-    ).then((_foundOrder) => {
-      // debugger
-      res.send(_foundOrder);
+  // .get((req, res) => {
+  //   // debugger
+  //   getRepository(Order_).find(
+  //     { where: { user: req.user.id }}
+  //   ).then((_foundOrder) => {
+  //     // debugger
+  //     res.send(_foundOrder);
 
-      // req.order = _foundOrder;
-      // next();
-    }, () => {
-      debugger
-      res.send(404);
-    });
-  })
+  //     // req.order = _foundOrder;
+  //     // next();
+  //   }, () => {
+  //     debugger
+  //     res.send(404);
+  //   });
+  // })
   
   .post((req, res) => {
     const { total_cost, total_weight, order_status, staff } = req.body;
     const manager = getManager();
-    const order = manager.create(Order_, { total_cost, total_weight, order_status, staff });
+    const order = manager.create(Order_, { total_cost, total_weight, order_status, staff_id: 9, address : "someone house" });
     order.user = req.user;
     manager.save(order).then((savedOrder) => {
       res.send(savedOrder);
