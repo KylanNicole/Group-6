@@ -5,9 +5,16 @@ import Tag from '../entities/tag';
 
 const router = Router();
 router.route('/tag')
-  .all(isAuthenticated)
+  //.all(isAuthenticated)
   .get((req, res) => {
-    res.send(req.user.tag); //@@ why todos?
+    //res.send(req.user.tag); //@@ why todos?
+    // res.send("hello");
+    const tagManager = getManager();
+    tagManager.find(Tag).then((foundTags) => {
+      res.send(foundTags);
+    }, () => {
+      res.sendStatus(404);
+    })
   })
   .post((req, res) => {
     const { title } = req.body;
@@ -19,9 +26,9 @@ router.route('/tag')
     });
   });
 
-  
+
 router.route('/tag/:id')
-  .all(isAuthenticated)
+  //.all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Tag).findOneOrFail(
       { where: { id: req.params.id } },
@@ -36,10 +43,10 @@ router.route('/tag/:id')
     const foundTag = req.tag;
     const { title, item } = req.body;
 
-    foundTag.title = title; 
-    foundTag.item = item; 
-    
-  
+    foundTag.title = title;
+    foundTag.item = item;
+
+
     getManager().save(foundTag).then((updatedTag) => {
       res.send(updatedTag);
     });

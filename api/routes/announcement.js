@@ -8,7 +8,7 @@ import Announcement from '../entities/announcement';
 
 const router = Router();
 router.route('/announcement')
-  // .all(isAuthenticated)
+  .all(isAuthenticated)
 
   .get((req, res) => {
 
@@ -21,9 +21,9 @@ router.route('/announcement')
 
   })
   .post((req, res) => {
-    const { title, description, link, color } = req.body;
+    const { img_link, link_to } = req.body;
     const manager = getManager();
-    const announce = manager.create(Announcement, { title, description, link, color });
+    const announce = manager.create(Announcement, { img_link, link_to });
 
     manager.save(announce).then((savedannounce) => {
       res.send(savedannounce);
@@ -47,18 +47,13 @@ router.route('/announcement/:id')
   })
 
 
-
-
   .put((req, res) => {
     const foundAnnounce = req.announcement;
-    const {title, description, link, color } = req.body;
+    const {img_link, link_to } = req.body;
+    
 
-
-    foundannounce.title = title;
-    foundannounce.description = description;
-    foundannounce.link = link;
-    foundannounce.color = color;
-
+    foundAnnounce.img_link = img_link;
+    foundAnnounce.link_to = link_to; 
 
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);
@@ -66,6 +61,7 @@ router.route('/announcement/:id')
   })
 
   .get((req, res) => {
+    debugger;
     res.send(req.announcement);
   })
 
