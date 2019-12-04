@@ -13,6 +13,7 @@
             <input type="text" placeholder="Image URL" v-model="newSpice.image"/>
             <textarea placeholder="Description" v-model="newSpice.description"/>
             <input type="text" placeholder="Unit Price" v-model="newSpice.unit_price"/>
+            <input type="text" placeholder="Sale Amount" v-model="newSpice.sale"/>
             <input type="text" placeholder="Stock Amount" v-model="newSpice.stock"/>
             <button @click="addSpice">ADD</button>
             <button @click="clearInput">CANCEL</button>
@@ -59,7 +60,8 @@ export default {
                 unit_price: "",
                 stock: "",
                 description: "",
-                image: ""
+                image: "",
+                sale: ""
             }
         }
     }
@@ -96,7 +98,7 @@ button:hover {
 #spice-form {
     width: 40%;
     margin: auto;
-    
+
     padding: 15px;
 }
 
