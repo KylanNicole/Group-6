@@ -46,9 +46,10 @@ export default new Router({
       component: Staff
     },
     {
-      path: "/Shop",
+      path: "/Shop/:item?",
       name: "Shop",
-      component: Shop
+      component: Shop,
+      props: true
     },
     {
       path: "/manage/orders",

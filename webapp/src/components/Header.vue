@@ -15,7 +15,7 @@
       </div>
       <div v-else style="display: inline">
         <button @click="toggleLogin" class="user-button">LOGIN</button>
-        
+
       </div>
       <Login ref="login"/>
       <button @click="toggleCart" class="user-button">CART</button>
@@ -25,16 +25,16 @@
       <router-link v-if="this.$store.state.loginState.loggedIn &&
       this.$store.state.loginState.user.permission < 3" to="/dashboard" style="margin: 0">
         <button class="user-button">DASHBOARD</button>
-        
+
       </router-link>
     </div>
 
     <div id="links">
       <div class="center">
-      <router-link :to="{ name: 'Shop', params: { tag: 'spice'}}">SPICES</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'herb'}}">HERBS</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'salt'}}">SALTS</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
+      <router-link :to="{ name: 'Shop' }">SPICES</router-link>
+      <router-link :to="{ name: 'Shop', params: { itags: ['herb']}}">HERBS</router-link>
+      <router-link :to="{ name: 'Shop', params: { item: 'salt' }}">SALTS</router-link>
+      <router-link :to="{ name: 'Shop', params: { itags: ['flavor']}}">FLAVORS</router-link>
       </div>
     </div>
   </div>

@@ -20,7 +20,7 @@
             </div>
         </div>
         <div>
-            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" v-if="spice.stock > 0"/>
+            <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" v-bind:visible="$route.params.item == spice.title" v-if="spice.stock > 0"/>
         </div>
     </div>
 </template>
@@ -31,6 +31,9 @@ export default {
     name: "Shop",
     components: {
         SpiceTile
+    },
+    props: {
+      itags: {type: Array, default: function() {return []}}
     },
     computed: {
       getSpices() {
@@ -100,7 +103,7 @@ export default {
               {id: 2, name: "Price (Low-High)"},
               {id: 3, name: "Price (High-Low)"}
             ],
-            tags: [],
+            tags: this.itags,
             sortby: 0,
             spices: [],
             search: ""

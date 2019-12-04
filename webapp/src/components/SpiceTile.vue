@@ -27,7 +27,8 @@ export default {
         sale: Number,
         stock: Number,
         title: String,
-        unit_price: Number
+        unit_price: Number,
+        visible: {type: Boolean, default: false}
     },
     methods: {
         toggleDetails() {
@@ -37,7 +38,7 @@ export default {
     },
     data() {
         return {
-            hideDetails: true,
+            hideDetails: !this.visible,
             tags: []
         }
     }

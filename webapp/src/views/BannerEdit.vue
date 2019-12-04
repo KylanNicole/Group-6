@@ -1,39 +1,44 @@
 <template>
-<div>
-  <div style="border: solid 1px black; width: 50%; padding: 10px;">
-  <!-- <button>X</button> -->
-  <section>
-    <h3>Banner Creation</h3>
-    <b-field label="Image Link">
-      <b-input
-      v-model="img_link"
-      placeholder="Image Link"
-      required
-      ></b-input>
-    </b-field>
+  <div>
+    <div style="border: solid 1px black; width: 50%; padding: 10px;">
+      <!-- <button>X</button> -->
+      <section>
+        <h3>Banner Creation</h3>
+        <b-field label="Image Link">
+          <b-input
+          v-model="img_link"
+          placeholder="Image Link"
+          required
+          ></b-input>
+        </b-field>
 
-    <b-field label="Link To...">
-      <b-input
-      v-model="link_to"
-      placeholder="Link to what page"
-      required
-      ></b-input>
-    </b-field>
+        <b-field label="Link To...">
+          <b-input
+          v-model="link_to"
+          placeholder="Link to what page"
+          required
+          ></b-input>
+        </b-field>
 
 
-    <button v-on:click="createBanner()">Save Banner</button>
-  </section>
-</div>
-<br>
-<h3> Current Banners</h3>
-    <div>
-      <ul v-for="b in this.$store.state.banners">
-        <li>
-      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to" v-bind:id="b.id"/>
-      </li>
-        </ul>
+        <button v-on:click="createBanner()">Save Banner</button>
+      </section>
     </div>
-</div>
+    <br>
+    <h3> Current Banners</h3>
+    <div>
+      <ul v-for="i in banners.length">
+        <li>
+          <banner v-on:changed="getBanners()" v-bind:img_link="banners[banners.length-i].img_link" v-bind:link_to="banners[banners.length-i].link_to" v-bind:id="banners[banners.length-i].id"/>
+        </li>
+      </ul>
+      <!-- <ul v-for="b in this.$store.state.banners">
+        <li>
+          <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to" v-bind:id="b.id"/>
+        </li>
+      </ul> -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -45,7 +50,15 @@ export default {
   },
   methods: {
     createBanner: function(){
-      this.$store.dispatch("addBanner", {img_link: this.img_link, link_to: this.link_to,})
+      this.$store.dispatch("addBanner", {img_link: this.img_link, link_to: this.link_to,}).then(() => {
+          this.getBanners();
+      });
+    },
+    getBanners: function(){
+      this.$store.dispatch("getBanners").then(() => {
+        this.banners = this.$store.state.banners;
+        this.$forceUpdate();
+      });
     }
   },
   data(){
@@ -55,6 +68,9 @@ export default {
       banners: []
     }
   },
+  created(){
+    this.getBanners();
+  }
   // created(){
   //   this.$store.dispatch("getBanners").then((response) => {
   //     this.banners = response;
