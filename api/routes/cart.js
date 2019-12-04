@@ -48,6 +48,8 @@ router.route('/cart')
         myOrder.order_status = 3; 
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
+        }, ()=> {
+            res.send(400);
         })
 
     })
