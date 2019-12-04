@@ -15,15 +15,20 @@ router.route('/cart')
     const manager = getManager(); 
 
     const { address, order_items } = req.body;
-
-    let itemPromises = order_items.filter((item) => {
-        return getRepository(Item).findOneOrFail(item.spice.id).then((myItem) => {
+    let itemPromises = order_items.map((item) => {
+        let order_item = manager.create(Order_Item);
+        return getRepository(Item).findOneOrFail(item.spice.id).then((spice) => {
             debugger;
             let item_weight = item.amount;
-            
-            myItem.stock = myItem.stock - item_weight;
-            return getManager().save(myItem);
+            let item_cost = spice.unit_price * item.amount;
+            order_item.cost = item_cost;
+            order_item.weight = item.amount;
+            order_item.item = spice;
+            spice.stock = spice.stock - item_weight;
+            getManager().save(spice)
+            return order_item;
         })
+        
     })
 
     let totalCost = 0;
@@ -32,29 +37,18 @@ router.route('/cart')
         totalWeight += item.amount;
         totalCost += item.spice.unit_price * item.amount * (1.0 - item.spice.sale);
     })
-    
+
     return Promise.all(itemPromises).then((orderItems) => {
         debugger;
         let myOrder = manager.create(Order_);
         myOrder.total_cost = totalCost;
         myOrder.total_weight = totalWeight;
         myOrder.address = address; 
-        myOrder.order_items = orderItems; 
+        myOrder.order_items = orderItems;
         myOrder.user = req.user;
         myOrder.staff_id = 2; 
         myOrder.order_status = 3;
         return getManager().save(myOrder).then((savedOrder) => {
-            order_items.filter(item => {
-                return getRepository(Item).findOneOrFail(item.spice.id).then((myItem) => {
-                    let item_cost = myItem.unit_price * item.amount;
-                    let order_item = manager.create(Order_Item);
-                    order_item.cost = item_cost;
-                    order_item.weight = item.amount;
-                    order_item.item = myItem;
-                    order_item.order = myOrder;
-                    getManager().save(order_item);
-                })
-            })
             res.send(savedOrder);
         })
 
