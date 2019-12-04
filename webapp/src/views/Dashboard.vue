@@ -3,9 +3,9 @@
 
     <div id="accountInfo">
       <p>
-        Name: {{this.$store.state.loginState.user.firstname + " " + this.$store.state.loginState.user.lastname}}<br>
-        Email: {{this.$store.state.loginState.user.email}}<br>
-        Account Permissions: {{this.permStr[this.$store.state.loginState.user.permission]}}<br>
+        <b>Name:</b> {{this.$store.state.loginState.user.firstname + " " + this.$store.state.loginState.user.lastname}}<br>
+        <b>Email:</b> {{this.$store.state.loginState.user.email}}<br>
+        <b>Account Permissions:</b> {{this.permStr[this.$store.state.loginState.user.permission]}}<br>
       </p>
     </div>
     <router-link to="/manage/staff">
@@ -88,9 +88,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #accountInfo {
-  background-color: #aaaaaa;
+  background-color: white;
+  border: solid 1px black;
 }
 
 .manageLink {

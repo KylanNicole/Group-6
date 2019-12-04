@@ -7,7 +7,7 @@
       </div>
     </router-link>
     <br>
-    <b-field label="Add Staff Member">
+    <b-field label="Add Staff Member" style="margin-left:5px;">
       <br>
       <b-input
       type="email"
@@ -59,5 +59,58 @@
     created(){
       this.getAccounts();
     }
-  };
-  </script>
+};
+</script>
+
+<style scoped>
+#accountInfo{
+  background: #6e795d;
+  border-radius: 5px;
+  color: #eeeeee;
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+.manageLink{
+  float:left;
+  margin-left: 5px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+.manageLink:hover {
+  color: #9ad466;
+}
+
+button {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+}
+li {
+  display: inline-block;
+  margin: 10px;
+}
+
+br{
+  display:block;
+  margin:5px;
+}
+
+</style>

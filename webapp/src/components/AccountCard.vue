@@ -44,4 +44,43 @@ export default {
 div{
   float: bottom;
 }
+#accountInfo{
+  background: #6e795d;
+  border-radius: 5px;
+  color: #eeeeee;
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+.manageLink{
+  /* float:left; */
+  margin-left: -1px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+button {
+  margin-left: -1px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+}
+li {
+  /* display: inline-block; */
+  margin: 10px;
+}
 </style>
