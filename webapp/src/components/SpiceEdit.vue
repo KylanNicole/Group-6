@@ -1,7 +1,8 @@
 <template>
     <div class="edit">
         <h1>{{title}}</h1>
-        <button @click="updateSpice">{{editText}}</button>
+        <button @click="updateSpice" >{{editText}}</button>
+        <button @click="cancelUpdate" :class="{hide : hideDetails}">CANCEL</button>
         <button @click="deleteSpice" :class="{hide : !hideWarn}">DELETE</button>
         <div :class="{hide : hideDetails}">
             <hr/>
@@ -9,8 +10,10 @@
             <input type="text" v-model="updatedInfo.title"/>
             <p>Unit Price</p>
             <input type="text" v-model="updatedInfo.unit_price"/>
+            <p>Sale Amount</p>
+            <input type="text" v-model="updatedInfo.sale"/>
             <p>Stock Amount</p>
-            <input type="text" v-model="updatedInfo.stock"/>
+            <input type="text" v-model.number="updatedInfo.stock"/>
             <p>Description</p>
             <textarea v-model="updatedInfo.description"/>
             <p>Image URL</p>
@@ -35,7 +38,8 @@ export default {
         unit_price: Number,
         stock: Number,
         description: String,
-        image: String
+        image: String,
+        sale: Number
     },
     data() {
         return {
@@ -48,7 +52,8 @@ export default {
                 unit_price: this.unit_price,
                 stock: this.stock,
                 description: this.description,
-                image: this.image
+                image: this.image,
+                sale: this.sale
             }
         }
     },
@@ -61,6 +66,10 @@ export default {
                 this.$store.dispatch("updateSpice", this.updatedInfo);
             }
             this.$emit('changed');
+        },
+        cancelUpdate() {
+            this.hideDetails = !this.hideDetails;
+            this.editText = this.hideDetails ? "UPDATE" : "SAVE";
         },
         deleteSpice() {
             this.hideDetails = true;

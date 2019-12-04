@@ -8,6 +8,10 @@ import Announcement from '../entities/announcement';
 
 const router = Router();
 router.route('/announcement')
+<<<<<<< HEAD
+=======
+  // .all(isAuthenticated)
+>>>>>>> master
 
   .get((req, res) => { // @@why do we need req here?? error will be thrown otherwise. 
 
@@ -36,9 +40,6 @@ router.route('/announcement')
     });
   });
 
-
-
-
 router.route('/announcement/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
@@ -52,10 +53,6 @@ router.route('/announcement/:id')
     });
   })
 
-
-
-
-
   .put((req, res) => {
     if (req.user.permission == 3){
       res.sendStatus(401);
@@ -63,10 +60,10 @@ router.route('/announcement/:id')
     }
     const foundAnnounce = req.announcement;
     const {img_link, link_to } = req.body;
-    
+
 
     foundAnnounce.img_link = img_link;
-    foundAnnounce.link_to = link_to; 
+    foundAnnounce.link_to = link_to;
 
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);
@@ -79,11 +76,21 @@ router.route('/announcement/:id')
   })
 
   .delete((req, res) => {
+<<<<<<< HEAD
     getManager().delete(Announcement, req.announcement.id).then(() => {
       res.send(200);
     }, () => {
       res.send(400); 
     });
+=======
+    if (req.user.permission <= 1){
+      getManager().delete(Announcement, req.announcement.id).then(() => {
+        res.sendStatus(200);
+      });
+    } else {
+      res.sendStatus(401);
+    }
+>>>>>>> master
   });
 
-export default router;
+  export default router;

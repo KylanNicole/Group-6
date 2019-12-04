@@ -49,8 +49,6 @@ app.use(cart);
 app.use(item_tag);
 
 
-
-
 // app.use(todo);
 
 // respond with "hello world" when a GET request is made to the homepage

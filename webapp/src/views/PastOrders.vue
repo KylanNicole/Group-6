@@ -7,7 +7,6 @@
         <tr v-for="order in orders" :key="order">
           <!-- <td><b>Order ID:</b> {{ order.uid }}</td> -->
           <td><Order :id="order.uid" :total_cost="order.total_cost" :total_weight="order.total_weight" :item_list="order.item_list" :status="order.status" :customer_id="order.customer_id"></Order></td>
-          <td><button>Claim</button></td>
         </tr>
       </tbody>
     </table>
@@ -64,3 +63,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+button {
+  margin-left: -1px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+</style>

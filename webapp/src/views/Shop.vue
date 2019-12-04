@@ -2,6 +2,11 @@
     <div>
         <div class="filter">
             <h2>FILTERS</h2>
+            <b-field label="Search">
+              <b-input
+              v-model="search">
+              </b-input>
+            </b-field>
             <hr>
             <p>Sort By:</p>
             <select v-model="sortby">
@@ -43,14 +48,18 @@ export default {
       },
       getTags() {
         return this.$store.state.tags;
+      },
+      selectedTags() {
+        return [this.$route.params.tag];
       }
     },
     methods: {
       filterSpices(spices){
         return spices.filter( spice => {
-          return !this.tags.length || this.tags.filter(tag => {
+          return (!this.tags.length || this.tags.filter(tag => {
               return spice.description.toLowerCase().includes(tag) > 0
-            }).length == this.tags.length
+            }).length == this.tags.length) && (spice.title.toLowerCase().includes(this.search.toLowerCase()) ||
+            spice.description.toLowerCase().includes(this.search.toLowerCase()));
         })
       },
       priceSortAscend:function(a, b) {
@@ -94,6 +103,7 @@ export default {
             tags: [],
             sortby: 0,
             spices: [],
+            search: ""
         }
     }
 }
