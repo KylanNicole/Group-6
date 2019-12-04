@@ -8,8 +8,7 @@
             <ShippingInfo></ShippingInfo>
             <BillingInfo></BillingInfo>
             <br>
-            <button v-if="cartItems.length > 0">Place Order</button>
-        
+            <button v-if="cartItems.length > 0" @click="sendOrder">Place Order</button>
         </div>
     </div>
 </template>
@@ -30,6 +29,11 @@ export default {
         cartItems() {
             return this.$store.state.cart;
         },
+    },
+    methods: {
+        sendOrder() {
+            this.$store.dispatch("sendOrder");
+        }
     },
     data() {
         return {

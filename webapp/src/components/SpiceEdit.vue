@@ -1,7 +1,8 @@
 <template>
     <div class="edit">
         <h1>{{title}}</h1>
-        <button @click="updateSpice">{{editText}}</button>
+        <button @click="updateSpice" >{{editText}}</button>
+        <button @click="cancelUpdate" :class="{hide : hideDetails}">CANCEL</button>
         <button @click="deleteSpice" :class="{hide : !hideWarn}">DELETE</button>
         <div :class="{hide : hideDetails}">
             <hr/>
@@ -65,6 +66,10 @@ export default {
                 this.$store.dispatch("updateSpice", this.updatedInfo);
             }
             this.$emit('changed');
+        },
+        cancelUpdate() {
+            this.hideDetails = !this.hideDetails;
+            this.editText = this.hideDetails ? "UPDATE" : "SAVE";
         },
         deleteSpice() {
             this.hideDetails = true;
