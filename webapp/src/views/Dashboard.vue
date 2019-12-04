@@ -91,8 +91,9 @@ export default {
 <style>
 #accountInfo {
   background-color: #aaaaaa;
+}
 
-.manageLink{
+.manageLink {
   float:left;
   margin-left: -1px;
   margin-top: 5px;
