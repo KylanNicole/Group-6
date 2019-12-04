@@ -8,9 +8,9 @@
             <p>Name</p>
             <input type="text" v-model="updatedInfo.title"/>
             <p>Unit Price</p>
-            <input type="text" v-model="updatedInfo.unit_price"/>
+            <input type="text" v-model.number="updatedInfo.unit_price"/>
             <p>Stock Amount</p>
-            <input type="text" v-model="updatedInfo.stock"/>
+            <input type="text" v-model.number="updatedInfo.stock"/>
             <p>Description</p>
             <textarea v-model="updatedInfo.description"/>
             <p>Image URL</p>
