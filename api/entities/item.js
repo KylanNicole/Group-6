@@ -18,10 +18,10 @@ import {
     @Column( { type: 'varchar' })
     title
   
-    @Column({ type: 'float' })
+    @Column({ type: 'int' })
     unit_price
   
-    @Column({ type: 'float' })
+    @Column({ type: 'int' })
     stock
 
     @Column({ type: 'varchar' })
@@ -30,7 +30,7 @@ import {
     @Column({ type: 'varchar' })
     image
 
-    @Column({ type: 'float', default: () => 0.0})
+    @Column({ type: 'int', default: () => 0})
     sale
 
     @OneToMany( () => Order_Item, (order_item) => order_item.item )
