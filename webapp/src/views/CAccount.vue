@@ -1,17 +1,14 @@
 <template>
-  <div class="CustomerAccount">
+  <div class="CustomerAccount" v-if="this.$store.dispatch('authorized', 3)">
     <h1>My Account</h1>
-    <h3>Name: {{ user_data[0].f_name }} {{ user_data[0].l_name }}</h3>
-    <h3>Email: {{ user_data[0].email }}</h3>
+    <h3>Name: {{ this.$store.state.loginState.user.firstname }} {{ this.$store.state.loginState.user.lastname }}</h3>
+    <h3>Email: {{ this.$store.state.loginState.user.email }}</h3>
     <br />
-    <h2>My Orders</h2>
+    <h2 style="font-size:24pt; text-align:center; color:#da782f;">My Orders</h2>
     <table>
       <tbody>
         <tr v-for="order in orders" :key="order">
-          <td>{{ order.total_cost }}</td>
-          <td>{{ order.total_weight }}</td>
-          <td>{{ order.item_list }}</td>
-          <td>{{ order.status }}</td>
+          <td><Order :id="order.uid" :total_cost="order.total_cost" :total_weight="order.total_weight" :item_list="order.item_list" :status="order.status" :customer_id="order.customer_id"></Order></td>
         </tr>
       </tbody>
     </table>
@@ -19,22 +16,14 @@
 </template>
 
 <script>
+import Order from "@/components/Order.vue"
 export default {
   name: "custaccount",
+  components: {
+    Order
+  },
   data: function() {
     return {
-      user_data: [
-        {
-          uid: 0,
-          f_name: "Beanut",
-          l_name: "Putter",
-          ccid: 123,
-          address_id: 4,
-          email: "mchammer@email.com",
-          Pass: "youcanttouchthis",
-          Permission: 0
-        }
-      ],
       orders: [
         {
           uid: 1,
@@ -64,6 +53,15 @@ export default {
 
 <style scoped>
 div {
-  background-color: #8d9b77;
+  /* background-color: #8d9b77; */
+}
+h1{
+  text-align: center;
+  color: #da782f;
+  font-size: 62pt;
+}
+h3{
+  font-size: 18pt;
+  margin-left: 40px;
 }
 </style>

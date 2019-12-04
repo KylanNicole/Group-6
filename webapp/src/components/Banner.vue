@@ -1,16 +1,16 @@
 <template>
-    <!-- <div :style="background-color:'banner_data.color'"> -->
-        <div>
-        <div>
-        <h3> {{ banner_data.title }}</h3>
-        <p>{{ banner_data.description }}</p>
-        </div>
-        <div>
-        <router-link :to="banner_data.link_to" style="margin: 0">
-            <img :src="banner_data.img_link"/>
-        </router-link>
-        </div>
+  <div>
+      <div v-if="this.$store.state.loginState.loggedIn &&
+      this.$store.state.loginState.user.permission < 2" to="/dashboard" style="float:right;">
+        <button @click="deleteBanner">DELETE</button>
     </div>
+
+    <router-link :to="link_to" style="margin: 0">
+      <img :src="img_link"/>
+      <br>
+    </router-link>
+    <br>
+  </div>
 </template>
 
 <script>
@@ -18,25 +18,40 @@ export default {
   name: "Banner",
   data() {
     return {
-      hideDetails: true,
-      banner_data:
-        {
-          img_link: "https://i0.kym-cdn.com/entries/icons/facebook/000/022/363/spicymemeee.jpg",
-          link_to: "/Shop"
-        }
+      updatedInfo: {
+          id: this.id,
+          img_link: this.img_link,
+          link_to: this.link_to
+      }
     };
-  }
+  },
+  props: {
+    img_link: String,
+    link_to: String,
+    id: Number
+  },
+    methods: {
+        deleteBanner() {
+            this.$store.dispatch("deleteBanner", this.updatedInfo);
+            this.$emit('changed');
+        }
+    }
 };
 </script>
 
 <style scoped>
 div {
-    width: auto;
-    height: 100px;
-    border-color: darkslategrey;
-    border-radius: 8cm;
+  width: auto;
+  height: 100px;
+  border-color: darkslategrey;
+  border-radius: 8cm;
+  display: block;
 }
-.BigBanner {
-    background-color: #8d9b77; 
+
+button{
+  background:red;
+  border-color:red;
+  border-radius:3px;
+  color:white;
 }
 </style>

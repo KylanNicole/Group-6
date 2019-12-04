@@ -1,13 +1,16 @@
 <template>
-    <div>
+    <div class="spice-tile" v-on:click="toggleDetails">
         <img :src='image'>
         <h4>{{title}}</h4>
-        <button>Edit</button>
-        <button v-on:click="toggleDetails">Details</button>
+        <router-link to="Spices" v-if="this.$store.state.loginState.loggedIn &&
+        this.$store.state.loginState.user.permission <= 1">
+            <button>EDIT</button>
+        </router-link>
+        <button v-on:click="toggleDetails">DETAILS</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
         <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind="{title, image, description, stock, unit_price, tags}"/>
+            <SpiceInfo class="center" v-bind="$props"/>
         </div>
     </div>
 </template>
@@ -21,13 +24,15 @@ export default {
         description: String,
         id: Number,
         image: String,
+        sale: Number,
         stock: Number,
         title: String,
         unit_price: Number
     },
     methods: {
         toggleDetails() {
-            this.$refs.SpiceInfo.modalActive = true;
+            this.hideDetails = !this.hideDetails;
+            //this.$refs.SpiceInfo.modalActive = true;
         }
     },
     data() {
@@ -40,14 +45,13 @@ export default {
 </script>
 
 <style scoped>
-div {
+.spice-tile {
     width: 200px;
     border-radius: 5px;
     background-color: #8d9b77;
     padding: 10px;
     margin: 5px;
     display: inline-block;
-    cursor: pointer;
 }
 img {
     width: 150px;
@@ -61,14 +65,14 @@ h4 {
     text-align: center;
 }
 button {
-    background-color: #cc783c;
+    background-color: transparent;
     color: #fbf3e4;
-    border-color: #cc783c;
-    width: 100%;
-    margin: 5px;
-    font-weight: bold;
+    border: solid 1px #cc783c;
+    margin: 5px 0px 5px -1px;
+    padding: 5px;
+    cursor: pointer;
+    margin: auto;
     display: block;
-    border-radius: 10px;
 }
 .hidden {
     display: none;
@@ -81,10 +85,6 @@ button {
     margin: auto;
     padding: 0;
     background-color: rgba(0, 0, 0, 0);
-}
-.center {
-    display: block;
-    margin: auto;
 }
 .background {
     width: 100%;

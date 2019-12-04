@@ -1,29 +1,116 @@
 <template>
-  <div class="section">
-    <SearchBar/>
-    <br>
-    <AccountCard/>
-    <AccountCard/>
-    <AccountCard/>
-    <br>
+  <div v-if="this.$store.dispatch('authorized', 0)" class="section">
+    <!-- <SearchBar/> -->
     <router-link to="/dashboard">
       <div class="manageLink">
         Back
       </div>
     </router-link>
-  </div>
-</template>
+    <br>
+    <b-field label="Add Staff Member" style="margin-left:5px;">
+      <br>
+      <b-input
+      type="email"
+      v-model="newStaff"
+      placeholder="Staff Email"
+      ></b-input>
+          <button v-on:click="addStaff">Add</button>
+    </b-field>
+    <template v-for="account in accounts">
+      <AccountCard v-on:perm-change="getAccounts()" v-if="account.permission > 0 && account.permission < 3" v-bind:email="account.email" v-bind:firstname="account.firstname" v-bind:lastname="account.lastname" v-bind:perm="account.permission" />
+      </template>
+      <!-- <AccountCard firstname="Alice" lastname="Kwan" email="email@email.com" v-bind:perm="2" /> -->
+      <!-- <AccountCard/>
+      <AccountCard/> -->
+      <br>
+    </div>
+  </template>
 
-<script>
-// @ is an alias to /src
-import SearchBar from "@/components/SearchBar.vue";
-import AccountCard from "@/components/AccountCard.vue";
+  <script>
+  // @ is an alias to /src
+  import SearchBar from "@/components/SearchBar.vue";
+  import AccountCard from "@/components/AccountCard.vue";
 
-export default {
-  name: "staff",
-  components: {
-    SearchBar,
-    AccountCard
-  }
+  export default {
+    name: "staff",
+    components: {
+      SearchBar,
+      AccountCard
+    },
+    methods: {
+      getAccounts: function(){
+        return this.$store.dispatch("getAccounts").then((response) => {
+          this.accounts = response;
+          this.$forceUpdate();
+        });
+      },
+      addStaff: function(){
+        this.$store.dispatch("updatePerm", {email: this.newStaff, perm: 2}).then(() => {
+          this.getAccounts();
+        });
+      }
+    },
+    data(){
+      return {
+        accounts : [],
+        newStaff : ""
+      }
+    },
+    created(){
+      this.getAccounts();
+    }
 };
 </script>
+
+<style scoped>
+#accountInfo{
+  background: #6e795d;
+  border-radius: 5px;
+  color: #eeeeee;
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+.manageLink{
+  float:left;
+  margin-left: 5px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+.manageLink:hover {
+  color: #9ad466;
+}
+
+button {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px #7aa256;
+  border-radius: 0;
+  color: #7aa256;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+}
+li {
+  display: inline-block;
+  margin: 10px;
+}
+
+br{
+  display:block;
+  margin:5px;
+}
+
+</style>

@@ -33,6 +33,7 @@ router.route('/signup/:id')
   }, () => {
     res.send(404);
   });
+<<<<<<< HEAD
 
 })
 
@@ -48,7 +49,19 @@ router.route('/signup/:id')
   foundUser.email = email;
   foundUser.password = password;
   foundUser.address = address;
+=======
 
+})
+
+.put((req, res) => {
+  const foundUser = req.user;
+  const {  firstname, lastname, email, password } = req.body;
+>>>>>>> upstream/master
+
+  foundUser.firstname = firstname;
+  foundUser.lastname = lastname;
+  foundUser.email = email;
+  foundUser.password = password;
 
   getManager().save(foundUser).then((updatedUser) => {
     res.send(updatedUser);

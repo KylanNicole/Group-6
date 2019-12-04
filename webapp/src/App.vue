@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+      <!-- {{this.$store.dispatch("checkLogin")}} -->
       <Header/>
-      <router-view/>
+      <router-view id="router-view"/>
       <Footer/>
       <div class="back-img"></div>
   </div>
@@ -45,6 +46,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   background-color: #fbf3e4;
+}
+
+#router-view {
+  padding-bottom: 60px;
 }
 
 .back-img{

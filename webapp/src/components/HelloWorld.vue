@@ -1,17 +1,34 @@
 <template>
-  <div class="container">
+  <div>
+    <div class="container">
       <img width=100%; src="../assets/background.jpg">
       <div class="top-right">
         <h1>The Spice Cabinet</h1>
       </div>
+
+    </div>
+    <div>
+      <ul v-for="b in this.$store.state.banners">
+        <li>
+      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to" v-bind:id="b.id"/>
+      </li>
+        </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import Banner from "./Banner.vue";
 export default {
   name: "HelloWorld",
+  components: {
+    Banner
+  },
   props: {
     msg: String
+  },
+  created(){
+    this.$store.dispatch("getBanners");
   }
 };
 </script>
@@ -25,6 +42,7 @@ h1{
   text-align:center;
   font-weight: bold;
   background-color: rgba(82, 45, 26, 0.9);
+
 }
 h3 {
   margin: 40px 0 0;
@@ -54,6 +72,8 @@ a {
   position: relative;
   text-align: center;
   color: #fbf3e4;
+
+  background-image: url('../assets/background.jpg');
 }
 .top-right {
   position: absolute;
