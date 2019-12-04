@@ -37,6 +37,9 @@ export default {
     clickMethod() {
       this.hideDetails = !this.hideDetails;
     }
+  },
+  created(){
+    this.$store.dispatch("getOrders");
   }
 };
 </script>
