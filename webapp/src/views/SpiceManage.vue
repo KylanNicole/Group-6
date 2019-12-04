@@ -1,7 +1,7 @@
 <template>
     <div id="manage-spice" v-if="this.$store.dispatch('authorized', 1)">
         <router-link to="/dashboard">
-        <div style="float: left;">
+        <div style="display: block;">
             Back
         </div>
         </router-link>
@@ -15,6 +15,7 @@
             <input type="text" placeholder="Unit Price" v-model="newSpice.unit_price"/>
             <input type="text" placeholder="Sale Amount" v-model="newSpice.sale"/>
             <input type="text" placeholder="Stock Amount" v-model="newSpice.stock"/>
+            <p style="color: red" v-if="this.showReqFields">You must enter a Name, Unit Price, and Image.</p>
             <button @click="addSpice">ADD</button>
             <button @click="clearInput">CANCEL</button>
         </div>
@@ -35,15 +36,21 @@ export default {
     },
     methods: {
         addSpice() {
-            this.$store.dispatch("createSpice", Object.assign({}, this.newSpice));
-            this.clearInput();
-            this.updateSpices();
+            if(this.newSpice.title == "" || this.newSpice.unit_price == "" || this.newSpice.image == "")
+            {
+                this.showReqFields = true;
+            } else {
+                this.$store.dispatch("createSpice", Object.assign({}, this.newSpice));
+                this.clearInput();
+                this.updateSpices();
+            }
         },
         clearInput() {
             for (var attrib in this.newSpice) {
                 this.newSpice[attrib] = "";
             }
             this.hideFields = true;
+            this.showReqFields = false;
         },
         updateSpices() {
             this.$store.dispatch("getItems", "");
@@ -55,6 +62,7 @@ export default {
     data() {
         return {
             hideFields: true,
+            showReqFields: false,
             newSpice:  {
                 title: "",
                 unit_price: "",
@@ -78,20 +86,20 @@ input {
 
 button {
     border: solid 1px #7aa256;
-    margin: 5px;
+    margin: 5px auto 5px auto;
     padding: 5px;
     background-color: white;
     text-align: center;
     color: #7aa256;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
+    display: block;
 }
 
 button:hover {
     color: #9ad466;
 }
 #manage-spice {
-    width: 60%;
     margin: 30px auto;
 }
 

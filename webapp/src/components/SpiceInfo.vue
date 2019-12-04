@@ -18,7 +18,15 @@
                   <option>oz</option>
                 </select>
             <br/>
+                <div v-if="this.sale > 0.0" style="color:red;">
+                <p style="color:red;"> {{" $" + (this.amount * this.unit_price * (1.0 - this.sale)).toFixed(2)}}</p>
+                <br>
+                <p style="text-decoration: line-through;">${{(this.amount * this.unit_price).toFixed(2)}}</p>
+                <p> {{this.sale * 100}}% off!</p>
+                </div>
+                <div v-else>
                 <p>{{getPrice}}</p>
+                </div>
             <br/>
             </form>
               <button @click="addToCart">Add to Cart</button>
