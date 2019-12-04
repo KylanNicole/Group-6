@@ -20,10 +20,12 @@ router.route('/cart')
 
     let itemPromises = Object.keys(order_items).map((itemID) => {
         return getRepository(Item).findOneOrFail(itemID).then((myItem) => {
-            debugger;
+            // debugger;
             let item_weigth = order_items[itemID].weight;
+            let item_percent_sale = myItem.sale; 
             let order_item = manager.create(Order_Item);
             let item_cost = myItem.unit_price * item_weigth; 
+            item_cost = item_cost - (item_cost * (item_percent_sale/100));
             totalWeight += item_weigth;
             totalCost += item_cost;
             order_item.cost = item_cost;
@@ -38,7 +40,6 @@ router.route('/cart')
     
     return Promise.all(itemPromises).then((orderItems) => {
         let myOrder = manager.create(Order_); 
-        debugger;
         myOrder.total_cost = totalCost;
         myOrder.total_weight = totalWeight;
         myOrder.address = address; 

@@ -8,10 +8,7 @@ import Announcement from '../entities/announcement';
 
 const router = Router();
 router.route('/announcement')
-<<<<<<< HEAD
-=======
   // .all(isAuthenticated)
->>>>>>> master
 
   .get((req, res) => { // @@why do we need req here?? error will be thrown otherwise. 
 
@@ -76,13 +73,6 @@ router.route('/announcement/:id')
   })
 
   .delete((req, res) => {
-<<<<<<< HEAD
-    getManager().delete(Announcement, req.announcement.id).then(() => {
-      res.send(200);
-    }, () => {
-      res.send(400); 
-    });
-=======
     if (req.user.permission <= 1){
       getManager().delete(Announcement, req.announcement.id).then(() => {
         res.sendStatus(200);
@@ -90,7 +80,6 @@ router.route('/announcement/:id')
     } else {
       res.sendStatus(401);
     }
->>>>>>> master
   });
 
   export default router;
