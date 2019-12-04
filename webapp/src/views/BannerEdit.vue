@@ -27,9 +27,9 @@
 <br>
 <h3> Current Banners</h3>
     <div>
-      <ul>
-        <li v-for="b in this.$store.state.banners">
-      <banner :img_link="b.img_link" :link_to="b.link_to"/>
+      <ul v-for="b in this.$store.state.banners">
+        <li>
+      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to"/>
       </li>
         </ul>
     </div>
@@ -51,12 +51,15 @@ export default {
   data(){
     return {
       img_link: "",
-      link_to: ""
+      link_to: "",
+      banners: []
     }
   },
-  created(){
-    this.$store.dispatch("getBanners");
-  }
+  // created(){
+  //   this.$store.dispatch("getBanners").then((response) => {
+  //     this.banners = response;
+  //   });
+  // }
 }
 </script>
 
