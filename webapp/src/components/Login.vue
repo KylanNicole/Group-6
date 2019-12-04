@@ -2,14 +2,11 @@
   <div >
     <b-modal :active.sync="modalActive" has-modal-card trap-focus>
       <div class="modal-card" style="width:auto">
-        <!-- <header class="modal-card-head">
-        <p class="modal-card-title">Login</p>
-      </header> -->
-      <section class="login-modal-body">
+        <section class="login-modal-body">
         <section class="modal-card-body">
           <div>
             <span class="has-text-danger" v-if="error">Unsuccessful logging in.</span>
-            <p><b>Existing Login</b></p>
+            <h3><b>Existing Login</b></h3>
             <b-field label="Email">
               <b-input
               type="email"
@@ -29,7 +26,7 @@
               ></b-input>
             </b-field>
           </div>
-          <button v-on:click="login">Login</button>
+          <b-button v-on:click="login">Login</b-button>
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
@@ -93,15 +90,17 @@
           </b-field>
           </div>
           <button v-on:click="signUp">Sign Up</button>
+          </section>
         </section>
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button" type="button" v-on:click="modalActive = false">Close</button>
-      </footer>
-    </div>
+          </div>
 
-  </b-modal>
-</div>
+      <div style="width:100%;">
+        <footer class="modal-card-foot">
+        <button class="button" type="button" v-on:click="modalActive = false">Close</button>
+        </footer>
+      </div>
+    </b-modal>
+  </div>
 </template>
 
 <script>
@@ -150,6 +149,10 @@ div{
   float: left;
   background: #fbf3e4;
 }
+
+h3{
+  font-size:16pt;
+}
 .login-modal-body{
   float: left;
   background: #fbf3e4;
@@ -161,12 +164,17 @@ div{
 }
 .login-modal-foot{
   background: #8d9b77;
+  width: 100%;
 }
 footer {
   background: #8d9b77;
+  width: 100%;
 }
 
 section button {
-  margin-top: 10px;
+  margin-top:50px;
+  float:right;
+  position:sticky;
+  bottom:0;
 }
 </style>
