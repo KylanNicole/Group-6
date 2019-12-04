@@ -1,14 +1,13 @@
 <template>
-  <div class="order">
-    <h2>Order ID: {{id}}</h2>
+  <div class="order" style="margin-left:40px; background-color: rgba(82, 45, 26, 0.8);">
+    <h2><b>Order Number:</b> {{id}}</h2>
     <button @click="clickMethod">Details</button>
     <div :class="{hide : hideDetails}">
-      <p>Price: ${{total_cost}}</p>
-      <p>Weight: {{total_weight}}</p>
-      <p>Status: {{status}}</p>
-      <p>Customer ID: {{customer_id}}</p>
-      <p>Items:</p>
-      <div>
+      <p><b>Price:</b> ${{total_cost}}</p>
+      <p><b>Weight:</b> {{total_weight}}</p>
+      <p><b>Status:</b> {{status}}</p>
+      <p><b>Customer ID:</b> {{customer_id}}</p>
+      <p><b>Items:</b></p>
         <ul v-for="i in item_list.length">
           <li>{{item_list[i-1]}}</li>
         </ul>
@@ -44,10 +43,10 @@ export default {
 <style scoped>
 div {
   width: 1000px;
-  background-color: white;
+  color:white;
 }
 .order {
-  border: solid 1px black;
+  border: solid 1px #7aa256;
 }
 h2 {
   display: inline;
