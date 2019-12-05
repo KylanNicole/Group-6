@@ -46,9 +46,10 @@ export default new Router({
       component: Staff
     },
     {
-      path: "/Shop",
+      path: "/Shop/:item?",
       name: "Shop",
-      component: Shop
+      component: Shop,
+      props: true
     },
     {
       path: "/manage/orders",
@@ -61,9 +62,10 @@ export default new Router({
       component: BannerEdit
     },
     {
-      path: "/Spices",
+      path: "/Spices/:spice?",
       name: "Spices",
-      component: SpiceManage
+      component: SpiceManage,
+      props: true
     },
     {
       path: "/myaccount",
