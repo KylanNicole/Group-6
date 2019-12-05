@@ -1,4 +1,5 @@
 <template>
+
   <div id="manage-spice" v-if="this.$store.dispatch('authorized', 1)">
     <router-link to="/dashboard">
       <div style="display: block;">
@@ -27,6 +28,7 @@
 import SpiceEdit from "@/components/SpiceEdit.vue";
 
 export default {
+
   name: "SpiceManage",
   components: { SpiceEdit },
   computed: {

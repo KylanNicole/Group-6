@@ -8,6 +8,7 @@ import PastOrders from "./views/PastOrders.vue";
 import Shop from "@/views/Shop.vue";
 import BannerEdit from "./views/BannerEdit.vue";
 import SpiceManage from "./views/SpiceManage.vue";
+import OrderPlaced from "./views/OrderPlaced.vue";
 
 Vue.use(Router);
 
@@ -46,10 +47,16 @@ export default new Router({
       component: Staff
     },
     {
+
       path: "/Shop/:item?",
       name: "Shop",
       component: Shop,
       props: true
+    },
+    {
+      path: "/complete",
+      name: "complete",
+      component: OrderPlaced
     },
     {
       path: "/manage/orders",

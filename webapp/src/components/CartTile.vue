@@ -22,14 +22,19 @@ export default {
     },
     methods: {
         deleteItem() {
+            let spiceCopy = Object.assign({}, this.spice);
+            spiceCopy.stock = this.spice.stock + this.amount;
+            this.$store.dispatch("softUpdateSpice", spiceCopy);
             this.$store.dispatch("deleteCartItem", this.index);
         }
     },
     computed: {
-        spice() {
-            return this.$store.state.cart.find(item => {
-                return item.index == this.$props.index
-            }).spice;
+        spice: {
+            get: function() {
+                return this.$store.state.cart.find(item => {
+                    return item.index == this.$props.index
+                }).spice;
+            }
         },
         amount: {
             get: function() {
@@ -38,6 +43,12 @@ export default {
                 }).amount;
             },
             set: function(val) {
+                if(val > this.spice.stock) {
+                    val = this.spice.stock;
+                }
+                let spiceCopy = Object.assign({}, this.spice);
+                spiceCopy.stock = this.spice.stock - val;
+                this.$store.dispatch("softUpdateSpice", spiceCopy)
                 this.$store.dispatch("updateCartItem", {index: this.index, spice: this.spice, amount: val});
             }
         }
