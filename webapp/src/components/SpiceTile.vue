@@ -1,16 +1,17 @@
 <template>
-    <div class="spice-tile" v-on:click="toggleDetails">
-        <img :src='image'>
-        <h4>{{title}}</h4>
-        <router-link :to="{ name: 'Spices', params: { spice: this.id} }" v-if="this.$store.state.loginState.loggedIn &&
-        this.$store.state.loginState.user.permission <= 1">
-            <button>EDIT</button>
-        </router-link>
+    <div class="spice-tile" v-if="spice.stock > 0">
+        <img :src='spice.image'>
+        <h4>{{spice.title}}</h4>
+        <button v-if="this.$store.state.loginState.loggedIn &&
+            this.$store.state.loginState.user.permission <= 1">
+            <router-link :to="{name: 'spices', params: {id: spice.title}}">EDIT</router-link>
+        </button>
+
         <button v-on:click="toggleDetails">DETAILS</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
         <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind="$props"/>
+            <SpiceInfo class="center" v-bind:id="spice.id"/>
         </div>
     </div>
 </template>
@@ -21,14 +22,22 @@ export default {
     name: "SpiceTile",
     components: { SpiceInfo },
     props: {
-        description: String,
-        id: Number,
-        image: String,
-        sale: Number,
-        stock: Number,
-        title: String,
-        unit_price: Number,
-        visible: {type: Boolean, default: false}
+      visible: {type: Boolean, default: false},
+      id: Number
+    },
+    computed: {
+        spice: {
+            get: function() {
+                return this.$store.state.spices.find(spice => {
+                    return (spice.id == this.$props.id)
+                    });
+            },
+            set: function(val) {
+
+            }
+        }
+
+
     },
     methods: {
         toggleDetails() {
@@ -69,11 +78,11 @@ button {
     background-color: transparent;
     color: #fbf3e4;
     border: solid 1px #cc783c;
-    margin: 5px 0px 5px -1px;
     padding: 5px;
     cursor: pointer;
-    margin: auto;
+    margin: 0 auto -1px auto;
     display: block;
+    width: 50%;
 }
 .hidden {
     display: none;
@@ -95,5 +104,10 @@ button {
     left: 0;
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 0;
+}
+a {
+    color: white;
+    width: 100%;
+    height: 100%;
 }
 </style>

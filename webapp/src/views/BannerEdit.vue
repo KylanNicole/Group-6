@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <div style="border: solid 1px black; width: 50%; padding: 10px;">
-      <!-- <button>X</button> -->
-      <section>
-        <h3>Banner Creation</h3>
-        <b-field label="Image Link">
-          <b-input
-          v-model="img_link"
-          placeholder="Image Link"
-          required
-          ></b-input>
-        </b-field>
+<div v-if="this.$store.dispatch('authorized', 1)">
+  <div style="border: solid 1px black; width: 50%; padding: 10px;">
+  <!-- <button>X</button> -->
+  <section>
+    <h3>Banner Creation</h3>
+    <b-field label="Image Link">
+      <b-input
+      v-model="img_link"
+      placeholder="Image Link"
+      required
+      ></b-input>
+    </b-field>
 
         <b-field label="Link To...">
           <b-input

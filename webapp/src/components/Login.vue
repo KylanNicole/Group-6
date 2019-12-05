@@ -57,6 +57,7 @@
             ></b-input>
           </b-field>
 
+
             <b-field label="Confirm Email">
               <b-input
               type="email"
@@ -78,7 +79,8 @@
               required
               ></b-input>
             </b-field>
-
+            
+          </b-field>
             <b-field label="Confirm Password">
               <b-input
               type="password"

@@ -47,6 +47,9 @@ export const mutations = {
   createSpice(state, spice) {
     state.spices = [...state.spices, { ...spice}];
   },
+  softUpdateSpice(state, spice) {
+    state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
+  },
   addToCart(state, item) {
     state.cart = [...state.cart, {... item}];
   },
@@ -56,9 +59,18 @@ export const mutations = {
   updateCartItem(state, item) {
     state.cart = state.cart.map(i => (i.index === item.index ? item : i));
   },
-  getOrders(state, orders){
+  clearCart(state) {
+    state.cart = [];
+  },
+  storeOrders(state, orders) {
     state.orders = orders;
   },
+  updateOrder(state, order) {
+    state.orders = state.orders.map(o => (o.id === order.id ? order : o));
+  },
+  storeAllOrders(state, orders) {
+    state.orders = orders;
+  }
 };
 
 export const actions = {
@@ -147,11 +159,11 @@ export const actions = {
   authorized({ commit }, permReq){
     axios.get("/api/checkLogin").then((response) => {
       if (response.data.permission > permReq) {
-        router.push("/");
+        router.push({path: "/"});
       }
     }).catch((error) => {
       if (error.response && error.response.status == 401){
-        router.push("/");
+        router.push({path: "/"});
       }
     })
   },
@@ -175,6 +187,9 @@ export const actions = {
       commit("deleteSpice", payload);
     })
   },
+  softUpdateSpice:function({commit}, payload) {
+    commit("softUpdateSpice", payload);
+  },
   addToCart: function({commit}, payload) {
     commit("addToCart", payload);
   },
@@ -184,9 +199,24 @@ export const actions = {
   deleteCartItem: function({commit}, payload) {
     commit("deleteCartItem", payload);
   },
-  sendOrder: function({commit}) {
-    return axios.post(`/api/cart/`, Object.assign({}, {address: "none", order_items: this.cart})).then(() => {
-      //commit("clearCart");
+  sendOrder: function({commit}, payload) {
+    return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: this.state.cart})).then(() => {
+      commit("clearCart");
+    })
+  },
+  getOrders: function({commit}) {
+    return axios.get(`/api/order`).then(response => {
+      commit("storeOrders", response.data);
+    })
+  },
+  updateOrder: function({commit}, payload) {
+    return axios.put(`/api/order/${payload.id}`, payload).then(response => {
+      commit("updateOrder", response.data);
+    })
+  },
+  getAllOrders: function({commit}) {
+    return axios.get(`/api/order_all`).then(response => {
+      commit("storeAllOrders", response.data);
     })
   },
   getOrders({commit}, payload){
