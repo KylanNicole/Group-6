@@ -39,8 +39,7 @@ router.route('/cart')
     })
 
     return Promise.all(itemPromises).then((orderItems) => {
-        debugger;
-        let myOrder = manager.create(Order_);
+        let myOrder = manager.create(Order_); 
         myOrder.total_cost = totalCost;
         myOrder.total_weight = totalWeight;
         myOrder.address = address; 
@@ -50,6 +49,8 @@ router.route('/cart')
         myOrder.order_status = 3;
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
+        }, ()=> {
+            res.send(400);
         })
 
     })

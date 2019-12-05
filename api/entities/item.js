@@ -30,7 +30,7 @@ import {
     @Column({ type: 'varchar' })
     image
 
-    @Column({ type: 'float', default: () => 0.0})
+    @Column({ type: 'int', default: () => 0})
     sale
 
     @OneToMany( () => Order_Item, (order_item) => order_item.item )
