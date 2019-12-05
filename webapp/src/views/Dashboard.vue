@@ -17,7 +17,7 @@
       <router-link to="/manage/banner" v-if="this.$store.state.loginState.user.permission <= 1">
         <div class="manageLink">Manage Banners</div>
       </router-link>
-      <router-link :to="{name: 'Spices', params: {id: 0}}" v-if="this.$store.state.loginState.user.permission <= 1">
+      <router-link :to="{name: 'spices', params: {id: 0}}" v-if="this.$store.state.loginState.user.permission <= 1">
         <div class="manageLink">Manage Spices</div>
       </router-link>
     </div>

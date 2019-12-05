@@ -1,34 +1,34 @@
 <template>
     <div class="spice-info">
         <div class="desc">
-            <img :src='image' />
-            <h4>{{title}}</h4>
+            <img :src='spice.image' />
+            <h4>{{spice.title}}</h4>
             <p>
-                {{description}}
+                {{spice.description}}
             </p>
             <p>Tags</p>
-              <p class="tag" v-for="tag in tags">{{tag}}</p>
+              <!--<p class="tag" v-for="tag in tags">{{spice.tag}}</p>-->
         </div>
         <div class="purchase">
             <form>
                 <p>Amount: </p>
-                <input type="number" v-model.number="amount" min="1" :max="stock"/>
+                <input type="number" v-model.number="amount" min="1" :max="spice.stock"/>
                 <select>
                   <option default>g</option>
                   <option>oz</option>
                 </select>
             <br/>
-                <div v-if="this.sale > 0.0" style="color:red;">
-                <p style="color:red;"> {{" $" + (this.amount * this.unit_price * (1.0 - this.sale)).toFixed(2)}}</p>
+                <div v-if="spice.sale > 0.0" style="color:red;">
+                <p style="color:red;"> {{" $" + (this.amount * spice.unit_price * (1.0 - spice.sale)).toFixed(2)}}</p>
                 <br>
-                <p style="text-decoration: line-through;">${{(this.amount * this.unit_price).toFixed(2)}}</p>
-                <p> {{this.sale * 100}}% off!</p>
+                <p style="text-decoration: line-through;">${{(this.amount * spice.unit_price).toFixed(2)}}</p>
+                <p> {{spice.sale * 100}}% off!</p>
                 </div>
                 <div v-else>
-                <p>{{getPrice}}</p>
+                <p>{{getPrice()}}</p>
                 </div>
-            <br/>
             </form>
+            <p style="color: red; display: block;">{{warnText}}</p>
             <button @click="addToCart">Add to Cart</button>
         </div>
   </div>
@@ -38,33 +38,50 @@
 export default {
     name: "SpiceInfo",
     props: {
-        id: Number,
-        title: String,
-        image: String,
-        sale: Number,
-        description: String,
-        stock: Number,
-        unit_price: Number,
-        tags: Array
+        id: Number
     },
     computed: {
-      getPrice(){
-        return (this.sale > 0.0 ? "" + (this.sale * 100) + "% off!" : "") + " $" + (this.amount * this.unit_price * (1.0 - this.sale)).toFixed(2);
+      spice: {
+            get: function() {
+                return this.$store.state.spices.find(spice => {
+                    return (spice.id == this.$props.id)
+                });
+            },
+            set: function(obj) {
+              this.$store.dispatch("softUpdateSpice", obj);
+            }
+        },
+      duplicateCartItem() {
+        return this.$store.state.cart.find(item => { return item.spice.id == this.spice.id});
       }
     },
     methods: {
+      getPrice(){
+        return (this.spice.sale > 0.0 ? "" + (this.spice.sale * 100) + "% off!" : "") + " $" + (this.amount * this.spice.unit_price * (1.0 - this.spice.sale)).toFixed(2);
+      },
       addToCart() {
-        if(this.amount > 0)
-        {
+        this.warnText = "";
+        if(this.amount > this.spice.stock) {
+          this.amount = this.spice.stock;
+          this.warnText = "Sorry, we don't have that much " + this.spice.title + " in stock...";
+        } else if(this.duplicateCartItem != undefined) {
+          let spiceCopy = Object.assign({}, this.spice);
+          this.$set(this.spice, 'stock', this.spice.stock - this.amount);
+          let dupItem = this.duplicateCartItem;
+          this.$store.dispatch("updateCartItem", {index: dupItem.index, spice: dupItem.spice, amount: dupItem.amount + this.amount})
+        }else if(this.amount > 0) {
+          let spiceCopy = Object.assign({}, this.spice);
+          this.$set(this.spice, 'stock', this.spice.stock - this.amount);
           this.$store.dispatch("addToCart", {index: this.$store.state.cart.length,
-          spice: this.$props,
+          spice: spiceCopy,
           amount: this.amount});
         }
       }
     },
     data() {
       return {
-        amount: 1
+        amount: 1,
+        warnText: ""
       }
     }
 }

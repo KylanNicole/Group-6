@@ -1,8 +1,8 @@
 <template>
-    <div class="spice-tile">
-        <img :src='image'>
-        <h4>{{title}}</h4>
-        <router-link :to="{name: 'Spices', params: {id: this.$props.id}}" v-if="this.$store.state.loginState.loggedIn &&
+    <div class="spice-tile" v-if="spice.stock > 0">
+        <img :src='spice.image'>
+        <h4>{{spice.title}}</h4>
+        <router-link :to="{name: 'spices', params: {id: this.$props.id}}" v-if="this.$store.state.loginState.loggedIn &&
         this.$store.state.loginState.user.permission <= 1">
             <button>EDIT</button>
         </router-link>
@@ -10,7 +10,7 @@
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
         <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind="$props"/>
+            <SpiceInfo class="center" v-bind:id="spice.id"/>
         </div>
     </div>
 </template>
@@ -21,13 +21,19 @@ export default {
     name: "SpiceTile",
     components: { SpiceInfo },
     props: {
-        description: String,
-        id: Number,
-        image: String,
-        sale: Number,
-        stock: Number,
-        title: String,
-        unit_price: Number
+        id: Number
+    },
+    computed: {
+        spice: {
+            get: function() {
+                return this.$store.state.spices.find(spice => {
+                    return (spice.id == this.$props.id)
+                    });
+            },
+            set: function(val) {
+
+            }
+        }
     },
     methods: {
         toggleDetails() {

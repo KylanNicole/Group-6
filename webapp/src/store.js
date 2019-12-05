@@ -47,6 +47,9 @@ export const mutations = {
   createSpice(state, spice) {
     state.spices = [...state.spices, { ...spice}];
   },
+  softUpdateSpice(state, spice) {
+    state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
+  },
   addToCart(state, item) {
     state.cart = [...state.cart, {... item}];
   },
@@ -55,6 +58,9 @@ export const mutations = {
   },
   updateCartItem(state, item) {
     state.cart = state.cart.map(i => (i.index === item.index ? item : i));
+  },
+  clearCart(state) {
+    state.cart = [];
   }
 };
 
@@ -172,6 +178,9 @@ export const actions = {
       commit("deleteSpice", payload);
     })
   },
+  softUpdateSpice:function({commit}, payload) {
+    commit("softUpdateSpice", payload);
+  },
   addToCart: function({commit}, payload) {
     commit("addToCart", payload);
   },
@@ -181,9 +190,9 @@ export const actions = {
   deleteCartItem: function({commit}, payload) {
     commit("deleteCartItem", payload);
   },
-  sendOrder: function({commit}) {
-    return axios.post(`/api/cart/`, Object.assign({}, {address: "none", order_items: this.state.cart})).then(() => {
-      //commit("clearCart");
+  sendOrder: function({commit}, payload) {
+    return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: this.state.cart})).then(() => {
+      commit("clearCart");
     })
   }
 };
