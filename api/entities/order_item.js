@@ -14,10 +14,10 @@ import {
     @PrimaryGeneratedColumn()
     id
   
-    @Column({ type: 'float' })
+    @Column({ type: 'int' })
     cost
   
-    @Column({ type: 'float' })
+    @Column({ type: 'int' })
     weight
   
   

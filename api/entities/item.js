@@ -18,10 +18,10 @@ import {
     @Column( { type: 'varchar' })
     title
   
-    @Column({ type: 'float' })
+    @Column({ type: 'int' })
     unit_price
   
-    @Column({ type: 'float' })
+    @Column({ type: 'int' })
     stock
 
     @Column({ type: 'varchar' })
