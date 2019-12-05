@@ -62,9 +62,10 @@ export default new Router({
       component: BannerEdit
     },
     {
-      path: "/Spices",
+      path: "/Spices/:spice?",
       name: "Spices",
-      component: SpiceManage
+      component: SpiceManage,
+      props: true
     },
     {
       path: "/myaccount",
