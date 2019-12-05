@@ -8,23 +8,19 @@ import Announcement from '../entities/announcement';
 
 const router = Router();
 router.route('/announcement')
-  // .all(isAuthenticated)
 
   .get((req, res) => { // @@why do we need req here?? error will be thrown otherwise. 
 
     const itemManager = getManager(); // you can also get it via getConnection().getRepository() or getManager().getRepository()
     itemManager.find(Announcement).then((_foundAnnouncment) => {
-      debugger;
       res.send(_foundAnnouncment);
-      }, () => {
-      res.send(401);
-    })
+      })
 
   })
 
 
   .post((req, res) => {
-    if (req.user.permission == 3){
+    if (req.user.permission  > 1){
       res.sendStatus(401);
       return;
     }
@@ -38,7 +34,7 @@ router.route('/announcement')
   });
 
 router.route('/announcement/:id')
-  .all(isAuthenticated)
+  // .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Announcement).findOneOrFail(
       { where: { id: req.params.id } },
@@ -51,7 +47,7 @@ router.route('/announcement/:id')
   })
 
   .put((req, res) => {
-    if (req.user.permission == 3){
+    if (req.user.permission > 1){
       res.sendStatus(401);
       return;
     }
