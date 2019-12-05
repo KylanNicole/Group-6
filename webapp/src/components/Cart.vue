@@ -29,7 +29,7 @@ export default {
         },
         cartPrice() {
             const prices = this.$store.state.cart.map(item => {
-                return item.spice.unit_price * item.amount * (1.0 - item.spice.sale)});
+                return item.spice.unit_price * item.amount * (100.0 - item.spice.sale) / 10000.0});
             var sum = 0;
             prices.filter(price => {
                 sum += price;
