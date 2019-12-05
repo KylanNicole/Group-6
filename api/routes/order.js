@@ -13,32 +13,32 @@ router.route('/order')
   // })
 
 
-  // .all((req, res, next) => {
-  //     debugger
-  //     getRepository(Order).find(
-  //       { where: { userId: req.user.id} },
-  //     ).then((_foundOrder) => {
-  //       req.order = _foundOrder;
-  //       next();
-  //     }, () => {
-  //       res.send(404); 
-  //     } )
-  // })
-  // .get((req, res) => {
-  //   // debugger
-  //   getRepository(Order_).find(
-  //     { where: { user: req.user.id }}
-  //   ).then((_foundOrder) => {
-  //     // debugger
-  //     res.send(_foundOrder);
+  .all((req, res, next) => {
+      debugger
+      getRepository(Order_).find(
+        { where: { userId: req.user.id} },
+      ).then((_foundOrder) => {
+        req.order = _foundOrder;
+        next();
+      }, () => {
+        res.send(404); 
+      } )
+  })
+  .get((req, res) => {
+    // debugger
+    getRepository(Order_).find(
+      { where: { user: req.user.id }}
+    ).then((_foundOrder) => {
+      // debugger
+      res.send(_foundOrder);
 
-  //     // req.order = _foundOrder;
-  //     // next();
-  //   }, () => {
-  //     debugger
-  //     res.send(404);
-  //   });
-  // })
+      // req.order = _foundOrder;
+      // next();
+    }, () => {
+      debugger
+      res.send(404);
+    });
+  })
   
   .post((req, res) => {
     const { total_cost, total_weight, order_status, staff } = req.body;

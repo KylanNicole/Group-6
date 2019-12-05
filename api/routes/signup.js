@@ -5,20 +5,22 @@ import User from '../entities/user';
 
 const router = Router();
 router.route('/signup')
-//   .all(isAuthenticated)
-.get((req, res) => {
-  res.send("guccimate"); //@@ why todos?
-})
+
 
 
 .post((req, res) => {
+  debugger;
   const { firstname, lastname, email, password } = req.body;
   console.log(firstname);
   const manager = getManager();
   const user = manager.create(User, { firstname, lastname, permission : 3, email, password });
-  // tag.user = req.user;
+
   manager.save(user).then((savedUser) => {
+    debugger;
     res.send(savedUser);
+  }, () => {
+    debugger;
+    res.send(400);
   });
 });
 
