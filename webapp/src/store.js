@@ -55,7 +55,10 @@ export const mutations = {
   },
   updateCartItem(state, item) {
     state.cart = state.cart.map(i => (i.index === item.index ? item : i));
-  }
+  },
+  getOrders(state, orders){
+    state.orders = orders;
+  },
 };
 
 export const actions = {
@@ -185,7 +188,12 @@ export const actions = {
     return axios.post(`/api/cart/`, Object.assign({}, {address: "none", order_items: this.cart})).then(() => {
       //commit("clearCart");
     })
-  }
+  },
+  getOrders({commit}, payload){
+    return axios.get("/api/order/", payload).then((response) => {
+      commit("getOrders", response.data);
+    })
+  },
 };
 
 export default new Vuex.Store({

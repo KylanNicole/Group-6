@@ -5,7 +5,6 @@
     <table>
       <tbody>
         <tr v-for="order in orders" :key="order">
-          <!-- <td><b>Order ID:</b> {{ order.uid }}</td> -->
           <td><Order :id="order.uid" :total_cost="order.total_cost" :total_weight="order.total_weight" :item_list="order.item_list" :status="order.status" :customer_id="order.customer_id"></Order></td>
         </tr>
       </tbody>

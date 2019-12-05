@@ -26,6 +26,7 @@ router.route('/staff_alert')
       return;
     }
     const {text} = req.body;
+    debugger;
     const author = req.user.firstname + " " + req.user.lastname;
     const manager = getManager();
     const alert = manager.create(StaffAlert, { author, text });
