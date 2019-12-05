@@ -84,6 +84,9 @@ export default {
       this.$store.dispatch("updateOrder",
       Object.assign({}, this.order, {order_status : 0}));
     }
+  },
+  created(){
+    this.$store.dispatch("getOrders");
   }
 };
 </script>

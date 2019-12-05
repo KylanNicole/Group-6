@@ -1,16 +1,16 @@
 <template>
   <div>
-      <div v-if="this.$store.state.loginState.loggedIn &&
-      this.$store.state.loginState.user.permission < 2" to="/dashboard" style="float:right;">
-        <button @click="deleteBanner">DELETE</button>
-    </div>
-
-    <router-link :to="link_to" style="margin: 0">
-      <img :src="img_link"/>
-      <br>
-    </router-link>
-    <br>
+    <div v-if="this.$store.state.loginState.loggedIn &&
+    this.$store.state.loginState.user.permission < 2" to="/dashboard" style="float:right;">
+    <button @click="deleteBanner">DELETE</button>
   </div>
+
+  <router-link :to="link_to" style="margin: 0">
+    <img :src="img_link"/>
+    <br>
+  </router-link>
+  <br>
+</div>
 </template>
 
 <script>
@@ -19,9 +19,9 @@ export default {
   data() {
     return {
       updatedInfo: {
-          id: this.id,
-          img_link: this.img_link,
-          link_to: this.link_to
+        id: this.id,
+        img_link: this.img_link,
+        link_to: this.link_to
       }
     };
   },
@@ -30,12 +30,13 @@ export default {
     link_to: String,
     id: Number
   },
-    methods: {
-        deleteBanner() {
-            this.$store.dispatch("deleteBanner", this.updatedInfo);
-            this.$emit('changed');
-        }
+  methods: {
+    deleteBanner() {
+      this.$store.dispatch("deleteBanner", this.updatedInfo).then(() => {
+        this.$emit('changed');
+      });
     }
+  }
 };
 </script>
 
