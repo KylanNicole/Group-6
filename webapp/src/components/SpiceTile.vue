@@ -2,9 +2,9 @@
     <div class="spice-tile" v-if="spice.stock > 0">
         <img :src='spice.image'>
         <h4>{{spice.title}}</h4>
-        <button>
-            <router-link :to="{name: 'spices', params: {id: this.$props.id}}" v-if="this.$store.state.loginState.loggedIn &&
-            this.$store.state.loginState.user.permission <= 1">EDIT</router-link>
+        <button v-if="this.$store.state.loginState.loggedIn &&
+            this.$store.state.loginState.user.permission <= 1">
+            <router-link :to="{name: 'spices', params: {id: this.$props.id}}">EDIT</router-link>
         </button>
         <button v-on:click="toggleDetails">DETAILS</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
