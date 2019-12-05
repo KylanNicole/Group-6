@@ -19,7 +19,8 @@
             <button @click="addSpice">ADD</button>
             <button @click="clearInput">CANCEL</button>
         </div>
-        <SpiceEdit v-for="spice in getSpices" :key="spice.id" v-bind="spice" v-on:changed="updateSpices"/>
+        <SpiceEdit v-for="spice in getSpices" :key="spice.id" v-bind="spice" v-on:changed="updateSpices"
+        v-bind:active="spice.id == activeSpice"/>
     </div>
 </template>
 
@@ -32,6 +33,9 @@ export default {
     computed: {
         getSpices() {
             return this.$store.state.spices;
+        },
+        activeSpice() {
+            return this.$route.params.id;
         }
     },
     methods: {

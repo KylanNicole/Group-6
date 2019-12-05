@@ -31,10 +31,10 @@
 
     <div id="links">
       <div class="center">
-      <router-link :to="{ name: 'Shop', params: { tag: 'spice'}}">SPICES</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'herb'}}">HERBS</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'salt'}}">SALTS</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
+      <router-link :to="{ name: 'shop', params: { tag: 'spice'}}">SPICES</router-link>
+      <router-link :to="{ name: 'shop', params: { tag: 'herb'}}">HERBS</router-link>
+      <router-link :to="{ name: 'shop', params: { tag: 'salt'}}">SALTS</router-link>
+      <router-link :to="{ name: 'shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
       </div>
     </div>
   </div>
