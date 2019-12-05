@@ -4,8 +4,7 @@
     <br />
     <table>
       <tbody>
-        <tr v-for="order in this.$store.state.orders" :key="order">
-          <!-- <td><b>Order ID:</b> {{ order.uid }}</td> -->
+        <tr v-for="order in orders" :key="order">
           <td><Order :id="order.uid" :total_cost="order.total_cost" :total_weight="order.total_weight" :item_list="order.item_list" :status="order.status" :customer_id="order.customer_id"></Order></td>
         </tr>
       </tbody>
@@ -28,36 +27,36 @@ export default {
   data: function() {
     return {
       orders: [
-  //       {
-  //         uid: 34530,
-  //         total_cost: 30,
-  //         total_weight: 50,
-  //         item_list: ["a", "b"],
-  //         status: 0,
-  //         credit_card: 123,
-  //         customer_id: 33,
-  //         staff_id: 0
-  //       },
-  //       {
-  //         uid: 34529,
-  //         total_cost: 12,
-  //         total_weight: 12,
-  //         item_list: ["c", "d"],
-  //         status: 2,
-  //         credit_card: 123,
-  //         customer_id: 35,
-  //         staff_id: 0
-  //       },
-	// {
-	//   uid: 34531,
-  //         total_cost: 12,
-  //         total_weight: 12,
-  //         item_list: ["c", "d"],
-  //         status: 2,
-  //         credit_card: 123,
-  //         customer_id: 35,
-  //         staff_id: 0
-	// }
+        {
+          uid: 34530,
+          total_cost: 30,
+          total_weight: 50,
+          item_list: ["a", "b"],
+          status: 0,
+          credit_card: 123,
+          customer_id: 33,
+          staff_id: 0
+        },
+        {
+          uid: 34529,
+          total_cost: 12,
+          total_weight: 12,
+          item_list: ["c", "d"],
+          status: 2,
+          credit_card: 123,
+          customer_id: 35,
+          staff_id: 0
+        },
+	{
+	  uid: 34531,
+          total_cost: 12,
+          total_weight: 12,
+          item_list: ["c", "d"],
+          status: 2,
+          credit_card: 123,
+          customer_id: 35,
+          staff_id: 0
+	}
       ]
     };
   }
