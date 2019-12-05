@@ -218,7 +218,12 @@ export const actions = {
     return axios.get(`/api/order_all`).then(response => {
       commit("storeAllOrders", response.data);
     })
-  }
+  },
+  getOrders({commit}, payload){
+    return axios.get("/api/order/", payload).then((response) => {
+      commit("getOrders", response.data);
+    })
+  },
 };
 
 export default new Vuex.Store({

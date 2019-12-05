@@ -4,8 +4,9 @@
         <h4>{{spice.title}}</h4>
         <button v-if="this.$store.state.loginState.loggedIn &&
             this.$store.state.loginState.user.permission <= 1">
-            <router-link :to="{name: 'spices', params: {id: this.$props.id}}">EDIT</router-link>
+            <router-link :to="{name: 'spices', params: {id: spice.title}}">EDIT</router-link>
         </button>
+
         <button v-on:click="toggleDetails">DETAILS</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
         </div>
@@ -21,7 +22,8 @@ export default {
     name: "SpiceTile",
     components: { SpiceInfo },
     props: {
-        id: Number
+      visible: {type: Boolean, default: false},
+      id: Number
     },
     computed: {
         spice: {
@@ -34,6 +36,8 @@ export default {
 
             }
         }
+
+
     },
     methods: {
         toggleDetails() {
@@ -43,7 +47,7 @@ export default {
     },
     data() {
         return {
-            hideDetails: true,
+            hideDetails: !this.visible,
             tags: []
         }
     }

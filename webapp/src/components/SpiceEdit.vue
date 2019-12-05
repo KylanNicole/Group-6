@@ -40,12 +40,12 @@ export default {
         description: String,
         image: String,
         sale: Number,
-        active: Boolean
+        visible: {type: Boolean, default: false}
     },
     data() {
         return {
             editText: "UPDATE",
-            hideDetails: true,
+            hideDetails: !this.visible,
             hideWarn: true,
             updatedInfo: {
                 id: this.id,
