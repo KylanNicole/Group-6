@@ -61,6 +61,15 @@ export const mutations = {
   },
   clearCart(state) {
     state.cart = [];
+  },
+  storeOrders(state, orders) {
+    state.orders = orders;
+  },
+  updateOrder(state, order) {
+    state.orders = state.orders.map(o => (o.id === order.id ? order : o));
+  },
+  storeAllOrders(state, orders) {
+    state.orders = orders;
   }
 };
 
@@ -193,6 +202,21 @@ export const actions = {
   sendOrder: function({commit}, payload) {
     return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: this.state.cart})).then(() => {
       commit("clearCart");
+    })
+  },
+  getOrders: function({commit}) {
+    return axios.get(`/api/order`).then(response => {
+      commit("storeOrders", response.data);
+    })
+  },
+  updateOrder: function({commit}, payload) {
+    return axios.put(`/api/order/${payload.id}`, payload).then(response => {
+      commit("updateOrder", response.data);
+    })
+  },
+  getAllOrders: function({commit}) {
+    return axios.get(`/api/order_all`).then(response => {
+      commit("storeAllOrders", response.data);
     })
   }
 };

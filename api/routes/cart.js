@@ -45,8 +45,8 @@ router.route('/cart')
         myOrder.address = address; 
         myOrder.order_items = orderItems;
         myOrder.user = req.user;
-        myOrder.staff_id = 2; 
-        myOrder.order_status = 3;
+        myOrder.staff_id = -1; 
+        myOrder.order_status = 2;
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
         }, ()=> {

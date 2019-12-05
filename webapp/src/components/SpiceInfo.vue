@@ -105,7 +105,8 @@ div {
 .spice-info {
   border: solid 1px black;
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
+  margin-top: 25px;
   overflow: hidden;
   width: 100%;
   background-color: #fbf3e4;
