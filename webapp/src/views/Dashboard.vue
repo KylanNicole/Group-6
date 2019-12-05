@@ -91,9 +91,6 @@ export default {
     },
     showToEmp: function(order) {
       return order.order_status > 0;
-    },
-    unclaimed:function(order) {
-      return (order.staff_id < 0);
     }
   }
 };
