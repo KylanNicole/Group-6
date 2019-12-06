@@ -131,6 +131,6 @@ p {
   font-size: 14pt;
 }
 hr{
-  background-color: #42b983;
+  background-color: #9ad466;
 }
 </style>
