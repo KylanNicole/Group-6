@@ -1,7 +1,7 @@
 <template>
     <div class="spice-tile" v-if="spice.stock > 0">
         <img :src='spice.image'>
-        <h4>{{spice.title}}</h4>
+        <h4>{{spice.title.charAt(0).toUpperCase() + spice.title.slice(1).toLowerCase()}}</h4>
         <button v-if="this.$store.state.loginState.loggedIn &&
             this.$store.state.loginState.user.permission <= 1">
             <router-link :to="{name: 'spices', params: {id: spice.title}}">EDIT</router-link>
