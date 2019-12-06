@@ -51,7 +51,6 @@ export default new Router({
       name: "Shop",
       component: Shop,
       props: true
-
     },
     {
       path: "/complete",

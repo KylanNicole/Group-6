@@ -21,7 +21,8 @@ export default {
     name: "SpiceTile",
     components: { SpiceInfo },
     props: {
-        id: Number
+      visible: {type: Boolean, default: false},
+      id: Number
     },
     computed: {
         spice: {
