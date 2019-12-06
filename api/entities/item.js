@@ -36,7 +36,7 @@ import {
     @OneToMany( () => Order_Item, (order_item) => order_item.item)
     order_item
 
-    @ManyToMany( () => Tag, (tag) => tag.item)
+    @ManyToMany( () => Tag, (tag) => tag.item, {eager: true})
     @JoinTable()
     tag
 

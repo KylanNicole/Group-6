@@ -6,8 +6,7 @@
             <p>
                 {{spice.description}}
             </p>
-            <p>Tags</p>
-              <!--<p class="tag" v-for="tag in tags">{{spice.tag}}</p>-->
+            <p class="tag" v-for="tag in spice.tag">{{tag.title}}</p>
         </div>
         <div class="purchase">
             <form>

@@ -4,7 +4,7 @@
         <h4>{{spice.title}}</h4>
         <button v-if="this.$store.state.loginState.loggedIn &&
             this.$store.state.loginState.user.permission <= 1">
-            <router-link :to="{ name: 'Spices', params: { spice: spice.title} }">EDIT</router-link>
+            <router-link :to="{ name: 'spices', params: { spice: spice.title} }">EDIT</router-link>
         </button>
         <button v-on:click="toggleDetails">DETAILS</button>
         <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
