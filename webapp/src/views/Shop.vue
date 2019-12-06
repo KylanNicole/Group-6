@@ -18,7 +18,7 @@
     <label class="tag" for="tag">Sale</label>
     <div v-for="tag in getTags" :key="tag.id">
       <input type="checkbox" :id="tag" :value="tag.title" v-model="tags">
-      <label class="tag" :for="tag">{{tag.title}}</label>
+      <label class="tag" :for="tag">{{tag.title.charAt(0).toUpperCase() + tag.title.slice(1).toLowerCase()}}</label>
     </div>
   </div>
   <div>
@@ -127,7 +127,14 @@ export default {
   float: left;
 }
 .tag {
-  background-color: #8d9b77;
-  border-radius: 5px;
+    background-color: #fbf3e4;
+    border-radius: 5px;
+    font-size: 10pt;
+}
+p {
+  font-size: 14pt;
+}
+hr{
+  background-color: #9ad466;
 }
 </style>
