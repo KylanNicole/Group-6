@@ -24,7 +24,7 @@ import {
     @ManyToOne( () => Order, (order) => order.Order_Item)
     order
 
-    @ManyToOne( () => Item, (item) => item.Order_Item )
+    @ManyToOne( () => Item, (item) => item.Order_Item, {eager: true})
     item
 
   }

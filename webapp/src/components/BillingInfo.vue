@@ -1,17 +1,20 @@
 <template>
-    <div>
+    <div id="bill-info">
         <form>
         <h1> Billing Info</h1>
-        <input type="text" name="fname" placeholder="Name on Card"></input><br>
-        <input type="text" name="creditcard" placeholder="Card Number"></input><br>
-        <input type="text" name="date" placeholder="Expires"></input><br>
-        <input type="text" name="cvv" placeholder="CVV"></input>
-        <p>Billing Address</p>
-        <input type="checkbox" value="checkbox">Billing Address is same as Shipping Address</input><br>
-        <input type="text" name="address" placeholder="Street Address"></input><br>
-        <input type="text" name="City" placeholder="City"></input><br>
-        <input type="text" name="state" placeholder="State"></input><br>
-        <input type="text" name="Zip" placeholder="Zip"></input><br>
+        <input type="text" name="fname" placeholder="Name on Card" v-model="billing.name">
+        <input type="text" name="creditcard" placeholder="Card Number" v-model="billing.num">
+        <input type="text" name="date" placeholder="Expires" v-model="billing.exp">
+        <input type="text" name="cvv" placeholder="CVV" v-model="billing.cvv">
+        <h1>Billing Address</h1>
+        <input type="checkbox" value="checkbox" style="display: inline;" v-model="sameAsShip">
+        <label>Billing Address is same as Shipping Address</label>
+        <div v-if="!sameAsShip">
+          <input type="text" name="street" placeholder="Street Address" v-model="address.street">
+          <input type="text" name="city" placeholder="City" v-model="address.city">
+          <input type="text" name="state" placeholder="State" v-model="address.state">
+          <input type="text" name="zip" placeholder="Zip" v-model="address.zip">
+        </div>
         </form>
     </div>
 </template>
@@ -19,6 +22,19 @@
 <script>
 export default {
   name: "CustomerInfo",
+  computed: {
+    verifyInfo() {
+      let cardVerified = true;
+      for(var field in this.billing) {
+        cardVerified = cardVerified && (this.billing[field] != "");
+      }
+      let adrsVerified = true;
+      for(var field in this.address) {
+        adrsVerified = adrsVerified && (this.address[field] != "");
+      }
+      return cardVerified && (this.sameAsShip || adrsVerified);
+    }
+  },
   data() {
     return {
       hideDetails: true,
@@ -32,14 +48,27 @@ export default {
           email: "mchammer@email.com",
           Pass: "youcanttouchthis",
           Permission: 0
-        }
+        },
+      billing: {
+        name: "",
+        num: "",
+        exp: "",
+        cvv: ""
+      },
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zip: ""
+      },
+      sameAsShip: false
     };
   }
 };
 </script>
 
 <style scoped>
-div {
+#bill-info {
   width: 500px;
   border-radius: 5px;
   border-bottom: solid 1px darkgray;
@@ -48,13 +77,11 @@ div {
   margin: 10px auto 10px auto;
   display: block;
 }
-img {
-  width: 150px;
-  height: 150px;
-  margin-left: auto;
-  margin-right: auto;
+
+input {
   display: block;
 }
+
 h1 {
   font-weight: bold;
   font-size: 16pt;

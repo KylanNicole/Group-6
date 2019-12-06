@@ -23,7 +23,7 @@ export default class User {
   @Column({ type: 'int' })
   permission
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar', unique: true } )
   email
 
   @Column({ type: 'varchar', nullable: false })
