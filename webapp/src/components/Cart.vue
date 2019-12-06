@@ -11,7 +11,7 @@
         <div class="footer">
             <p style="display:inline;">Total: ${{cartPrice.toFixed(2)}}</p>
             <div @click="hideCart" style="display: inline;">
-            <router-link to="checkout" style="float: right; display:inline;">Go To Checkout</router-link>
+            <router-link to="/checkout" style="float: right; display:inline;">Go To Checkout</router-link>
             </div>
         </div>
     </div>

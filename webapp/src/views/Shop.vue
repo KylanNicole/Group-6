@@ -14,7 +14,7 @@
     </select>
     <hr>
     <p>Tags:</p>
-    <input type="checkbox" value="sale" v-model="sale">
+    <input type="checkbox" v-model="sale">
     <label class="tag" for="tag">Sale</label>
     <div v-for="tag in getTags" :key="tag.id">
       <input type="checkbox" :id="tag" :value="tag.title" v-model="tags">
@@ -35,7 +35,8 @@ export default {
     SpiceTile
   },
   props: {
-    itags: {type: Array, default: function() {return []}}
+    itags: {type: Array, default: function() {return []}},
+    isale: {type: Boolean, default: function() {return false}}
   },
   computed: {
     getSpices() {
@@ -106,7 +107,7 @@ export default {
         {id: 3, name: "Price (High-Low)"}
       ],
       tags: this.itags,
-      sale: false,
+      sale: this.isale,
       sortby: 0,
       spices: [],
       search: ""
