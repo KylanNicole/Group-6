@@ -10,6 +10,7 @@ import login from './routes/login';
 import item from './routes/item';
 import order_items from './routes/order_item';
 import order from './routes/order';
+import order_all from './routes/order_all';
 import tag from './routes/tag';
 import signup from './routes/signup'
 import select_item_tag from './routes/select_item_tag';
@@ -39,8 +40,8 @@ config();
 app.use(login(passport));
 app.use(item);
 app.use(order_items);
-// app.use(login);
 app.use(order);
+app.use(order_all);
 app.use(tag);
 app.use(staff_alert);
 app.use(signup);
