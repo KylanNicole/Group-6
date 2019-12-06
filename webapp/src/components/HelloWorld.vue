@@ -85,8 +85,6 @@ a {
   position: relative;
   text-align: center;
   color: #fbf3e4;
-
-  background-image: url('../assets/background.jpg');
 }
 .top-right {
   position: absolute;

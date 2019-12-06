@@ -20,7 +20,7 @@
       <button @click="addSpice">ADD</button>
       <button @click="clearInput">CANCEL</button>
     </div>
-    <SpiceEdit v-for="spice in getSpices" v-if="(typeof $route.params.spice == 'undefined') || $route.params.spice == spice.title" :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.title" v-on:changed="updateSpices"/>
+    <SpiceEdit v-for="spice in getSpices" v-if="(typeof $route.params.spice == 'undefined') || $route.params.spice == spice.id" :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.id" v-on:changed="updateSpices"/>
   </div>
 </template>
 
