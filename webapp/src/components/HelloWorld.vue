@@ -8,11 +8,11 @@
 
     </div>
     <div>
-      <ul v-for="b in this.$store.state.banners">
+      <ul v-for="i in banners.length">
         <li>
-      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to" v-bind:id="b.id"/>
-      </li>
-        </ul>
+          <banner v-on:changed="getBanners()" v-bind:img_link="banners[banners.length-i].img_link" v-bind:link_to="banners[banners.length-i].link_to" v-bind:id="banners[banners.length-i].id"/>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -27,8 +27,21 @@ export default {
   props: {
     msg: String
   },
+  data() {
+    return {
+      banners: []
+    }
+  },
   created(){
-    this.$store.dispatch("getBanners");
+    this.getBanners();
+  },
+  methods: {
+    getBanners: function(){
+      this.$store.dispatch("getBanners").then(() => {
+        this.banners = this.$store.state.banners;
+        this.$forceUpdate();
+      });
+    }
   }
 };
 </script>
@@ -72,8 +85,6 @@ a {
   position: relative;
   text-align: center;
   color: #fbf3e4;
-
-  background-image: url('../assets/background.jpg');
 }
 .top-right {
   position: absolute;

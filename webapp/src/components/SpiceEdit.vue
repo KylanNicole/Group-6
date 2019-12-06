@@ -39,12 +39,13 @@ export default {
         stock: Number,
         description: String,
         image: String,
-        sale: Number
+        sale: Number,
+        visible: {type: Boolean, default: false}
     },
     data() {
         return {
             editText: "UPDATE",
-            hideDetails: true,
+            hideDetails: !this.visible,
             hideWarn: true,
             updatedInfo: {
                 id: this.id,
@@ -55,6 +56,11 @@ export default {
                 image: this.image,
                 sale: this.sale
             }
+        }
+    },
+    created() {
+        if(this.active) {
+            this.updateSpice();
         }
     },
     methods: {
@@ -89,10 +95,11 @@ export default {
 <style scoped>
 .edit {
     border: solid 1px black;
-    margin: 5px;
+    margin: 5px auto 5px auto;
     padding: 5px;
     background-color: white;
     overflow: hidden;
+    width: 50%;
 }
 h1 {
     display: inline;

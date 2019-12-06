@@ -33,7 +33,7 @@ import {
     @Column({ type: 'int', default: () => 0})
     sale
 
-    @OneToMany( () => Order_Item, (order_item) => order_item.item )
+    @OneToMany( () => Order_Item, (order_item) => order_item.item)
     order_item
 
     @ManyToMany( () => Tag, (tag) => tag.items)

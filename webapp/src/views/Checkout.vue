@@ -5,9 +5,10 @@
                 <h4>Your Items</h4>
                 <CartTile v-for="item in cartItems" :key="item.index" :index="item.index" style="margin: auto;"/>
             </div>
-            <ShippingInfo></ShippingInfo>
-            <BillingInfo></BillingInfo>
+            <ShippingInfo ref="ship_info"/>
+            <BillingInfo ref="bill_info"/>
             <br>
+            <p style="color: red; display: block; text-align: center;">{{this.warnText}}</p>
             <button v-if="cartItems.length > 0" @click="sendOrder">Place Order</button>
         </div>
     </div>
@@ -17,6 +18,7 @@
 import ShippingInfo from "@/components/ShippingInfo.vue"
 import BillingInfo from "@/components/BillingInfo.vue"
 import CartTile from "@/components/CartTile.vue"
+import router from "@/router.js";
 
 export default {
     name: "Checkout",
@@ -29,29 +31,31 @@ export default {
         cartItems() {
             return this.$store.state.cart;
         },
+        shipAddress() {
+            return this.$refs.ship_info.address;
+        }
     },
     methods: {
         sendOrder() {
-            this.$store.dispatch("sendOrder");
+            let address = this.$refs.ship_info.getAddress;
+            let shipComp = this.$refs.ship_info;
+            let billComp = this.$refs.bill_info;
+            if(!shipComp.verifyAddress) {
+                this.warnText = "Please fill out all of your shipping information.";
+            } else if(!billComp.verifyInfo) {
+                this.warnText = "Please fill out all of your billing information.";
+            } else if(shipComp.inStore && billComp.sameAsShip){
+                this.warnText = "You cannot set your billing address to \
+                the same as shipping if you're picking up your order in store.";
+            } else {
+                this.$store.dispatch("sendOrder", address);
+                router.push({name: 'complete'});
+            }
         }
     },
     data() {
         return {
-            colors: [{
-                name: "Red",
-                hex: "#FF0000"},
-                {
-                name: "Green",
-                hex: "#00FF00"},
-                {
-                name: "Orange",
-                hex: "#FF8888"},
-                {
-                name: "Yellow",
-                hex: "#FFFF00"},
-                {
-                name: "Blue",
-                hex: "#0000Ff"}]
+            warnText: ""
         }
     }
 }

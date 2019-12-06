@@ -11,50 +11,49 @@ router.route('/cart')
   .all(isAuthenticated)
 
   .post((req, res) => {
-    
-    const manager = getManager(); 
-    let totalCost = 0;
-    let totalWeight = 0; 
 
-    const { address , order_items } = req.body;
+    const manager = getManager();
 
-    let itemPromises = Object.keys(order_items).map((itemID) => {
-        return getRepository(Item).findOneOrFail(itemID).then((myItem) => {
-            // debugger;
-            let item_weigth = order_items[itemID].weight;
-            let item_percent_sale = myItem.sale; 
-            let order_item = manager.create(Order_Item);
-            let item_cost = myItem.unit_price * item_weigth; 
-            item_cost = item_cost - (item_cost * (item_percent_sale/100));
-            totalWeight += item_weigth;
-            totalCost += item_cost;
+    const { address, order_items } = req.body;
+    let itemPromises = order_items.map((item) => {
+        let order_item = manager.create(Order_Item);
+        return getRepository(Item).findOneOrFail(item.spice.id).then((spice) => {
+            debugger;
+            let item_weight = item.amount;
+            let item_cost = spice.unit_price * item.amount * (100.0 - spice.sale) / 100.0;
             order_item.cost = item_cost;
-            order_item.weight = item_weigth;
-            order_item.item = myItem; 
-            myItem.stock = myItem.stock - item_weigth;
-            return getManager().save(myItem).then(()=> {
-                return order_item; 
-            })
+            order_item.weight = item.amount;
+            order_item.item = spice;
+            spice.stock = spice.stock - item_weight;
+            getManager().save(spice)
+            return order_item;
         })
+
     })
-    
+
+    let totalCost = 0;
+    let totalWeight = 0;
+    order_items.filter(item => {
+        totalWeight += item.amount;
+        totalCost += item.spice.unit_price * item.amount * (100.0 - item.spice.sale) / 100.0;
+    })
+
     return Promise.all(itemPromises).then((orderItems) => {
-        let myOrder = manager.create(Order_); 
+        let myOrder = manager.create(Order_);
         myOrder.total_cost = totalCost;
         myOrder.total_weight = totalWeight;
-        myOrder.address = address; 
-        myOrder.order_items = orderItems; 
+        myOrder.address = address;
+        myOrder.order_items = orderItems;
         myOrder.user = req.user;
-        myOrder.staff_id = 2; 
-        myOrder.order_status = 3; 
+        myOrder.staff_id = -1;
+        myOrder.order_status = 2;
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
-        }, ()=> {
+        }, (response)=> {
             res.send(400);
         })
 
     })
-
 });
 
   export default router;
