@@ -18,8 +18,7 @@ export default class Tag {
   @Column({ type: 'varchar' })
   title
 
-    @ManyToMany( () => Item, (item) => item.tag)
-    //@JoinTable()
-    Items
+  @ManyToMany( () => Item, (item) => item.tags)
+  items
 
   }
