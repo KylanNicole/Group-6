@@ -19,10 +19,10 @@
             <p>Image URL</p>
             <input type="text" v-model="updatedInfo.image"/>
             <img :src="updatedInfo.image ? updatedInfo.image : image">
-            <p>Tag</p>
-            <div class="tag" v-for="t in allTags">
-                <input type="checkbox" :value="t" v-model="updatedInfo.tag"/>
-                <label> {{t.title}}</label>
+            <p>Tags</p>
+            <div class="tag" v-for="tag in allTags">
+                <input type="checkbox" :value="tag" v-model="updatedInfo.tags"/>
+                <label> {{tag.title}}</label>
             </div>
             <p>New Tag</p>
             <input type="text" placeholder="New Tag" v-model="newTag"/>
@@ -48,7 +48,7 @@ export default {
         description: String,
         image: String,
         sale: Number,
-        tag: Array,
+        tags: Array,
         visible: {type: Boolean, default: false}
     },
     //computed:  {},
@@ -64,7 +64,7 @@ export default {
                 stock: this.stock,
                 description: this.description,
                 image: this.image,
-                tag: this.tag,
+                tags: this.tags,
                 sale: this.sale
             },
             newTag: null
