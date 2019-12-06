@@ -32,9 +32,9 @@
     <div id="links">
       <div class="center">
       <router-link :to="{ name: 'Shop' }">SPICES</router-link>
-      <router-link :to="{ name: 'Shop', params: { itags: ['herb']}}">HERBS</router-link>
+      <router-link :to="{ name: 'Shop', params: { itags: ['herb'] }}">HERBS</router-link>
       <router-link :to="{ name: 'Shop', params: { item: 'salt' }}">SALTS</router-link>
-      <router-link :to="{ name: 'Shop', params: { itags: ['flavor']}}">FLAVORS</router-link>
+      <router-link :to="{ name: 'Shop', params: { isale: true }}">SALE</router-link>
       </div>
     </div>
   </div>

@@ -1,113 +1,137 @@
 <template>
-    <div class="spice-tile" v-if="spice.stock > 0">
-        <img :src='spice.image'>
-        <h4>{{spice.title.charAt(0).toUpperCase() + spice.title.slice(1).toLowerCase()}}</h4>
-        <button v-if="this.$store.state.loginState.loggedIn &&
-            this.$store.state.loginState.user.permission <= 1">
-            <router-link :to="{name: 'spices', params: {id: spice.title}}">EDIT</router-link>
-        </button>
+  <div style="margin: 0px; padding: 0px; display:inline-block;">
+    <div class="spice-tile" v-if="spice.stock > 0" v-on:click="toggleDetails">
+      <img :src='spice.image'>
+      <h4>{{spice.title.charAt(0).toUpperCase() + spice.title.slice(1).toLowerCase()}}</h4>
 
-        <button v-on:click="toggleDetails">DETAILS</button>
-        <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
-        </div>
-        <div :class="[hideDetails ? 'hidden' : 'window']" >
-            <SpiceInfo class="center" v-bind:id="spice.id"/>
-        </div>
+      <div v-if="spice.sale > 0" style="color:red; text-align: center">
+        <p style="text-decoration: line-through;">${{(spice.unit_price / 100.0).toFixed(2)}}</p>
+        <p style="color:black"> {{" → $" + (spice.unit_price * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
+        <br>
+        <p> {{spice.sale}}% off!</p>
+      </div>
+      <div v-else style="text-align: center">
+        <p style="color:black">{{"$" + (this.spice.unit_price * (1.0 - this.spice.sale)).toFixed(2)}}</p>
+      </div>
+
+      <!-- <router-link :to="{name: 'spices', params: {spice: spice.id}}"> -->
+        <button v-on:click="edit"
+         v-if="this.$store.state.loginState.loggedIn && this.$store.state.loginState.user.permission <= 1">
+          EDIT
+        </button>
+      <!-- </router-link> -->
+
+      <!-- <button v-on:click="toggleDetails">DETAILS</button> -->
     </div>
+    <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
+    </div>
+    <div :class="[hideDetails ? 'hidden' : 'window']" >
+      <SpiceInfo class="center" v-bind:id="spice.id"/>
+    </div>
+  </div>
 </template>
 
 <script>
 import SpiceInfo from "./SpiceInfo.vue"
 export default {
-    name: "SpiceTile",
-    components: { SpiceInfo },
-    props: {
-      visible: {type: Boolean, default: false},
-      id: Number
-    },
-    computed: {
-        spice: {
-            get: function() {
-                return this.$store.state.spices.find(spice => {
-                    return (spice.id == this.$props.id)
-                    });
-            },
-            set: function(val) {
+  name: "SpiceTile",
+  components: { SpiceInfo },
+  props: {
+    visible: {type: Boolean, default: false},
+    id: Number
+  },
+  computed: {
+    spice: {
+      get: function() {
+        return this.$store.state.spices.find(spice => {
+          return (spice.id == this.$props.id)
+        });
+      },
+      set: function(val) {
 
-            }
-        }
-
-
-    },
-    methods: {
-        toggleDetails() {
-            this.hideDetails = !this.hideDetails;
-            //this.$refs.SpiceInfo.modalActive = true;
-        }
-    },
-    data() {
-        return {
-            hideDetails: !this.visible,
-            tags: []
-        }
+      }
     }
+
+
+  },
+  methods: {
+    toggleDetails() {
+      this.hideDetails = !this.hideDetails;
+      //this.$refs.SpiceInfo.modalActive = true;
+    },
+    edit() {
+      this.$router.push({name: 'spices', params: {spice: this.spice.id}});
+    }
+  },
+  data() {
+    return {
+      hideDetails: !this.visible,
+      tags: []
+    }
+  }
 }
 </script>
 
 <style scoped>
 .spice-tile {
-    width: 200px;
-    border-radius: 5px;
-    background-color: #8d9b77;
-    padding: 10px;
-    margin: 5px;
-    display: inline-block;
+  width: 200px;
+  border-radius: 5px;
+  background-color: #8d9b77;
+  padding: 10px;
+  margin: 5px;
+  display: inline-block;
 }
 img {
-    width: 150px;
-    height: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+  width: 150px;
+  height: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+p{
+  display: inline;
 }
 h4 {
-    font-weight: bold;
-    text-align: center;
+  font-weight: bold;
+  text-align: center;
 }
 button {
-    background-color: transparent;
-    color: #fbf3e4;
-    border: solid 1px #cc783c;
-    padding: 5px;
-    cursor: pointer;
-    margin: 0 auto -1px auto;
-    display: block;
-    width: 50%;
+  background-color: transparent;
+  color: #fbf3e4;
+  border: solid 1px #cc783c;
+  padding: 5px;
+  cursor: pointer;
+  margin: 0 auto -1px auto;
+  display: block;
+  width: 50%;
+}
+button:hover{
+  color: #aaaaff;
 }
 .hidden {
-    display: none;
+  display: none;
 }
 .window {
-    top: 10%;
-    left: 25%;
-    position:absolute;
-    width: 50%;
-    margin: auto;
-    padding: 0;
-    background-color: rgba(0, 0, 0, 0);
+  top: 10%;
+  left: 25%;
+  position:absolute;
+  width: 50%;
+  margin: auto;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
 .background {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 0;
 }
 a {
-    color: white;
-    width: 100%;
-    height: 100%;
+  color: white;
+  width: 100%;
+  height: 100%;
 }
 </style>
