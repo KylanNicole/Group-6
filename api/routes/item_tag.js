@@ -16,21 +16,16 @@ router.route('/item_tag_1')
   .post((req, res) => {
     const { selection } = req.body;
     // const manager = getManager();
+    debugger;
 
-    let selected_item = Object.keys(selection)[0];
-    let tags_list = selection[selected_item];
+    //  getting item ID
+    let selected_item = selection["itemID"];
 
-
-    let item_entiy = getRepository(Item).findOneOrFail(parseInt(selected_item)).then((item) => {
-        return item;
-    }, () =>
-    {
-        res.send("couldn't find the item");
-    })
-
-    // debugger;
+    //  getting tag ID 
+    let tags_list = selection["tags"];
 
 
+    //  query for a list of tag entities 
     let tag_entities = tags_list.map((tagID) => { 
         // debugger;
         return getRepository(Tag).findOneOrFail(tagID).then((tag) => {
@@ -40,15 +35,23 @@ router.route('/item_tag_1')
         })
     });
 
-    return Promise.all(tag_entities).then((tagEntites) => {
-        debugger;
-        item_entiy.Tags = tagEntites;
-        return getManager().save(item_entiy).then((savedItem) => {
-          res.send(savedItem);
-      
-        }, () => {
-            res.send("couldn't save item");
+
+    //  update item entity with a list of tags. 
+    return Promise.all(tag_entities).then((tagEntities) => {
+        return getRepository(Item).findOneOrFail(parseInt(selected_item)).then((item) => {
+                item.tags = tagEntities;
+                return getManager().save(item).then((savedItem) => {
+                res.send(savedItem);
+        
+                }, () => {
+                    res.send("couldn't save item");
+                })
+        }, () =>
+        {
+            res.send("couldn't find the item");
         })
+
+        
     })
 
 });
@@ -57,3 +60,7 @@ router.route('/item_tag_1')
 
 
 export default router;
+
+
+
+

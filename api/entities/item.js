@@ -40,6 +40,4 @@ import {
     @JoinTable()
     tags
 
-    // @OneToMany(() => ToDo, (todo) => todo.user, { eager: true })
-    // todos
   }
