@@ -22,11 +22,15 @@ router.route('/cart')
             let item_weight = item.amount;
             let item_cost = spice.unit_price * item.amount * (100.0 - spice.sale) / 100.0;
             order_item.cost = item_cost;
-            order_item.weight = item.amount;
-            order_item.item = spice;
-            spice.stock = spice.stock - item_weight;
-            getManager().save(spice)
-            return order_item;
+            order_item.weight = item_weigth;
+            order_item.item = myItem; 
+            myItem.stock = myItem.stock - item_weigth;
+            if(myItem.stock < 0){
+                res.send(400); 
+            }
+            return getManager().save(myItem).then(()=> {
+                return order_item; 
+            })
         })
 
     })
@@ -49,7 +53,7 @@ router.route('/cart')
         myOrder.order_status = 2;
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
-        }, (response)=> {
+        }, ()=> {
             res.send(400);
         })
 
