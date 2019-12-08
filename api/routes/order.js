@@ -13,32 +13,32 @@ router.route('/order')
   // })
 
 
-  // .all((req, res, next) => {
-  //     debugger
-  //     getRepository(Order).find(
-  //       { where: { userId: req.user.id} },
-  //     ).then((_foundOrder) => {
-  //       req.order = _foundOrder;
-  //       next();
-  //     }, () => {
-  //       res.send(404); 
-  //     } )
-  // })
-  // .get((req, res) => {
-  //   // debugger
-  //   getRepository(Order_).find(
-  //     { where: { user: req.user.id }}
-  //   ).then((_foundOrder) => {
-  //     // debugger
-  //     res.send(_foundOrder);
+  .all((req, res, next) => {
+      debugger
+      getRepository(Order_).find(
+        { where: { userId: req.user.id} },
+      ).then((_foundOrder) => {
+        req.order = _foundOrder;
+        next();
+      }, () => {
+        res.send(404); 
+      } )
+  })
+  .get((req, res) => {
+    // debugger
+    getRepository(Order_).find(
+      { where: { user: req.user.id }}
+    ).then((_foundOrder) => {
+      // debugger
+      res.send(_foundOrder);
 
-  //     // req.order = _foundOrder;
-  //     // next();
-  //   }, () => {
-  //     debugger
-  //     res.send(404);
-  //   });
-  // })
+      // req.order = _foundOrder;
+      // next();
+    }, () => {
+      debugger
+      res.send(404);
+    });
+  })
   
   .post((req, res) => {
     const { total_cost, total_weight, order_status, staff } = req.body;
@@ -50,7 +50,8 @@ router.route('/order')
     });
   });
 
-  
+
+
 router.route('/order/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
@@ -67,11 +68,11 @@ router.route('/order/:id')
   })
   .put((req, res) => {
     const foundOrder = req.order;
-    const {  total_cost, total_weight, order_status, staff, user, order_item } = req.body;
+    const {  total_cost, total_weight, order_status, staff_id, user, order_item } = req.body;
     foundOrder.total_cost = total_cost;
     foundOrder.total_weight = total_weight;
     foundOrder.order_status = order_status;
-    foundOrder.staff = staff;
+    foundOrder.staff_id = staff_id;
     foundOrder.user = user; 
     foundOrder.order_item = order_item;
 

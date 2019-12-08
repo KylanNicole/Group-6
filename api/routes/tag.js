@@ -16,7 +16,11 @@ router.route('/tag')
       res.sendStatus(404);
     })
   })
+  .post(isAuthenticated)
   .post((req, res) => {
+    if (req.user.permission > 1){
+      res.sendStatus(401);
+    }
     const { title } = req.body;
     const manager = getManager();
     const tag = manager.create(Tag, { title});

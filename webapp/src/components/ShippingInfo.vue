@@ -1,14 +1,19 @@
 <template>
-    <div>
+    <div class="body">
       <h1>Shipping Info</h1>
         <form>
-        <input type="text" name="fname" placeholder="Name"></input>
-        <h2>Street Address</h2>
-        <input type="text" name="address" placeholder="Street Address"></input><br>
-        <input type="text" name="City" placeholder="City"></input><br>
-        <input type="text" name="state" placeholder="State"></input><br>
-        <input type="text" name="Zip" placeholder="Zip"></input><br>
-        <input type="checkbox" value="checkbox">Pick up in store</input><br>
+        <input type="text" name="fname" v-model="userFName" placeholder="First Name">
+        <input type="text" name="lname" v-model="userLName" placeholder="Last Name">
+        <br/>
+        <div v-if="!inStore">
+          <h1>Street Address</h1>
+          <input type="text" name="address" placeholder="Street Address" v-model="street">
+          <input type="text" name="City" placeholder="City" v-model="city">
+          <input type="text" name="state" placeholder="State" v-model="state">
+          <input type="text" name="Zip" placeholder="Zip" v-model="zip">
+        </div>
+        <input type="checkbox" value="checkbox" v-model="inStore" style="display: inline"/>
+        <label>Pick up in store</label>
         </form>
     </div>
 </template>
@@ -16,6 +21,25 @@
 <script>
 export default {
   name: "CustomerInfo",
+  computed: {
+    userFName() {
+      return this.$store.state.loginState.user.firstname;
+    },
+    userLName() {
+      return this.$store.state.loginState.user.lastname;
+    },
+    verifyAddress() {
+      return this.inStore || (this.user_data.f_name != "" &&
+      this.user_data.l_name != "" &&
+      this.street != "" &&
+       this.city != "" &&
+       this.state != "" &&
+       this.zip != "")
+    },
+    getAddress() {
+      return this.inStore ? "in store" : this.street + ", " + this.city + ", " + this.state + " " + this.zip;
+    }
+  },
   data() {
     return {
       hideDetails: true,
@@ -29,14 +53,19 @@ export default {
           email: "mchammer@email.com",
           Pass: "youcanttouchthis",
           Permission: 0
-        }
+        },
+        street: "",
+        city: "",
+        state: "",
+        zip: "",
+        inStore: false
     };
   }
 };
 </script>
 
 <style scoped>
-div {
+.body {
   width: 500px;
   border-radius: 5px;
   border-bottom: solid 1px darkgray;
@@ -60,11 +89,17 @@ h4 {
   font-weight: bold;
   text-align: center;
 }
+
+input {
+  display: block;
+}
+
 button {
   width: 25%;
   margin: auto;
   display: block;
 }
+
 .hidden {
   display: none;
 }

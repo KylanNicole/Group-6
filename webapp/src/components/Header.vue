@@ -15,24 +15,26 @@
       </div>
       <div v-else style="display: inline">
         <button @click="toggleLogin" class="user-button">LOGIN</button>
-        
+
       </div>
       <Login ref="login"/>
       <button @click="toggleCart" class="user-button">CART</button>
-      <Cart :class="{hidden : hideCart}"/>
+      <div id="outside-cart" v-if="!hideCart" @click="hideCart = true">
+      </div>
+      <Cart :class="{hidden : hideCart}" v-on:hidecart="hideCart = true"/>
       <router-link v-if="this.$store.state.loginState.loggedIn &&
       this.$store.state.loginState.user.permission < 3" to="/dashboard" style="margin: 0">
         <button class="user-button">DASHBOARD</button>
-        
+
       </router-link>
     </div>
 
     <div id="links">
       <div class="center">
-      <router-link :to="{ name: 'Shop', params: { tag: 'spice'}}">SPICES</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'herb'}}">HERBS</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'salt'}}">SALTS</router-link>
-      <router-link :to="{ name: 'Shop', params: { tag: 'flavor'}}">FLAVORS</router-link>
+      <router-link :to="{ name: 'Shop' }">SPICES</router-link>
+      <router-link :to="{ name: 'Shop', params: { itags: ['herb'] }}">HERBS</router-link>
+      <router-link :to="{ name: 'Shop', params: { item: 'salt' }}">SALTS</router-link>
+      <router-link :to="{ name: 'Shop', params: { isale: true }}">SALE</router-link>
       </div>
     </div>
   </div>
@@ -72,6 +74,16 @@ export default {
 @font-face {
   font-family: "Brand Font";
   src: url("../assets/day-roman.regular.ttf") format("truetype");
+}
+
+#outside-cart {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
 }
 
 #header {

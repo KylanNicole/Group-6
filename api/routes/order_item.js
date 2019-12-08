@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
-import ToDo from '../entities/order_item';
+import Order_Item from '../entities/order_item';
 
 const router = Router();
 router.route('/order_item')
@@ -10,6 +10,10 @@ router.route('/order_item')
   //   res.send(req.user.order_item); //@@ why todos?
   // })
   .post((req, res) => {
+    if (req.user.permission  != 3){
+      res.sendStatus(401);
+      return;
+    }
     const { cost, weight, order, item } = req.body;
     const manager = getManager();
     const order_item = manager.create(ToDo, { cost, weight, order, item });

@@ -8,19 +8,22 @@ import Announcement from '../entities/announcement';
 
 const router = Router();
 router.route('/announcement')
-  .all(isAuthenticated)
 
-  .get((req, res) => {
+  .get((req, res) => { // @@why do we need req here?? error will be thrown otherwise. 
 
     const itemManager = getManager(); // you can also get it via getConnection().getRepository() or getManager().getRepository()
     itemManager.find(Announcement).then((_foundAnnouncment) => {
       res.send(_foundAnnouncment);
-      }, () => {
-      res.send(404);
-    })
+      })
 
   })
+
+
   .post((req, res) => {
+    if (req.user.permission  > 1){
+      res.sendStatus(401);
+      return;
+    }
     const { img_link, link_to } = req.body;
     const manager = getManager();
     const announce = manager.create(Announcement, { img_link, link_to });
@@ -30,11 +33,8 @@ router.route('/announcement')
     });
   });
 
-
-
-
 router.route('/announcement/:id')
-  .all(isAuthenticated)
+  // .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Announcement).findOneOrFail(
       { where: { id: req.params.id } },
@@ -46,17 +46,17 @@ router.route('/announcement/:id')
     });
   })
 
-
-
-
-
   .put((req, res) => {
+    if (req.user.permission > 1){
+      res.sendStatus(401);
+      return;
+    }
     const foundAnnounce = req.announcement;
     const {img_link, link_to } = req.body;
-    
+
 
     foundAnnounce.img_link = img_link;
-    foundAnnounce.link_to = link_to; 
+    foundAnnounce.link_to = link_to;
 
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);
@@ -69,9 +69,13 @@ router.route('/announcement/:id')
   })
 
   .delete((req, res) => {
-    getManager().delete(Announcement, req.announcement.id).then(() => {
-      res.send(200);
-    });
+    if (req.user.permission <= 1){
+      getManager().delete(Announcement, req.announcement.id).then(() => {
+        res.sendStatus(200);
+      });
+    } else {
+      res.sendStatus(401);
+    }
   });
 
-export default router;
+  export default router;

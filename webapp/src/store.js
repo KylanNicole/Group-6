@@ -35,6 +35,9 @@ export const mutations = {
   getBanners(state, banners){
     state.banners = banners;
   },
+  deleteBanner(state,banner){
+    state.banners = state.banners.filter(b => b.id !== banner.id);
+  },
   updateSpice(state, spice) {
     state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
   },
@@ -44,6 +47,9 @@ export const mutations = {
   createSpice(state, spice) {
     state.spices = [...state.spices, { ...spice}];
   },
+  softUpdateSpice(state, spice) {
+    state.spices = state.spices.map(s => (s.id === spice.id ? spice : s));
+  },
   addToCart(state, item) {
     state.cart = [...state.cart, {... item}];
   },
@@ -52,6 +58,18 @@ export const mutations = {
   },
   updateCartItem(state, item) {
     state.cart = state.cart.map(i => (i.index === item.index ? item : i));
+  },
+  clearCart(state) {
+    state.cart = [];
+  },
+  storeOrders(state, orders) {
+    state.orders = orders;
+  },
+  updateOrder(state, order) {
+    state.orders = state.orders.map(o => (o.id === order.id ? order : o));
+  },
+  storeAllOrders(state, orders) {
+    state.orders = orders;
   }
 };
 
@@ -111,6 +129,11 @@ export const actions = {
       commit("getBanners", response.data);
     })
   },
+  deleteBanner:function({commit}, payload) {
+    return axios.delete(`/api/announcement/${payload.id}`).then(() => {
+      commit("deleteBanner", payload);
+    })
+  },
   updateTodo({ commit }, toDo) {
     return axios.put(`/api/todos/${toDo.id}`, toDo).then(response => {
       commit("updateToDo", response.data);
@@ -136,11 +159,11 @@ export const actions = {
   authorized({ commit }, permReq){
     axios.get("/api/checkLogin").then((response) => {
       if (response.data.permission > permReq) {
-        router.push("/");
+        router.push({path: "/"});
       }
     }).catch((error) => {
       if (error.response && error.response.status == 401){
-        router.push("/");
+        router.push({path: "/"});
       }
     })
   },
@@ -164,6 +187,9 @@ export const actions = {
       commit("deleteSpice", payload);
     })
   },
+  softUpdateSpice:function({commit}, payload) {
+    commit("softUpdateSpice", payload);
+  },
   addToCart: function({commit}, payload) {
     commit("addToCart", payload);
   },
@@ -172,6 +198,26 @@ export const actions = {
   },
   deleteCartItem: function({commit}, payload) {
     commit("deleteCartItem", payload);
+  },
+  sendOrder: function({commit}, payload) {
+    return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: this.state.cart})).then((response) => {
+      commit("clearCart");
+    })
+  },
+  getOrders: function({commit}) {
+    return axios.get(`/api/order`).then(response => {
+      commit("storeOrders", response.data);
+    })
+  },
+  updateOrder: function({commit}, payload) {
+    return axios.put(`/api/order/${payload.id}`, payload).then(response => {
+      commit("updateOrder", response.data);
+    })
+  },
+  getAllOrders: function({commit}) {
+    return axios.get(`/api/order_all`).then(response => {
+      commit("storeAllOrders", response.data);
+    })
   }
 };
 

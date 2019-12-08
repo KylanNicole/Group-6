@@ -1,5 +1,5 @@
 <template>
-    <div class="cart">
+    <div id="cart">
         <div class="header">
             <h1>My Cart</h1>
         </div>
@@ -10,13 +10,16 @@
         </div>
         <div class="footer">
             <p style="display:inline;">Total: ${{cartPrice.toFixed(2)}}</p>
-            <router-link to="checkout" style="float: right; display:inline;">Go To Checkout</router-link>
+            <div @click="hideCart" style="display: inline;">
+            <router-link to="/checkout" style="float: right; display:inline;">Go To Checkout</router-link>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import CartTile from "./CartTile.vue"
+
 export default {
     name: "Cart",
     components: { CartTile },
@@ -26,19 +29,24 @@ export default {
         },
         cartPrice() {
             const prices = this.$store.state.cart.map(item => {
-                return item.spice.unit_price * item.amount});
+                return item.spice.unit_price * item.amount * (100.0 - item.spice.sale) / 10000.0});
             var sum = 0;
             prices.filter(price => {
                 sum += price;
             })
             return sum;
         }
+    },
+    methods: {
+        hideCart() {
+            this.$emit('hidecart');
+        }
     }
 }
 </script>
 
 <style scoped>
-.cart {
+#cart {
     position: fixed;
     top: 70px;
     right: 0;
@@ -46,6 +54,7 @@ export default {
     width: 300px;
     border-radius: 5px;
     background-color: rgba(82, 45, 26, 0.8);
+    z-index: 1;
 }
 p {
     color: #7aa256;
