@@ -13,16 +13,21 @@ router.route('/item_tag_1')
   .all(isAuthenticated)
 
 
+
   .post((req, res) => {
-    const { selection } = req.body;
+    if (req.user.permission  > 1){
+        res.sendStatus(401);
+        return;
+    }
+    const { itemID, tags  } = req.body;
     // const manager = getManager();
     debugger;
 
     //  getting item ID
-    let selected_item = selection["itemID"];
+    let selected_item = itemID;
 
     //  getting tag ID 
-    let tags_list = selection["tags"];
+    let tags_list = tags;
 
 
     //  query for a list of tag entities 
