@@ -48,8 +48,11 @@ export default {
                 this.warnText = "You cannot set your billing address to \
                 the same as shipping if you're picking up your order in store.";
             } else {
-                this.$store.dispatch("sendOrder", address);
-                router.push({name: 'complete'});
+                this.$store.dispatch("sendOrder", address).then(() => {
+                  router.push({name: 'complete'});
+                }, () => {
+                  this.warnText = "Something went wrong when placing the order,\nour stock may be too low, please refresh the page and try again."
+                });
             }
         }
     },
