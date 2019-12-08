@@ -15,11 +15,17 @@ router.route('/item')
       res.send(404);
     })
   })
+
   .post((req, res) => {
-    const { title, unit_price, stock, description, image, sale, order_item, tags } = req.body;
+    if (req.user.permission > 1){
+      res.sendStatus(401);
+      return;
+    }
+    
+    const { title, unit_price, stock, description, image, sale} = req.body;
 
     const manager = getManager();
-    const item = manager.create(Item, { title, unit_price, stock, description, image, sale, order_item, tags });
+    const item = manager.create(Item, { title, unit_price, stock, description, image, sale});
 
     //item.user = req.user;
 
@@ -45,6 +51,10 @@ router.route('/item/:id')
 
 
   .put((req, res) => {
+    if (req.user.permission > 1){
+      res.sendStatus(401);
+      return;
+    }
     const foundItem = req.item;
     const {title, unit_price, stock, description, image, sale, order_item, tags  } = req.body;
 
@@ -67,6 +77,10 @@ router.route('/item/:id')
     res.send(req.item);
   })
   .delete((req, res) => {
+    if (req.user.permission > 1){
+      res.sendStatus(401);
+      return;
+    }
     getManager().delete(Item, req.item.id).then(() => {
       res.sendStatus(200);
     });

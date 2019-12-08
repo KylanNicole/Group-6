@@ -63,9 +63,14 @@ export default {
     filterSpices(spices){
       return spices.filter( spice => {
         return (!this.sale || spice.sale > 0) && (!this.tags.length || this.tags.filter(tag => {
-          return spice.description.toLowerCase().includes(tag) > 0
-        }).length == this.tags.length) && (spice.title.toLowerCase().includes(this.search.toLowerCase()) ||
-        spice.description.toLowerCase().includes(this.search.toLowerCase()));
+          return spice.tags.find(t => {
+            return t.title == tag
+          })
+        }).length > 0) && (spice.title.toLowerCase().includes(this.search.toLowerCase()) ||
+        spice.description.toLowerCase().includes(this.search.toLowerCase()) ||
+        spice.tags.filter(tag => {
+          return tag.title.includes(this.search.toLowerCase())
+        }).length > 0);
       })
     },
     priceSortAscend:function(a, b) {
@@ -120,8 +125,8 @@ export default {
 <style scoped>
 .filter {
   width: 200px;
-  height: 100%;
-  overflow: hidden;
+  height: 500px;
+  overflow-y: scroll;
   padding: 15px;
   border-right: solid 1px black;
   float: left;

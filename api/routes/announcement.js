@@ -9,6 +9,7 @@ import Announcement from '../entities/announcement';
 const router = Router();
 router.route('/announcement')
 
+  
   .get((req, res) => { // @@why do we need req here?? error will be thrown otherwise. 
 
     const itemManager = getManager(); // you can also get it via getConnection().getRepository() or getManager().getRepository()
@@ -20,6 +21,8 @@ router.route('/announcement')
 
 
   .post((req, res) => {
+
+    // owner or admin only! 
     if (req.user.permission  > 1){
       res.sendStatus(401);
       return;
@@ -57,25 +60,26 @@ router.route('/announcement/:id')
 
     foundAnnounce.img_link = img_link;
     foundAnnounce.link_to = link_to;
-
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);
     });
   })
 
-  .get((req, res) => {
-    debugger;
-    res.send(req.announcement);
-  })
+  // .get((req, res) => {
+  //   debugger;
+  //   res.send(req.announcement);
+  // })
 
   .delete((req, res) => {
-    if (req.user.permission <= 1){
-      getManager().delete(Announcement, req.announcement.id).then(() => {
-        res.sendStatus(200);
-      });
-    } else {
+    if (req.user.permission > 1){
       res.sendStatus(401);
+      return;
     }
+
+    getManager().delete(Announcement, req.announcement.id).then(() => {
+      res.sendStatus(200);
+    });
+ 
   });
 
   export default router;

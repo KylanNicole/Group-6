@@ -14,9 +14,10 @@ import order_all from './routes/order_all';
 import tag from './routes/tag';
 import signup from './routes/signup'
 import announcement from './routes/announcement';
-import cart from './routes/cart';
+import submit_order from './routes/submit_order';
+import assign_tags_item  from './routes/assign_tags_item';
 import staff_alert from './routes/staff_alert';
-import item_tag from './routes/item_tag';
+// import item_tag from './routes/item_tag';
 
 
 
@@ -44,9 +45,10 @@ app.use(order_all);
 app.use(tag);
 app.use(staff_alert);
 app.use(signup);
+app.use(assign_tags_item);
 app.use(announcement); 
-app.use(cart);
-app.use(item_tag);
+app.use(submit_order);
+// app.use(item_tag);
 
 
 // app.use(todo);

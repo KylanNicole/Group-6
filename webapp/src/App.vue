@@ -3,6 +3,8 @@
       <!-- {{this.$store.dispatch("checkLogin")}} -->
       <Header/>
       <router-view id="router-view"/>
+      <div style="height: 100px;">
+      </div>
       <Footer/>
       <div class="back-img"></div>
   </div>
@@ -49,7 +51,7 @@ export default {
 }
 
 #router-view {
-  padding-bottom: 60px;
+  padding-bottom: 100px;
 }
 
 .back-img{

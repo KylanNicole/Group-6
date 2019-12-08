@@ -5,9 +5,6 @@ import User from '../entities/user';
 
 const router = Router();
 router.route('/signup')
-
-
-
 .post((req, res) => {
   debugger;
   const { firstname, lastname, email, password } = req.body;
