@@ -53,7 +53,7 @@ router.route('/cart')
         myOrder.order_status = 2;
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
-        }, (response)=> {
+        }, ()=> {
             res.send(400);
         })
 
