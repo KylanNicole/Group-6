@@ -2,7 +2,7 @@
   <div style="margin: 0px; padding: 0px; display:inline-block;">
     <div class="spice-tile" v-if="spice.stock > 0" v-on:click="toggleDetails">
       <img :src='spice.image'>
-      <h4>{{spice.title}}</h4>
+      <h4>{{spice.title.charAt(0).toUpperCase() + spice.title.slice(1).toLowerCase()}}</h4>
 
       <div v-if="spice.sale > 0" style="color:red; text-align: center">
         <p style="text-decoration: line-through;">${{(spice.unit_price / 100.0).toFixed(2)}}</p>
