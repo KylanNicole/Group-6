@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
-import Order_Item from '../entities/order_item';
+import OrderItem from '../entities/order_item';
 
 const router = Router();
 router.route('/order_item')
@@ -16,7 +16,7 @@ router.route('/order_item')
     }
     const { cost, weight, order, item } = req.body;
     const manager = getManager();
-    const order_item = manager.create(ToDo, { cost, weight, order, item });
+    const order_item = manager.create(OrderItem, { cost, weight, order, item });
     // order_item.user = req.user;
     manager.save(order_item).then((savedOrderItem) => {
       res.send(savedOrderItem);
@@ -28,7 +28,7 @@ router.route('/order_item/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
     debugger
-    getRepository(order_item).findOneOrFail(
+    getRepository(OrderItem).findOneOrFail(
       { where: { userId: req.user.id, id: req.params.id } },
     ).then((_foundOrderItem) => {
       req.order_item = _foundOrderItem;
@@ -56,7 +56,7 @@ router.route('/order_item/:id')
     res.send(req.order_item);
   })
   .delete((req, res) => {
-    getManager().delete(ToDo, req.order_item.id).then(() => {
+    getManager().delete(OrderItem, req.order_item.id).then(() => {
       res.send(200);
     });
   });

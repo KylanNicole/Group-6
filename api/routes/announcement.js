@@ -57,7 +57,6 @@ router.route('/announcement/:id')
 
     foundAnnounce.img_link = img_link;
     foundAnnounce.link_to = link_to;
-
     getManager().save(foundAnnounce).then((updatedAnnounce) => {
       res.send(updatedAnnounce);
     });

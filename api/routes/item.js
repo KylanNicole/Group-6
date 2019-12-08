@@ -16,10 +16,10 @@ router.route('/item')
     })
   })
   .post((req, res) => {
-    const { title, unit_price, stock, description, image, sale, order_item, tag } = req.body;
+    const { title, unit_price, stock, description, image, sale} = req.body;
 
     const manager = getManager();
-    const item = manager.create(Item, { title, unit_price, stock, description, image, sale, order_item, tag });
+    const item = manager.create(Item, { title, unit_price, stock, description, image, sale});
 
     //item.user = req.user;
 
@@ -46,17 +46,26 @@ router.route('/item/:id')
 
   .put((req, res) => {
     const foundItem = req.item;
+<<<<<<< HEAD
+    const {title, unit_price, stock, description, image} = req.body;
+    
+=======
     const {title, unit_price, stock, description, image, sale, order_item, tag  } = req.body;
 
+>>>>>>> upstream/master
     foundItem.title = title;
     foundItem.unit_price = unit_price;
     foundItem.stock = stock;
     foundItem.description = description;
+<<<<<<< HEAD
+    foundItem.image = image; 
+=======
     foundItem.image = image;
     //clamp sale between 0.0 and 1.0
     foundItem.sale = sale < 0.0 ? 0.0 : sale > 1.0 ? 1.0 : sale;
     foundItem.order_item = order_item;
     foundItem.tag = tag;
+>>>>>>> upstream/master
 
 
     getManager().save(foundItem).then((updatedItem) => {
