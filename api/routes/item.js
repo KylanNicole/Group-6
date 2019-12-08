@@ -21,7 +21,7 @@ router.route('/item')
       res.sendStatus(401);
       return;
     }
-    
+
     const { title, unit_price, stock, description, image, sale} = req.body;
 
     const manager = getManager();
@@ -63,8 +63,8 @@ router.route('/item/:id')
     foundItem.stock = stock;
     foundItem.description = description;
     foundItem.image = image;
-    //clamp sale between 0.0 and 1.0
-    foundItem.sale = sale < 0.0 ? 0.0 : sale > 1.0 ? 1.0 : sale;
+    //clamp sale between 0 and 100
+    foundItem.sale = sale < 0 ? 0 : sale > 100 ? 100 : sale;
     foundItem.order_item = order_item;
     foundItem.tag = tag;
 

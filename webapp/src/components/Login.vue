@@ -30,8 +30,9 @@
         </section>
 
         <section class="modal-card-body" style="border-left: 3px solid grey">
+          <span class="has-text-danger" v-if="serror">Unsuccessful sign up, email may already be in use.</span>
           <h3><b>New User Signup</b></h3>
-          
+
           <b-field label="First Name">
             <b-input
             v-model="firstname"
@@ -79,7 +80,7 @@
               required
               ></b-input>
             </b-field>
-            
+
           </b-field>
             <b-field label="Confirm Password">
               <b-input
@@ -125,10 +126,11 @@ export default {
       if (this.email == this.emailConf && this.password == this.passwordConf){
         this.$store.dispatch("signup", {firstname: this.firstname, lastname: this.lastname, email: this.email, password: this.password} )
         .then(() => {
-          this.modalActive = false;
+          this.login();
+          // this.modalActive = false;
         },
         () => {
-          this.error = true;
+          this.serror = true;
         })
       }
     }
@@ -142,7 +144,8 @@ export default {
       emailConf: "",
       password: "",
       passwordConf: "",
-      error: false
+      error: false,
+      serror: false
     }
   }
 };
