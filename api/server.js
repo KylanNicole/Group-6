@@ -12,7 +12,7 @@ import order_items from './routes/order_item';
 import order from './routes/order';
 import tag from './routes/tag';
 import signup from './routes/signup'
-import select_item_tag from './routes/select_item_tag';
+// import select_item_tag from './routes/select_item_tag';
 import announcement from './routes/announcement';
 import cart from './routes/cart';
 import staff_alert from './routes/staff_alert';
@@ -43,7 +43,7 @@ app.use(order);
 app.use(tag);
 app.use(staff_alert);
 app.use(signup);
-app.use(select_item_tag);
+// app.use(select_item_tag);
 app.use(announcement); 
 app.use(cart);
 app.use(item_tag);

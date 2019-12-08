@@ -9,6 +9,7 @@ import Announcement from '../entities/announcement';
 const router = Router();
 router.route('/announcement')
 
+  
   .get((req, res) => { // @@why do we need req here?? error will be thrown otherwise. 
 
     const itemManager = getManager(); // you can also get it via getConnection().getRepository() or getManager().getRepository()

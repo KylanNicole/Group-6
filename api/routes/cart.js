@@ -32,6 +32,9 @@ router.route('/cart')
             order_item.weight = item_weigth;
             order_item.item = myItem; 
             myItem.stock = myItem.stock - item_weigth;
+            if(myItem.stock < 0){
+                res.send(400); 
+            }
             return getManager().save(myItem).then(()=> {
                 return order_item; 
             })
