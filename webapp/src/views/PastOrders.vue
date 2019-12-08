@@ -1,15 +1,9 @@
 <template>
-  <div class="CustomerAccount">
+  <div class="CustomerAccount" v-if="this.$store.dispatch('authorized', 2)">
     <h1><b>Past Orders</b></h1>
     <br />
-    <table>
-      <tbody>
-        <tr v-for="order in orders" :key="order">
-          <!-- <td><b>Order ID:</b> {{ order.uid }}</td> -->
-          <td><Order :id="order.uid" :total_cost="order.total_cost" :total_weight="order.total_weight" :item_list="order.item_list" :status="order.status" :customer_id="order.customer_id"></Order></td>
-        </tr>
-      </tbody>
-    </table>
+      <Order v-if="order.order_status < 1" v-for="order in orders" :key="order.id" :id="order.id"/>
+
     <router-link to="/dashboard">
       <div class="manageLink">
         Back
@@ -25,41 +19,13 @@ export default {
   components: {
     Order
   },
-  data: function() {
-    return {
-      orders: [
-        {
-          uid: 34530,
-          total_cost: 30,
-          total_weight: 50,
-          item_list: ["a", "b"],
-          status: 0,
-          credit_card: 123,
-          customer_id: 33,
-          staff_id: 0
-        },
-        {
-          uid: 34529,
-          total_cost: 12,
-          total_weight: 12,
-          item_list: ["c", "d"],
-          status: 2,
-          credit_card: 123,
-          customer_id: 35,
-          staff_id: 0
-        },
-	{
-	  uid: 34531,
-          total_cost: 12,
-          total_weight: 12,
-          item_list: ["c", "d"],
-          status: 2,
-          credit_card: 123,
-          customer_id: 35,
-          staff_id: 0
-	}
-      ]
-    };
+  computed: {
+    orders() {
+      return this.$store.state.orders;
+    },
+    created() {
+        this.$store.dispatch("getAllOrders");
+    }
   }
 };
 </script>

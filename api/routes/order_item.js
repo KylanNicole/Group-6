@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
-import ToDo from '../entities/order_item';
+import Order_Item from '../entities/order_item';
 
 const router = Router();
 router.route('/order_item')

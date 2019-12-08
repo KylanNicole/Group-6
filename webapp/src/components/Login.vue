@@ -57,6 +57,7 @@
             ></b-input>
           </b-field>
 
+
             <b-field label="Confirm Email">
               <b-input
               type="email"
@@ -65,7 +66,9 @@
               required
               ></b-input>
             </b-field>
-            <span class="has-text-danger" v-if="email != emailConf">Emails do not match</span>
+              <span class="has-text-danger" v-if="email != emailConf" style="display:block; float:left;">
+                Emails do not match
+              </span>
 
             <b-field label="Password">
               <b-input
@@ -76,7 +79,8 @@
               required
               ></b-input>
             </b-field>
-
+            
+          </b-field>
             <b-field label="Confirm Password">
               <b-input
               type="password"
@@ -85,8 +89,10 @@
               placeholder="Confirm Password"
               required
               ></b-input>
-              <span class="has-text-danger" v-if="password != passwordConf">Passwords do not match</span>
             </b-field>
+              <span class="has-text-danger" v-if="password != passwordConf" style="display:block; float:left;">
+                Passwords do not match
+              </span>
           <b-button v-on:click="signUp">Sign Up</b-button>
           </section>
         </section>
