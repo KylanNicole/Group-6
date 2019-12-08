@@ -24,7 +24,7 @@ export default (passport) => {
     res.send(req.user);
   });
   router.put('/updatePerm', isAuth, (req, res) => {
-    if (req.user.permission == 0){
+    if (req.user.permission == 0 && req.user.email != req.body.email){
       const {email, perm} = req.body;
       const foundUser = getRepository(User)
       .findOneOrFail(
