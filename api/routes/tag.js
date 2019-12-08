@@ -16,7 +16,6 @@ router.route('/tag')
       res.sendStatus(404);
     })
   })
-  .post(isAuthenticated)
   .post((req, res) => {
     if (req.user.permission > 1){
       res.sendStatus(401);
@@ -32,7 +31,6 @@ router.route('/tag')
 
 
 router.route('/tag/:id')
-  //.all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Tag).findOneOrFail(
       { where: { id: req.params.id } },
@@ -44,6 +42,10 @@ router.route('/tag/:id')
     });
   })
   .put((req, res) => {
+    if (req.user.permission > 1){
+      res.sendStatus(401);
+      return;
+    }
     const foundTag = req.tag;
     const { title, item } = req.body;
 
@@ -60,6 +62,10 @@ router.route('/tag/:id')
   })
 
   .delete((req, res) => {
+    if (req.user.permission > 1){
+      res.sendStatus(401);
+      return;
+    }
     getManager().delete(Tag, req.tag.id).then(() => {
       res.send(200);
     });
