@@ -4,6 +4,8 @@ import Tag from "../entities/tag.js";
 import Item from "../entities/item.js";
 import Order_Item from "../entities/order_item.js";
 import Order from "../entities/order.js";
+import Announcement from "../entities/announcement.js";
+import StaffAlert from "../entities/staff_alert.js";
 
 var faker = require('faker');
 faker.seed(123);
@@ -17,7 +19,7 @@ function genCharArray(charA, charZ) {
 }
 
 function randInt(leftVal, rightVal) {
-  return Math.floor(Math.random() * (1 + rightVal - leftVal) + leftVal)
+  return Math.floor(Math.random() * (rightVal - leftVal) + leftVal)
 }
 
 createConnection().then(() => {
@@ -82,7 +84,6 @@ createConnection().then(() => {
   // generating order__item
   var test = new Item();
   var order_items_lst = [];
-  items.push(test);
   for(i = 0; i < 3; i++) {
     var o = new Order();
     o.order_status = 0;
@@ -100,16 +101,9 @@ createConnection().then(() => {
       oi.item = randInt(1, 10);
       while(temp_set.has(oi.item)) {
         oi.item = randInt(1, 10); 
-        console.log("item set");
-        console.log(temp_set);
-        console.log("item id");
-        console.log(oi.item);
-        console.log("order id");
-        console.log(i);
       }
       temp_set.add(oi.item)
-      oi.cost = oi.weight * items[oi.item].unit_price;
-      oi.item += 1;
+      oi.cost = oi.weight * items[oi.item-1].unit_price;
       o.total_cost += oi.cost;
       order_items_lst.push(oi);
     }
@@ -117,6 +111,23 @@ createConnection().then(() => {
   }
   for(i = 0; i < order_items_lst.length; i++) {
     getManager().save(order_items_lst[i]);     
+  }
+
+  // generating announcements
+
+  for(i = 0; i < 5; i++) {
+    let a = new Announcement(); 
+    a.img_link = "some img_link_" + alpha[i];
+    a.link_to = "link_to_" + alpha[i];
+    getManager().save(a);
+  }
+
+  // generating staff alerts
+  for(i = 0; i < 5; i++) {
+    let sa = new StaffAlert(); 
+    sa.author = "author_"+alpha[i];
+    sa.text = "here is some text written by author_" + alpha[i];
+    getManager().save(sa);
   }
 })
 
