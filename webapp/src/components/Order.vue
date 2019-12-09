@@ -6,7 +6,7 @@
     <button v-if="verifyFinished" @click="archiveOrder">Shipped</button>
     <button @click="clickMethod">Details</button>
     <div :class="{hide : hideDetails}">
-      <p><b>Price:</b> ${{order.total_cost}}</p>
+      <p><b>Price:</b> ${{(order.total_cost/100.0).toFixed(2)}}</p>
       <p><b>Weight:</b> {{order.total_weight}}</p>
       <p><b>Status:</b> {{stringStatus}}</p>
       <!--<p><b>Customer ID:</b> {{customer_id}}</p>-->
@@ -15,7 +15,7 @@
         <tr v-for="item in order.order_items" :key="item.id">
           <td><b>{{item.item.title}}</b></td>
           <td>{{item.weight}}g</td>
-          <td>${{item.cost.toFixed(2)}}</td>
+          <td>${{(item.cost/100.0).toFixed(2)}}</td>
           <td><img :src='item.item.image' style="height: 60px;"></td>
         </tr>
       </table>
@@ -72,7 +72,7 @@ export default {
     },
     claimOrder() {
       this.hideDetails = false;
-      this.$store.dispatch("updateOrder", 
+      this.$store.dispatch("updateOrder",
       Object.assign({}, this.order, {staff_id : this.$store.state.loginState.user.id}));
     },
     finishOrder() {
@@ -84,10 +84,10 @@ export default {
       this.$store.dispatch("updateOrder",
       Object.assign({}, this.order, {order_status : 0}));
     }
-  },
-  created(){
-    this.$store.dispatch("getOrders");
   }
+  // created(){
+  //   this.$store.dispatch("getOrders");
+  // }
 };
 </script>
 

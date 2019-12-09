@@ -15,7 +15,7 @@
       </div>
 
       <!-- <router-link :to="{name: 'spices', params: {spice: spice.id}}"> -->
-        <button v-on:click="edit"
+        <button v-on:click.stop="edit"
          v-if="this.$store.state.loginState.loggedIn && this.$store.state.loginState.user.permission <= 1">
           EDIT
         </button>

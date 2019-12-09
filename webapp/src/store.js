@@ -166,7 +166,12 @@ export const actions = {
     commit("deleteCartItem", payload);
   },
   sendOrder: function({commit}, payload) {
-    return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: this.state.cart})).then((response) => {
+    var items = {};
+    for (var i = 0; i < this.state.cart.length; i++) {
+      var item = this.state.cart[i];
+      items["" + item.spice.id] = {weight: item.amount};
+    }
+    return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: items})).then((response) => {
       commit("clearCart");
     })
   },
