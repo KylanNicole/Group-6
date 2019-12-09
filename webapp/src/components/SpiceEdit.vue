@@ -3,17 +3,17 @@
         <h1>{{title}}</h1>
         <button @click="updateSpice" >{{editText}}</button>
         <button @click="cancelUpdate" :class="{hide : hideDetails}">CANCEL</button>
-        <button @click="deleteSpice" :class="{hide : !hideWarn}">DELETE</button>
+        <!-- <button @click="deleteSpice" :class="{hide : !hideWarn}">DELETE</button> -->
         <div :class="{hide : hideDetails}">
             <hr/>
             <p>Name</p>
             <input type="text" v-model="updatedInfo.title"/>
             <p>Unit Price (cents/gram)</p>
-            <input type="text" v-model="updatedInfo.unit_price"/>
+            <input type="number" v-model="updatedInfo.unit_price"/>
             <p>Sale Amount (0-100%)</p>
-            <input type="text" v-model="updatedInfo.sale"/>
+            <input type="number" min=0 max=100 v-model="updatedInfo.sale"/>
             <p>Stock Amount (grams)</p>
-            <input type="text" v-model.number="updatedInfo.stock"/>
+            <input type="number" v-model.number="updatedInfo.stock"/>
             <p>Description</p>
             <textarea v-model="updatedInfo.description"/>
             <p>Image URL</p>

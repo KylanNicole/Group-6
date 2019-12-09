@@ -1,5 +1,6 @@
 <template>
     <div class="back">
+      <b-loading :is-full-page="true" :active.sync="submittingOrder" style="z-index: 1;" />
         <div>
             <div id="purchases">
                 <h4>Your Items</h4>
@@ -48,7 +49,9 @@ export default {
                 this.warnText = "You cannot set your billing address to \
                 the same as shipping if you're picking up your order in store.";
             } else {
+              this.submittingOrder = true;
                 this.$store.dispatch("sendOrder", address).then(() => {
+                  this.submittingOrder = false;
                   router.push({name: 'complete'});
                 }, () => {
                   this.warnText = "Something went wrong when placing the order,\nour stock may be too low, please refresh the page and try again."
@@ -58,7 +61,8 @@ export default {
     },
     data() {
         return {
-            warnText: ""
+            warnText: "",
+            submittingOrder: false
         }
     }
 }

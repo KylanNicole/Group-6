@@ -1,5 +1,6 @@
 <template>
   <div v-if="this.$store.dispatch('authorized', 0)" class="section">
+    <b-loading :is-full-page="true" :active.sync="staffLoading" style="z-index: 1;" />
     <!-- <SearchBar/> -->
     <span class="has-text-danger" v-if="error">User not available to change, account may not exist.</span>
     <router-link to="/dashboard">
@@ -40,25 +41,30 @@
     },
     methods: {
       getAccounts: function(){
+        this.staffLoading = true;
         return this.$store.dispatch("getAccounts").then((response) => {
           this.accounts = response;
+          this.staffLoading = false;
           this.$forceUpdate();
         });
       },
       addStaff: function(){
+        this.staffLoading = true;
         this.$store.dispatch("updatePerm", {email: this.newStaff, perm: 2}).then(() => {
           this.getAccounts();
           this.error = false;
         }, () => {
+          this.staffLoading = false;
           this.error = true;
         });
       }
     },
     data(){
       return {
-        accounts : [],
-        newStaff : "",
-        error : false
+        accounts: [],
+        newStaff: "",
+        error: false,
+        staffLoading: false
       }
     },
     created(){
