@@ -57,6 +57,12 @@ export default {
   methods: {
     toggleDetails() {
       this.hideDetails = !this.hideDetails;
+      if (!this.hideDetails) {
+        this.$router.push({name: 'Shop', params: {item: this.spice.title}});
+      } else {
+        this.$router.push({name: 'Shop'})
+      }
+      // this.hideDetails = !this.hideDetails;
       //this.$refs.SpiceInfo.modalActive = true;
     },
     edit() {
