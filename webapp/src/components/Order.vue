@@ -9,8 +9,8 @@
     <button @click="clickMethod">Details</button>
     <div :class="{hide : hideDetails}">
       <!--Address and user name-->
-      <p><b>Price:</b> ${{order.total_cost}}</p>
-      <p><b>Weight:</b> {{order.total_weight}}</p>
+      <p><b>Price:</b> ${{(order.total_cost / 100.0).toFixed(2)}}</p>
+      <p><b>Weight:</b> {{order.total_weight}}g</p>
       <p><b>Status:</b> {{stringStatus}}</p>
       <p v-if="order.tracking_num != ''"><b>Tracking Number:</b> {{order.tracking_num}}</p>
       <p><b>Items:</b></p>
@@ -18,7 +18,7 @@
         <tr v-for="item in order.order_items" :key="item.id">
           <td><b>{{item.item.title}}</b></td>
           <td>{{item.weight}}g</td>
-          <td>${{item.cost.toFixed(2)}}</td>
+          <td>${{(item.cost / 100.0).toFixed(2)}}</td>
           <td><img :src='item.item.image' style="height: 60px;"></td>
         </tr>
       </table>

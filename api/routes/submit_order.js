@@ -20,7 +20,7 @@ router.route('/cart')
         return getRepository(Item).findOneOrFail(item.spice.id).then((spice) => {
             debugger;
             let item_weight = item.amount;
-            let item_cost = spice.unit_price * item.amount * (100.0 - spice.sale) / 100.0;
+            let item_cost = spice.unit_price * item.amount * ((100.0 - spice.sale) / 100.0);
             order_item.cost = item_cost;
             order_item.weight = item_weight;
             order_item.item = spice; 
