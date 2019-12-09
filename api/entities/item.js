@@ -40,3 +40,4 @@ export default class Item {
   @JoinTable()
   tags
 }
+

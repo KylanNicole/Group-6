@@ -4,24 +4,18 @@
       <img :src='spice.image'>
       <h4>{{spice.title.charAt(0).toUpperCase() + spice.title.slice(1).toLowerCase()}}</h4>
 
-      <div v-if="spice.sale > 0" style="color:red; text-align: center">
-        <p style="text-decoration: line-through;">${{(spice.unit_price / 100.0).toFixed(2)}}</p>
-        <p style="color:black"> {{" → $" + (spice.unit_price * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
-        <br>
-        <p> {{spice.sale}}% off!</p>
+      <div v-if="spice.sale > 0" style="color:red; text-align: center;">
+        <p style="text-decoration: line-through;">${{getPrice().toFixed(2)}}</p>
+        <p style="color:black"> {{" → $" + getSalePrice().toFixed(2)}}</p>
+        <p style="display: block;">{{spice.sale}}% off!</p>
       </div>
       <div v-else style="text-align: center">
-        <p style="color:black">{{"$" + (this.spice.unit_price * (1.0 - this.spice.sale)).toFixed(2)}}</p>
+        <p style="color:black">{{"$" + getPrice().toFixed(2)}}</p>
       </div>
-
-      <!-- <router-link :to="{name: 'spices', params: {spice: spice.id}}"> -->
-        <button v-on:click="edit"
+        <button v-on:click.stop="edit"
          v-if="this.$store.state.loginState.loggedIn && this.$store.state.loginState.user.permission <= 1">
           EDIT
         </button>
-      <!-- </router-link> -->
-
-      <!-- <button v-on:click="toggleDetails">DETAILS</button> -->
     </div>
     <div :class="[hideDetails ? 'hidden' : 'background']" v-on:click="toggleDetails">
     </div>
@@ -50,17 +44,28 @@ export default {
       set: function(val) {
 
       }
-    }
-
-
+    },
   },
   methods: {
     toggleDetails() {
       this.hideDetails = !this.hideDetails;
+      if (!this.hideDetails) {
+        this.$router.push({name: 'Shop', params: {item: this.spice.title}});
+      } else {
+        this.$router.push({name: 'Shop'})
+      }
+      // this.hideDetails = !this.hideDetails;
       //this.$refs.SpiceInfo.modalActive = true;
     },
     edit() {
       this.$router.push({name: 'spices', params: {spice: this.spice.id}});
+    },
+    getPrice() {
+      return (this.spice.unit_price / 100.0);
+    },
+    getSalePrice() {
+      
+      return (this.spice.unit_price / 100.0) * ((100.0 - this.spice.sale) / 100.0);
     }
   },
   data() {

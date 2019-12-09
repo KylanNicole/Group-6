@@ -8,17 +8,25 @@
             <hr/>
             <p>Name</p>
             <input type="text" v-model="updatedInfo.title"/>
-            <p>Unit Price</p>
+            <p>Unit Price (cents/gram)</p>
             <input type="text" v-model="updatedInfo.unit_price"/>
-            <p>Sale Amount</p>
+            <p>Sale Amount (0-100%)</p>
             <input type="text" v-model="updatedInfo.sale"/>
-            <p>Stock Amount</p>
+            <p>Stock Amount (grams)</p>
             <input type="text" v-model.number="updatedInfo.stock"/>
             <p>Description</p>
             <textarea v-model="updatedInfo.description"/>
             <p>Image URL</p>
             <input type="text" v-model="updatedInfo.image"/>
             <img :src="updatedInfo.image ? updatedInfo.image : image">
+            <p>Tags</p>
+            <div class="tag" v-for="tag in allTags">
+                <input type="checkbox" :value="tag" v-model="updatedInfo.tags"/>
+                <label> {{tag.title}}</label>
+            </div>
+            <p>New Tag</p>
+            <input type="text" placeholder="New Tag" v-model="newTag"/>
+            <button @click="addTag">Add Tag</button>
         </div>
         <div :class="{hide : hideWarn}">
             <hr/>
@@ -40,8 +48,10 @@ export default {
         description: String,
         image: String,
         sale: Number,
+        tags: Array,
         visible: {type: Boolean, default: false}
     },
+    //computed:  {},
     data() {
         return {
             editText: "UPDATE",
@@ -54,16 +64,30 @@ export default {
                 stock: this.stock,
                 description: this.description,
                 image: this.image,
+                tags: this.tags,
                 sale: this.sale
-            }
+            },
+            newTag: null
+        }
+    },
+    computed: {
+        allTags() {
+            return this.$store.state.tags;
         }
     },
     created() {
         if(this.active) {
             this.updateSpice();
         }
+        this.$store.dispatch("getTags", "");
     },
     methods: {
+        addTag() {
+            if(this.newTag != null){
+                this.$store.dispatch("addTag", this.newTag);
+                this.newTag = null;
+            }
+        },
         updateSpice() {
             this.hideDetails = !this.hideDetails;
             this.hideWarn = true;
@@ -128,5 +152,10 @@ img {
 .alert {
     color: red;
     display: block;
+}
+.tag {
+    background-color: #8d9b77;
+    border-radius: 5px;
+    margin: 5px;
 }
 </style>
