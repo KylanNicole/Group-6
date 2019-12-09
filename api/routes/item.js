@@ -56,7 +56,7 @@ router.route('/item/:id')
       return;
     }
     const foundItem = req.item;
-    const {title, unit_price, stock, description, image, sale, order_item, tag  } = req.body;
+    const {title, unit_price, stock, description, image, sale, order_item, tags  } = req.body;
 
     foundItem.title = title;
     foundItem.unit_price = unit_price;
@@ -66,7 +66,7 @@ router.route('/item/:id')
     //clamp sale between 0 and 100
     foundItem.sale = sale < 0 ? 0 : sale > 100 ? 100 : sale;
     foundItem.order_item = order_item;
-    foundItem.tag = tag;
+    foundItem.tags = tags;
 
 
     getManager().save(foundItem).then((updatedItem) => {

@@ -13,7 +13,6 @@ import order from './routes/order';
 import order_all from './routes/order_all';
 import tag from './routes/tag';
 import signup from './routes/signup'
-// import select_item_tag from './routes/select_item_tag';
 import announcement from './routes/announcement';
 import submit_order from './routes/submit_order';
 import assign_tags_item  from './routes/assign_tags_item';

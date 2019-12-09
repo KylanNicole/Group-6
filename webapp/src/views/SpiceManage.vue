@@ -1,12 +1,11 @@
 <template>
-
   <div id="manage-spice" v-if="this.$store.dispatch('authorized', 1)">
     <router-link to="/dashboard">
       <div style="display: block;">
         Back
       </div>
     </router-link>
-    <button @click="hideFields = false">NEW SPICE</button>
+    <button @click="hideFields = false">NEW PRODUCT</button>
     <div id="spice-form" :class="{hide : hideFields}">
       <img :src="newSpice.image"/>
       <h4>New Spice</h4>
@@ -28,7 +27,6 @@
 import SpiceEdit from "@/components/SpiceEdit.vue";
 
 export default {
-
   name: "SpiceManage",
   components: { SpiceEdit },
   computed: {

@@ -10,7 +10,7 @@
             <b-field label="Email">
               <b-input
               type="email"
-              v-model="email"
+              v-model="loginEmail"
               placeholder="Your email"
               required
               ></b-input>
@@ -19,7 +19,7 @@
             <b-field label="Password">
               <b-input
               type="password"
-              v-model="password"
+              v-model="loginPassword"
               password-reveal
               placeholder="Your password"
               required
@@ -58,29 +58,24 @@
             ></b-input>
           </b-field>
 
+          <b-field label="Confirm Email">
+            <b-input
+            type="email"
+            v-model="emailConf"
+            placeholder="Confirm Email"
+            required
+            ></b-input>
+          </b-field>
+          <span class="has-text-danger" v-if="email != emailConf">Emails do not match</span>
 
-            <b-field label="Confirm Email">
-              <b-input
-              type="email"
-              v-model="emailConf"
-              placeholder="Confirm Email"
-              required
-              ></b-input>
-            </b-field>
-              <span class="has-text-danger" v-if="email != emailConf" style="display:block; float:left;">
-                Emails do not match
-              </span>
-
-            <b-field label="Password">
-              <b-input
-              type="password"
-              v-model="password"
-              password-reveal
-              placeholder="Your password"
-              required
-              ></b-input>
-            </b-field>
-
+          <b-field label="Password">
+            <b-input
+            type="password"
+            v-model="password"
+            password-reveal
+            placeholder="Your password"
+            required
+            ></b-input>
           </b-field>
             <b-field label="Confirm Password">
               <b-input
@@ -113,7 +108,7 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      this.$store.dispatch("login", {email: this.email, password: this.password})
+      this.$store.dispatch("login", {email: this.loginEmail, password: this.loginPassword})
       .then(() => {
         this.modalActive = false;
       },
@@ -140,8 +135,10 @@ export default {
       modalActive: false,
       firstname: "",
       lastname: "",
+      loginEmail: "",
       email: "",
       emailConf: "",
+      loginPassword: "",
       password: "",
       passwordConf: "",
       error: false,

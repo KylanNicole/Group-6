@@ -19,6 +19,9 @@ export const mutations = {
   storeTags(state, tags) {
     state.tags = tags;
   },
+  appendTag(state, tag) {
+    state.tags = [...state.tags, tag];
+  },
   getBanners(state, banners){
     state.banners = banners;
   },
@@ -137,6 +140,11 @@ export const actions = {
     return axios.get("/api/tag", payload).then((response) => {
       commit("storeTags", response.data);
     });
+  },
+  addTag:function({commit}, payload) {
+    return axios.post("/api/tag", {title: payload}).then((response) => {
+      commit("appendTag", response.data);
+    })
   },
   createSpice:function({commit}, payload) {
     return axios.post("/api/item", payload).then(() => {

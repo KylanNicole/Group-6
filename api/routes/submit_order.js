@@ -51,6 +51,7 @@ router.route('/cart')
         myOrder.user = req.user;
         myOrder.staff_id = -1;
         myOrder.order_status = 2;
+        myOrder.tracking_num = '';
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
         }, ()=> {
