@@ -6,11 +6,12 @@ import Order_Item from "../entities/order_item.js";
 import Order from "../entities/order.js";
 import Announcement from "../entities/announcement.js";
 import StaffAlert from "../entities/staff_alert.js";
-import 'babel-polyfill';
 
 var faker = require('faker');
 faker.seed(123);
 var items = [];
+var write = true;
+var counter = -3;
 
 async function getTag(tagId) {
   let foundTag = getRepository(Tag).findOneOrFail(
@@ -49,13 +50,18 @@ function randInt(leftVal, rightVal) {
   return Math.floor(Math.random() * (rightVal - leftVal) + leftVal)
 }
 
+function retOrderId() {
+  counter += 3;
+  return counter;
+}
+
 createConnection().then(() => {
   var i = 0;
   var alpha = genCharArray('a', 'z');
-  var num_items = 35;
+  var num_items = 10;
   var num_tags = 10;
   var num_users = 10;
-  var num_orders = 10;
+  var num_orders = 3;
   // generate items
     // generate tags
   var spices = ["spicy", "salty", "peppery", "red", "umami", "sweet", "brown", "italian", "fresh", "coarse"]
@@ -64,7 +70,9 @@ createConnection().then(() => {
     let tag = new Tag();
     tag.title = spices[i];
     const entityManager = getManager();
-    saved_tags.push(entityManager.save(tag));
+    if(write) {
+      saved_tags.push(entityManager.save(tag));
+    }
   }
 
   for(i = 0; i < num_items; i++) {
@@ -76,7 +84,9 @@ createConnection().then(() => {
     item.image = "image of spice_"+alpha[i];
     let val = randInt(0, 9);
     items.push(item);
-    getManager().save(item);
+    if(write) {
+      getManager().save(item);
+    }
   }
 	// person_type: 
 	// * owner - 0
@@ -101,7 +111,9 @@ createConnection().then(() => {
       user.permission = 1; 
     	user.email = `${user.firstname[0]}${user.lastname}@admin.com`
     }
-    getManager().save(user);
+    if(write) {
+      getManager().save(user);
+    }
   }
   let user = new User()
   user.firstname = "Owner";
@@ -109,26 +121,34 @@ createConnection().then(() => {
   user.email = "Owner";
   user.password = "Owner";
   user.permission = 0;
-  getManager().save(user);
+  if(write) {
+    getManager().save(user);
+  }
 
   // generate announcements
   for(i = 0; i < 10; i++) {
     let a = new Announcement(); 
     a.img_link = "some img_link_" + alpha[i];
     a.link_to = "link_to_" + alpha[i];
-    getManager().save(a);
+    if(write) {
+      getManager().save(a);
+    }
   }
   // generate staff alerts
   for(i = 0; i < 10; i++) {
     let sa = new StaffAlert(); 
     sa.author = "author_"+alpha[i];
     sa.text = "here is some text written by author_" + alpha[i];
-    getManager().save(sa);
+    if(write) {
+      getManager().save(sa);
+    }
   }
 
   var j = 0;
   var order_items_lst = [];
+  var orders = [];
   for(i = 0; i < num_orders; i++) {
+    var temp_lst = [];
     var o = new Order();
     o.order_status = 0;
     o.staff_id = randInt(5,8);
@@ -150,12 +170,20 @@ createConnection().then(() => {
       oi.item += 1
       oi.cost = oi.weight * items[oi.item-1].unit_price;
       o.total_cost += oi.cost;
-      order_items_lst.push(oi);
+      order_items_lst.push([i+1, oi]);
     }
-    getManager().save(o);
+    console.log(order_items_lst)
+    getManager().save(o).then((savedOrder) => {
+      var i = retOrderId() 
+      var oi1 = order_items_lst[i][1]
+      var oi2 = order_items_lst[i+1][1]
+      var oi3 = order_items_lst[i+2][1]
+      oi1.order = savedOrder
+      oi2.order = savedOrder
+      oi3.order = savedOrder
+      getManager().save(oi1)
+      getManager().save(oi2)
+      getManager().save(oi3)
+    })
   }
-  for(i = 0; i < order_items_lst.length; i++) {
-    getManager().save(order_items_lst[i]);     
-  }
-
 })

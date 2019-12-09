@@ -4,6 +4,7 @@ import isAuthenticated from '../middleware/isAuthenticated';
 import User from '../entities/user';
 
 const router = Router();
+// creating user
 router.route('/signup')
 .post((req, res) => {
   debugger;
@@ -35,6 +36,7 @@ router.route('/signup/:id')
 
 })
 
+// alter user info
 .put((req, res) => {
   const foundUser = req.user;
   const {  firstname, lastname, email, password } = req.body;
@@ -51,6 +53,7 @@ router.route('/signup/:id')
 //   .get((req, res) => {
 //     res.send(req.tag);
 //   })
+// delete user
 .delete((req, res) => {
   getManager().delete(User, req.user.id).then(() => {
     res.send(200);

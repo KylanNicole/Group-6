@@ -6,7 +6,6 @@ import Order_Item from "../entities/order_item.js";
 import Order from "../entities/order.js";
 import Announcement from "../entities/announcement.js";
 import StaffAlert from "../entities/staff_alert.js";
-import 'babel-polyfill';
 
 var counter = 0;
 var num_items = 35;
