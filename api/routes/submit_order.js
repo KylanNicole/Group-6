@@ -40,8 +40,6 @@ router.route('/cart')
         })
     })
 
-
-
     return Promise.all(itemPromises).then((orderItems) => {
         let myOrder = manager.create(Order_);
         myOrder.total_cost = totalCost;

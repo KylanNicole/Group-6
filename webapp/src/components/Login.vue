@@ -121,6 +121,8 @@ export default {
       if (this.email == this.emailConf && this.password == this.passwordConf){
         this.$store.dispatch("signup", {firstname: this.firstname, lastname: this.lastname, email: this.email, password: this.password} )
         .then(() => {
+          this.loginEmail = this.email;
+          this.loginPassword = this.password;
           this.login();
           // this.modalActive = false;
         },
