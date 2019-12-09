@@ -3,16 +3,18 @@
     <h2>Order ID: {{id}}</h2>
     <button v-if="verifyAvailable" @click="claimOrder">Claim</button>
     <button v-if="verifyClaimed" @click="finishOrder">Finish</button>
-    <input v-if="verifyFinished" type="number" placeholder="Tracking Number"
+    <input v-if="verifyFinished" type="text" placeholder="Tracking Number"
     v-model="trackNum" style="margin-left: 15px;" :class="{outline : warnUser}"/>
     <button v-if="verifyFinished" @click="archiveOrder">Shipped</button>
     <button @click="clickMethod">Details</button>
     <div :class="{hide : hideDetails}">
-      <!--Address and user name-->
-      <p><b>Price:</b> ${{(order.total_cost / 100.0).toFixed(2)}}</p>
-      <p><b>Weight:</b> {{order.total_weight}}g</p>
-      <p><b>Status:</b> {{stringStatus}}</p>
+      <p><b>For: </b>{{order.user.firstname + " " + order.user.lastname}}</p>
+      <p><b>Address: </b>{{order.address}}</p>
+      <p><b>Price: </b>${{(order.total_cost / 100.0).toFixed(2)}}</p>
+      <p><b>Weight: </b>{{order.total_weight}}g</p>
+      <p><b>Status: </b>{{stringStatus}}</p>
       <p v-if="order.tracking_num != ''"><b>Tracking Number:</b> {{order.tracking_num}}</p>
+      <p v-if="this.$store.state.loginState.user.permission <= 2"><b>Claimed by: </b>{{staffObj.email}}</p>
       <p><b>Items:</b></p>
       <table style="border: 1px solid black;">
         <tr v-for="item in order.order_items" :key="item.id">
@@ -37,7 +39,8 @@ export default {
     return {
       hideDetails: true,
       trackNum: "",
-      warnUser: false
+      warnUser: false,
+      staffObj: {}
     };
   },
   computed: {
@@ -99,10 +102,14 @@ export default {
         Object.assign({}, this.order, {order_status : 0, tracking_num : this.trackNum}));
       }
     }
+  },
+  created(){
+    this.$store.dispatch("getAccounts").then(response => {
+      this.staffObj = response.find(user => {
+        return (user.id == this.order.staff_id)
+      })
+    });
   }
-  // created(){
-  //   this.$store.dispatch("getOrders");
-  // }
 };
 </script>
 

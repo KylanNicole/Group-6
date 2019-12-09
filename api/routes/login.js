@@ -51,7 +51,7 @@ export default (passport) => {
         var u;
         for (u in foundUsers) {
           if (foundUsers[u].permission < 3){
-            limitedUsers.push({firstname: foundUsers[u].firstname, lastname: foundUsers[u].lastname, email: foundUsers[u].email, permission: foundUsers[u].permission});
+            limitedUsers.push({id: foundUsers[u].id, firstname: foundUsers[u].firstname, lastname: foundUsers[u].lastname, email: foundUsers[u].email, permission: foundUsers[u].permission});
           }
         }
         res.send(limitedUsers);
