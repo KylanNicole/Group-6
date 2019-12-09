@@ -82,11 +82,16 @@ export default {
     },
     finishOrder() {
       this.hideDetails = true;
-      this.$store.dispatch("updateOrder",
-      Object.assign({}, this.order, {order_status : 1}));
+      if(this.order.address == "in store") {
+        this.$store.dispatch("updateOrder",
+        Object.assign({}, this.order, {order_status : 0}));
+      } else {
+        this.$store.dispatch("updateOrder",
+        Object.assign({}, this.order, {order_status : 1}));
+      }
     },
     archiveOrder() {
-      if(this.trackNum == '') {
+      if(this.order.address != 'in store' && this.trackNum == '') {
         this.warnUser = true;
       } else {
         this.warnUser = false;
