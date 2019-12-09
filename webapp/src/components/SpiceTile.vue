@@ -4,11 +4,10 @@
       <img :src='spice.image'>
       <h4>{{spice.title.charAt(0).toUpperCase() + spice.title.slice(1).toLowerCase()}}</h4>
 
-      <div v-if="spice.sale > 0" style="color:red; text-align: center">
+      <div v-if="spice.sale > 0" style="color:red; text-align: center;">
         <p style="text-decoration: line-through;">${{(spice.unit_price / 100.0).toFixed(2)}}</p>
         <p style="color:black"> {{" → $" + (spice.unit_price * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
-        <br>
-        <p> {{spice.sale}}% off!</p>
+        <p style="display: block;">{{spice.sale}}% off!</p>
       </div>
       <div v-else style="text-align: center">
         <p style="color:black">{{"$" + (this.spice.unit_price * (1.0 - this.spice.sale)).toFixed(2)}}</p>
@@ -75,6 +74,7 @@ export default {
   padding: 10px;
   margin: 5px;
   display: inline-block;
+  height: 240px;
 }
 img {
   width: 150px;

@@ -10,7 +10,7 @@
             <b-field label="Email">
               <b-input
               type="email"
-              v-model="email"
+              v-model="loginEmail"
               placeholder="Your email"
               required
               ></b-input>
@@ -19,7 +19,7 @@
             <b-field label="Password">
               <b-input
               type="password"
-              v-model="password"
+              v-model="loginPassword"
               password-reveal
               placeholder="Your password"
               required
@@ -107,7 +107,7 @@ export default {
   name: "Login",
   methods: {
     login: function(){
-      this.$store.dispatch("login", {email: this.email, password: this.password})
+      this.$store.dispatch("login", {email: this.loginEmail, password: this.loginPassword})
       .then(() => {
         this.modalActive = false;
       },
@@ -133,8 +133,10 @@ export default {
       modalActive: false,
       firstname: "",
       lastname: "",
+      loginEmail: "",
       email: "",
       emailConf: "",
+      loginPassword: "",
       password: "",
       passwordConf: "",
       error: false

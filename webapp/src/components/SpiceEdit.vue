@@ -8,11 +8,11 @@
             <hr/>
             <p>Name</p>
             <input type="text" v-model="updatedInfo.title"/>
-            <p>Unit Price</p>
+            <p>Unit Price (cents)</p>
             <input type="text" v-model="updatedInfo.unit_price"/>
-            <p>Sale Amount</p>
+            <p>Sale Amount (0-100%)</p>
             <input type="text" v-model="updatedInfo.sale"/>
-            <p>Stock Amount</p>
+            <p>Stock Amount (grams)</p>
             <input type="text" v-model.number="updatedInfo.stock"/>
             <p>Description</p>
             <textarea v-model="updatedInfo.description"/>

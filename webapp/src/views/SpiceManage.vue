@@ -5,7 +5,7 @@
         Back
       </div>
     </router-link>
-    <button @click="hideFields = false">NEW SPICE</button>
+    <button @click="hideFields = false">NEW PRODUCT</button>
     <div id="spice-form" :class="{hide : hideFields}">
       <img :src="newSpice.image"/>
       <h4>New Spice</h4>
