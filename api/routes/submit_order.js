@@ -17,22 +17,20 @@ router.route('/cart')
     let totalWeight = 0;
 
     const { address, order_items } = req.body;
-
-    let itemPromises = Object.keys(order_items).map((itemID) => {
-        return getRepository(Item).findOneOrFail(itemID).then((myItem) => {
-            let order_item = manager.create(Order_Item);
-            let item_weigth = order_items[itemID].weight;
-            let item_cost = myItem.unit_price * item_weigth *(100 - myItem.sale)/100; 
-            totalWeight += item_weigth;
-            totalCost += item_cost;
+    let itemPromises = order_items.map((item) => {
+        let order_item = manager.create(Order_Item);
+        return getRepository(Item).findOneOrFail(item.spice.id).then((spice) => {
+            debugger;
+            let item_weight = item.amount;
+            let item_cost = spice.unit_price * item.amount * ((100.0 - spice.sale) / 100.0);
             order_item.cost = item_cost;
-            order_item.weight = item_weigth;
-            order_item.item = myItem; 
-            myItem.stock = myItem.stock - item_weigth;
-            if(myItem.stock < 0){
+            order_item.weight = item_weight;
+            order_item.item = spice; 
+            spice.stock = spice.stock - item_weight;
+            if(spice.stock < 0){
                 res.send(400); 
             }
-            return getManager().save(myItem).then(()=> {
+            return getManager().save(spice).then(()=> {
                 return order_item; 
             })
         })
@@ -47,8 +45,9 @@ router.route('/cart')
         myOrder.address = address;
         myOrder.order_items = orderItems;
         myOrder.user = req.user;
-        myOrder.staff_id = 2;
-        myOrder.order_status = 3;
+        myOrder.staff_id = -1;
+        myOrder.order_status = 2;
+        myOrder.tracking_num = '';
         return getManager().save(myOrder).then((savedOrder) => {
             res.send(savedOrder);
         }, ()=> {
