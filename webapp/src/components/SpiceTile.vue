@@ -12,7 +12,7 @@
       <div v-else style="text-align: center">
         <p style="color:black">{{"$" + getPrice().toFixed(2)}}</p>
       </div>
-        <button v-on:click="edit"
+        <button v-on:click.stop="edit"
          v-if="this.$store.state.loginState.loggedIn && this.$store.state.loginState.user.permission <= 1">
           EDIT
         </button>
@@ -49,6 +49,12 @@ export default {
   methods: {
     toggleDetails() {
       this.hideDetails = !this.hideDetails;
+      if (!this.hideDetails) {
+        this.$router.push({name: 'Shop', params: {item: this.spice.title}});
+      } else {
+        this.$router.push({name: 'Shop'})
+      }
+      // this.hideDetails = !this.hideDetails;
       //this.$refs.SpiceInfo.modalActive = true;
     },
     edit() {

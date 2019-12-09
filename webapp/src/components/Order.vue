@@ -77,7 +77,7 @@ export default {
     },
     claimOrder() {
       this.hideDetails = false;
-      this.$store.dispatch("updateOrder", 
+      this.$store.dispatch("updateOrder",
       Object.assign({}, this.order, {staff_id : this.$store.state.loginState.user.id}));
     },
     finishOrder() {
@@ -94,10 +94,10 @@ export default {
         Object.assign({}, this.order, {order_status : 0, tracking_num : this.trackNum}));
       }
     }
-  },
-  created(){
-    this.$store.dispatch("getOrders");
   }
+  // created(){
+  //   this.$store.dispatch("getOrders");
+  // }
 };
 </script>
 

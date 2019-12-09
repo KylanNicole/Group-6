@@ -17,21 +17,25 @@ router.route('/cart')
     let totalWeight = 0;
 
     const { address, order_items } = req.body;
-    let itemPromises = order_items.map((item) => {
-        let order_item = manager.create(Order_Item);
-        return getRepository(Item).findOneOrFail(item.spice.id).then((spice) => {
-            debugger;
-            let item_weight = item.amount;
-            let item_cost = spice.unit_price * item.amount * ((100.0 - spice.sale) / 100.0);
+
+    console.log(order_items);
+
+    let itemPromises = Object.keys(order_items).map((itemID) => {
+        return getRepository(Item).findOneOrFail(itemID).then((myItem) => {
+            let order_item = manager.create(Order_Item);
+            let item_weight = order_items[itemID].weight;
+            let item_cost = myItem.unit_price * item_weight *(100 - myItem.sale)/100.0;
+            totalWeight += item_weight;
+            totalCost += item_cost;
             order_item.cost = item_cost;
             order_item.weight = item_weight;
-            order_item.item = spice; 
-            spice.stock = spice.stock - item_weight;
-            if(spice.stock < 0){
-                res.send(400); 
+            order_item.item = myItem;
+            myItem.stock = myItem.stock - item_weight;
+            if(myItem.stock < 0){
+                res.send(400);
             }
-            return getManager().save(spice).then(()=> {
-                return order_item; 
+            return getManager().save(myItem).then(()=> {
+                return order_item;
             })
         })
     })
@@ -58,5 +62,3 @@ router.route('/cart')
 });
 
   export default router;
-
-

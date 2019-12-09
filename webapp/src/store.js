@@ -13,19 +13,6 @@ export const mutations = {
   logout: function(state) {
     state.loginState = { ...state.loginState, loggedIn: false };
   },
-  addToDo(state, todo) {
-    state.todoIdx = state.todoIdx + 1;
-    state.todos = [...state.todos, { ...todo, done: false, id: state.todoIdx }];
-  },
-  updateToDo(state, todo) {
-    state.todos = state.todos.map(td => (td.id === todo.id ? todo : td));
-  },
-  deleteToDo(state, todo) {
-    state.todos = state.todos.filter(td => td.id !== todo.id);
-  },
-  todosLoaded(state, todos) {
-    state.todos = todos;
-  },
   storeItems(state, items) {
     state.spices = items;
   },
@@ -78,6 +65,7 @@ export const mutations = {
 
 export const actions = {
   login: function({ commit }, payload) {
+    console.log(payload);
     const { email, password } = payload;
     return axios.post("/api/login", { email, password }).then((response) => {
       commit("login", response.data);
@@ -91,9 +79,7 @@ export const actions = {
   },
   signup: function({commit}, payload){
     const {firstname, lastname, email, password} = payload;
-    return axios.post("/api/signup", {firstname, lastname, email, password}).then((response) => {
-      commit("login", response.data);
-    })
+    return axios.post("/api/signup", {firstname, lastname, email, password});
   },
   getAccounts({ commit }){
     return axios.get("/api/staff").then((response) => {
@@ -119,11 +105,6 @@ export const actions = {
       commit("storeItems", response.data);
     })
   },
-  addToDo({ commit }, toDo) {
-    return axios.post("/api/todos", toDo).then(response => {
-      commit("addToDo", response.data);
-    });
-  },
   addBanner({commit}, banner) {
     return axios.post("/api/announcement", banner);
   },
@@ -136,21 +117,6 @@ export const actions = {
     return axios.delete(`/api/announcement/${payload.id}`).then(() => {
       commit("deleteBanner", payload);
     })
-  },
-  updateTodo({ commit }, toDo) {
-    return axios.put(`/api/todos/${toDo.id}`, toDo).then(response => {
-      commit("updateToDo", response.data);
-    });
-  },
-  deleteTodo({ commit }, toDo) {
-    return axios.delete(`/api/todos/${toDo.id}`).then(() => {
-      commit("deleteToDo", toDo);
-    });
-  },
-  loadToDos({ commit }) {
-    return axios.get("/api/todos").then(response => {
-      commit("todosLoaded", response.data);
-    });
   },
   checkLoggedIn({ commit }) {
     return axios.get("/api/checkLogin").then((response) => {
@@ -208,7 +174,12 @@ export const actions = {
     commit("deleteCartItem", payload);
   },
   sendOrder: function({commit}, payload) {
-    return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: this.state.cart})).then((response) => {
+    var items = {};
+    for (var i = 0; i < this.state.cart.length; i++) {
+      var item = this.state.cart[i];
+      items["" + item.spice.id] = {weight: item.amount};
+    }
+    return axios.post(`/api/cart/`, Object.assign({}, {address: payload, order_items: items})).then((response) => {
       commit("clearCart");
     })
   },
@@ -231,12 +202,10 @@ export const actions = {
 
 export default new Vuex.Store({
   state: {
-    todos: [],
     loginState: {
       loggedIn: false,
       user: {}
     },
-    todoIdx: 0,
     spices: [],
     orders: [],
     tags: [],
