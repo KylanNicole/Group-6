@@ -13,6 +13,8 @@ router.route('/cart')
   .post((req, res) => {
 
     const manager = getManager();
+    let totalCost = 0;
+    let totalWeight = 0;
 
     const { address, order_items } = req.body;
     let itemPromises = order_items.map((item) => {
@@ -32,15 +34,9 @@ router.route('/cart')
                 return order_item; 
             })
         })
-
     })
 
-    let totalCost = 0;
-    let totalWeight = 0;
-    order_items.filter(item => {
-        totalWeight += item.amount;
-        totalCost += item.spice.unit_price * item.amount * (100.0 - item.spice.sale) / 100.0;
-    })
+
 
     return Promise.all(itemPromises).then((orderItems) => {
         let myOrder = manager.create(Order_);
