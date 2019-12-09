@@ -12,7 +12,7 @@
       <p><b>Price:</b> ${{order.total_cost}}</p>
       <p><b>Weight:</b> {{order.total_weight}}</p>
       <p><b>Status:</b> {{stringStatus}}</p>
-      <p v-if="order.tracking_num > -1"><b>Tracking Number:</b> {{order.tracking_num}}</p>
+      <p v-if="order.tracking_num != ''"><b>Tracking Number:</b> {{order.tracking_num}}</p>
       <p><b>Items:</b></p>
       <table style="border: 1px solid black;">
         <tr v-for="item in order.order_items" :key="item.id">
@@ -86,7 +86,7 @@ export default {
       Object.assign({}, this.order, {order_status : 1}));
     },
     archiveOrder() {
-      if(this.trackNum == "") {
+      if(this.trackNum == '') {
         this.warnUser = true;
       } else {
         this.warnUser = false;

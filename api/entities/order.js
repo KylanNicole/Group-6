@@ -29,7 +29,7 @@ import Order_Item from './order_item';
     @Column({ type: 'varchar'})
     address
 
-    @Column({ type: 'int'})
+    @Column({ type: 'varchar'})
     tracking_num
   
     @ManyToOne(() => User, (user) => user.orders)
