@@ -3,13 +3,29 @@ import { getRepository, getManager } from 'typeorm';
 import isAuthenticated from '../middleware/isAuthenticated';
 import Item from '../entities/item';
 import Tag from '../entities/tag';
+import 'babel-polyfill';
 
+async function getTag(tagId) {
+  let foundTag = getRepository(Tag).findOneOrFail(
+    {where: {id: tagId}} 
+  ).then((_foundTag) => {
+    console.log(_foundTag);
+    return _foundTag;
+  }, () => {
+    return null; 
+  });
+  let result = await foundTag;
+  console.log("await has been passed")
+  console.log(result);
+  return result;
+}
 
 const router = Router();
 router.route('/item_tag')
 //   .all(isAuthenticated)
   .get((req, res) => {
     debugger
+    getTag(3);
     res.send("hello world"); //@@ why todos?
   })
   
@@ -20,21 +36,20 @@ router.route('/item_tag')
     getRepository(Item).findOneOrFail(
       {where: {id : itemId}}
     ).then((_foundItem) => {
-      req.item = _foundItem;
-      console.log(req.item);
+      _foundItem.tag = getTag(tagId);
+      getManager().save(_foundItem);
+      getRepository(Tag).findOneOrFail(
+        {where: {id: tagId}} 
+      ).then((_foundTag) => {
+        _foundItem.tag = _foundTag; 
+        console.log(_foundItem);
+        getManager().save(_foundItem);
+      }, () => {
+        res.sendStatus(404); 
+      });
     }, () => {
       res.sendStatus(404);
     });
-    getRepository(Tag).findOneOrFail(
-      {where: {id : tagId}}
-    ).then((_foundTag) => {
-      req.tag = _foundTag;
-      console.log(req.tag);
-    }, () => {
-      res.sendStatus(404);
-    });
-    console.log(req.item);
-    console.log(req.tag);
     res.sendStatus(200);
   });
 
