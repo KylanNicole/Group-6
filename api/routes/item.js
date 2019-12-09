@@ -64,7 +64,7 @@ router.route('/item/:id')
     foundItem.description = description;
     foundItem.image = image;
     //clamp sale between 0.0 and 1.0
-    foundItem.sale = sale < 0.0 ? 0.0 : sale > 1.0 ? 1.0 : sale;
+    foundItem.sale = sale < 0.0 ? 0.0 : sale > 100.0 ? 100.0 : sale;
     foundItem.order_item = order_item;
     foundItem.tags = tags;
 

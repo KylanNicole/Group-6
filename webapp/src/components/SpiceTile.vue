@@ -5,12 +5,12 @@
       <h4>{{spice.title.charAt(0).toUpperCase() + spice.title.slice(1).toLowerCase()}}</h4>
 
       <div v-if="spice.sale > 0" style="color:red; text-align: center;">
-        <p style="text-decoration: line-through;">${{(spice.unit_price / 100.0).toFixed(2)}}</p>
-        <p style="color:black"> {{" → $" + (spice.unit_price * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
+        <p style="text-decoration: line-through;">${{getPrice().toFixed(2)}}</p>
+        <p style="color:black"> {{" → $" + getSalePrice().toFixed(2)}}</p>
         <p style="display: block;">{{spice.sale}}% off!</p>
       </div>
       <div v-else style="text-align: center">
-        <p style="color:black">{{"$" + (this.spice.unit_price * (1.0 - this.spice.sale)).toFixed(2)}}</p>
+        <p style="color:black">{{"$" + getPrice().toFixed(2)}}</p>
       </div>
         <button v-on:click="edit"
          v-if="this.$store.state.loginState.loggedIn && this.$store.state.loginState.user.permission <= 1">
@@ -44,9 +44,7 @@ export default {
       set: function(val) {
 
       }
-    }
-
-
+    },
   },
   methods: {
     toggleDetails() {
@@ -55,6 +53,13 @@ export default {
     },
     edit() {
       this.$router.push({name: 'spices', params: {spice: this.spice.id}});
+    },
+    getPrice() {
+      return (this.spice.unit_price / 100.0);
+    },
+    getSalePrice() {
+      
+      return (this.spice.unit_price / 100.0) * ((100.0 - this.spice.sale) / 100.0);
     }
   },
   data() {
@@ -74,7 +79,6 @@ export default {
   padding: 10px;
   margin: 5px;
   display: inline-block;
-  height: 240px;
 }
 img {
   width: 150px;

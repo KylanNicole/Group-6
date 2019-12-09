@@ -8,7 +8,7 @@
             <hr/>
             <p>Name</p>
             <input type="text" v-model="updatedInfo.title"/>
-            <p>Unit Price (cents)</p>
+            <p>Unit Price (cents/gram)</p>
             <input type="text" v-model="updatedInfo.unit_price"/>
             <p>Sale Amount (0-100%)</p>
             <input type="text" v-model="updatedInfo.sale"/>
