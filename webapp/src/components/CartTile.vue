@@ -4,7 +4,7 @@
         <h3 style="margin:0; color: #cc783c;">{{spice.title}}</h3>
         <img style="float: left" :src="spice.image">
         <div class="info">
-            <input style="width: 50px" type="number" min="1" v-model.number="amount" :max="spice.stock">
+            <input style="width: 50px" type="number" min="20" v-model.number="amount" :max="spice.stock">
             <select>
                 <option default>g</option>
                 <option>oz</option>
