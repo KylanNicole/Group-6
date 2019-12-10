@@ -21,7 +21,7 @@
     </div>
     <div>
       <b-loading :is-full-page="false" :active.sync="spicesLoading" style="z-index: 1;" />
-      <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" v-bind:visible="$route.params.item == spice.title" v-if="spice.stock > 0"/>
+      <SpiceTile v-for="spice in getSpices" v-bind="spice" :key="spice.id" v-bind:visible="$route.params.item == spice.title" v-if="spice.stock >= 100"/>
       </div>
     </div>
   </template>

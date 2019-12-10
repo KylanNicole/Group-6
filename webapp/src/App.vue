@@ -3,8 +3,14 @@
       <!-- {{this.$store.dispatch("checkLogin")}} -->
       <Header/>
       <router-view id="router-view"/>
-      <div style="height: 100px;">
-      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <!-- <div style="height: 100px;">
+      </div> -->
       <Footer/>
       <div class="back-img"></div>
   </div>

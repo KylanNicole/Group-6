@@ -5,6 +5,7 @@
     <h3>Email: {{ this.$store.state.loginState.user.email }}</h3>
     <br />
     <h2 style="font-size:24pt; text-align:center; color:#da782f;">My Orders</h2>
+    <b-loading :is-full-page="true" :active.sync="ordersLoading" style="z-index: 1;" />
     <Order v-for="order in orders" :key="order.id" v-bind:id="order.id"/>
   </div>
 </template>
@@ -22,7 +23,15 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getOrders");
+    this.ordersLoading = true;
+    this.$store.dispatch("getOrders").then((response) => {
+      this.ordersLoading = false;
+    });
+  },
+  data() {
+    return {
+      ordersLoading: false
+    }
   }
 };
 </script>

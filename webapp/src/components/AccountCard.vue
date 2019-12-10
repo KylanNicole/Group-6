@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="manageLink">
+    <div class="manageLink" style="position: relative;">
+    <b-loading :is-full-page="false" :active.sync="changingAccount" style="z-index: 1;" />
       <p>{{firstname + " " + lastname}}<br>
         {{email}}</p>
       <b-field label="Permissions">
@@ -27,13 +28,16 @@ export default {
   },
   data(){
     return {
-      p : this.perm
+      p : this.perm,
+      changingAccount: false
     };
   },
   methods: {
     changePerms: function(){
+      this.changingAccount = true;
       this.$store.dispatch("updatePerm", {email: this.email, perm: this.p}).then(() => {
         this.$emit('perm-change');
+        this.changingAccount = false;
       });
     }
   }

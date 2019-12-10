@@ -89,7 +89,9 @@ export default {
   },
   methods: {
     createAlert: function(){
+      this.ordersLoading = true;
       this.$store.dispatch("createAlert", {text: this.text}).then((response) => {
+        this.ordersLoading = false;
         this.alerts.push(response);
         this.text = "";
       });
