@@ -3,7 +3,7 @@
         <div class="desc">
             <img :src='spice.image' />
             <h4>{{spice.title}}</h4>
-            <p>
+            <p style="margin-bottom: 5px;">
                 {{spice.description}}
             </p>
             <p class="tag" v-for="tag in spice.tags">{{tag.title}}</p>
@@ -11,11 +11,7 @@
     <div class="purchase">
       <form>
         <p>Amount: </p>
-        <input type="number" v-model.number="amount" min="20" :max="spice.stock"/>
-        <select>
-          <option default>g</option>
-          <option>oz</option>
-        </select>
+        <input type="number" v-model.number="amount" min="20" :max="spice.stock"/><p> g</p>
         <br/>
         <div v-if="spice.sale > 0" style="color:red;">
           <p style="color:red;"> {{" $" + (this.amount * spice.unit_price * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
@@ -56,7 +52,7 @@ export default {
   },
   methods: {
     getPrice(){
-      return "$" + (this.amount * this.spice.unit_price * (1.0 - this.spice.sale) / 100).toFixed(2);
+      return "$" + (this.amount * (this.spice.unit_price / 100.0) * ((100.0 - this.spice.sale) / 100.0)).toFixed(2);
     },
     addToCart() {
       this.warnText = "";

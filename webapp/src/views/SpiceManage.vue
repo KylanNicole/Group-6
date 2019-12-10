@@ -32,8 +32,8 @@
         <label> {{tag.title}}</label>
       </div>
     </div>
-    <b-field label="Search">
-      <b-input v-model="search" />
+    <b-field style="width: 50%; margin: auto;">
+      <b-input v-model="search" placeholder="SEARCH"/>
     </b-field>
     <SpiceEdit v-for="spice in getSpices"
     v-if="(typeof $route.params.spice == 'undefined' && spice.title.toLowerCase().includes(search.toLowerCase())) || $route.params.spice == spice.id"
