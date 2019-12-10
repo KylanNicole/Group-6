@@ -24,10 +24,8 @@
                 <input type="checkbox" :value="tag.id" v-model="updatedInfo.tags"/>
                 <label> {{tag.title}}</label>
             </div>
-            <p>New Tag</p>
-            <input type="text" placeholder="New Tag" v-model="newTag"/>
-            <button @click="addTag">Add Tag</button>
-        </div>
+          <button @click="updateSpice" >SAVE</button>
+          </div>
         <div :class="{hide : hideWarn}">
             <hr/>
             <button @click="deleteSpice" class="alert">DELETE</button>
@@ -67,8 +65,7 @@ export default {
                 image: this.image,
                 tags: this.initTags(),
                 sale: this.sale
-            },
-            newTag: null
+            }
         }
     },
     computed: {
@@ -83,13 +80,7 @@ export default {
         this.$store.dispatch("getTags", "");
     },
     methods: {
-        addTag() {
-            if(this.newTag != null){
-                this.$store.dispatch("addTag", this.newTag);
-                this.newTag = null;
-            }
-        },
-        initTags() {
+      initTags() {
           var tags = [];
           for (var i = 0; i < this.tags.length; i++){
             tags.push(this.tags[i].id);

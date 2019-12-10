@@ -68,9 +68,6 @@ export default {
       let orders = this.$store.state.orders.filter(order => {
         return (order.staff_id < 0)
       })
-      //TODO Fix this problem of loading and reloading unclaimed orders and filtering if not
-      // matching userID.
-      console.log(orders);
       return orders;
     }
   },

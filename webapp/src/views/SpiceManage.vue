@@ -6,7 +6,7 @@
         Back
       </div>
     </router-link>
-    <button @click="hideFields = false">NEW PRODUCT</button>
+    <button @click="hideFields = !hideFields">NEW PRODUCT</button>
     <div id="spice-form" :class="{hide : hideFields}">
       <img :src="newSpice.image"/>
       <h4>New Spice</h4>
@@ -19,6 +19,18 @@
       <p style="color: red" v-if="this.showReqFields">You must enter a Name, Unit Price, and Image.</p>
       <button @click="addSpice">ADD</button>
       <button @click="clearInput">CANCEL</button>
+    </div>
+    <button @click="hideTags = !hideTags">MANAGE TAGS</button>
+    <div id="tag-form" :class="{hide : hideTags}">
+      <p>New Tag</p>
+      <input type="text" placeholder="New Tag" v-model="newTag"/>
+      <button @click="addTag">Add Tag</button>
+      <p>Tags</p>
+      <div class="tag" v-for="tag in allTags">
+        <!-- <input type="checkbox" :value="tag.id" v-model="tags"/> -->
+        <button class="delButton" @click="deleteTag(tag)">X</button>
+        <label> {{tag.title}}</label>
+      </div>
     </div>
     <b-field label="Search">
       <b-input v-model="search" />
@@ -35,12 +47,35 @@ import SpiceEdit from "@/components/SpiceEdit.vue";
 export default {
   name: "SpiceManage",
   components: { SpiceEdit },
+  created() {
+    this.$store.dispatch("getTags", "");
+  },
   computed: {
+    allTags() {
+      return this.$store.state.tags;
+    },
     getSpices() {
       return this.$store.state.spices;
     }
   },
   methods: {
+    addTag() {
+      if(this.newTag != null){
+        this.spicesLoading = true;
+        this.$store.dispatch("addTag", this.newTag).then(() => {
+          this.spicesLoading = false;
+        });
+        this.newTag = null;
+      }
+    },
+    deleteTag(tag){
+      this.spicesLoading = true
+      this.$store.dispatch("deleteTag", tag).then(() => {
+        this.$store.dispatch("getTags", "").then(() => {
+          this.spicesLoading = false;
+        })
+      });
+    },
     addSpice() {
       if(this.newSpice.title == "" || this.newSpice.unit_price == "" || this.newSpice.image == "")
       {
@@ -71,6 +106,7 @@ export default {
   data() {
     return {
       hideFields: true,
+      hideTags: true,
       showReqFields: false,
       newSpice:  {
         title: "",
@@ -81,7 +117,9 @@ export default {
         sale: "",
       },
       spicesLoading: false,
-      search: ""
+      search: "",
+      tags: [],
+      newTag: null
     }
   }
 }
@@ -93,6 +131,12 @@ input {
 }
 .hide {
   display: none;
+}
+
+.delButton{
+  background-color: #ff6666;
+  font-size: 10px;
+  padding: 3px;
 }
 
 button {
@@ -115,6 +159,12 @@ button:hover {
 }
 
 #spice-form {
+  width: 40%;
+  margin: auto;
+
+  padding: 15px;
+}
+#tag-form {
   width: 40%;
   margin: auto;
 

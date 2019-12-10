@@ -41,6 +41,7 @@ router.route('/tag/:id')
       res.send(404);
     });
   })
+  .put(isAuthenticated)
   .put((req, res) => {
     if (req.user.permission > 1){
       res.sendStatus(401);
@@ -61,6 +62,7 @@ router.route('/tag/:id')
     res.send(req.tag);
   })
 
+  .delete(isAuthenticated)
   .delete((req, res) => {
     if (req.user.permission > 1){
       res.sendStatus(401);

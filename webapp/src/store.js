@@ -149,6 +149,9 @@ export const actions = {
       commit("appendTag", response.data);
     })
   },
+  deleteTag:function({commit}, payload){
+    return axios.delete(`/api/tag/${payload.id}`, payload);
+  },
   createSpice:function({commit}, payload) {
     return axios.post("/api/item", payload).then(() => {
       commit("createSpice", payload);
