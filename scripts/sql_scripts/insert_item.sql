@@ -1,9 +1,0 @@
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_a", 10, 237, "description of spice_a", "image of spice_a");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_b", 11, 493, "description of spice_b", "image of spice_b");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_c", 16, 236, "description of spice_c", "image of spice_c");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_d", 11, 119, "description of spice_d", "image of spice_d");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_e", 16, 374, "description of spice_e", "image of spice_e");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_f", 18, 270, "description of spice_f", "image of spice_f");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_g", 15, 126, "description of spice_g", "image of spice_g");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_h", 12, 169, "description of spice_h", "image of spice_h");
-INSERT INTO item(title, unit_price, stock, description, image) VALUE("spice_i", 15, 387, "description of spice_i", "image of spice_i");

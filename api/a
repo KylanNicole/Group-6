@@ -1,9 +1,0 @@
-- login to an existing user
-  - check info about the existing user
-    - attempt to update perms (404)
-      - logout
-        - logint to owner
-          - check info about the existing user
-            - update perms (200)
-              - call /staff
-                - logout

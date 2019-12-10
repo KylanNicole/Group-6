@@ -8,7 +8,6 @@ import Announcement from "../entities/announcement.js";
 import StaffAlert from "../entities/staff_alert.js";
 
 var counter = 0;
-var num_items = 35;
 
 function randInt(leftVal, rightVal) {
   return Math.floor(Math.random() * (rightVal - leftVal) + leftVal)
@@ -23,7 +22,7 @@ createConnection().then(() => {
   var i = 0;
   var temp_set = new Set()
   // assign tags to items
-  for(i = 0; i < num_items; i++) {
+  for(i = 0; i < 10; i++) {
     //  query for a list of tag entities 
     var tags_list = [randInt(1, 10), randInt(1, 10)]
     while(tags_list[0] == tags_list[1]) {
@@ -42,12 +41,10 @@ createConnection().then(() => {
     Promise.all(tag_entities).then((tagEntities) => {
           var item_id = retCounter()
           getRepository(Item).findOneOrFail(item_id).then((item) => {
-            console.log("--------item :", item_id, "---------------")
             item.tags = tagEntities;
             item_id += 1
             getManager().save(item).then((savedItem) => {
-              console.log("-----------tag[s] successfully saved")
-              console.log(tagEntities)
+              console.log("-----------tag[s] successfully saved----------")
             }, () => {
               console.log("--------tag not found------")  
             })
@@ -57,7 +54,5 @@ createConnection().then(() => {
           })
       })
   }
-
-  console.log("hello")
 })
 
