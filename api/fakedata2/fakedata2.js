@@ -7,8 +7,10 @@ import Order from "../entities/order.js";
 import Announcement from "../entities/announcement.js";
 import StaffAlert from "../entities/staff_alert.js";
 
+//-----------EDIT HERE------------
+var num_items = 10;
+//--------------------------------
 var counter = 0;
-var num_items = 35;
 
 function randInt(leftVal, rightVal) {
   return Math.floor(Math.random() * (rightVal - leftVal) + leftVal)

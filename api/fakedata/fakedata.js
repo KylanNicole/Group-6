@@ -58,15 +58,23 @@ function retOrderId() {
 createConnection().then(() => {
   var i = 0;
   var alpha = genCharArray('a', 'z');
-  var num_items = 10;
-  var num_tags = 10;
-  var num_users = 10;
-  var num_orders = 3;
   // generate items
-    // generate tags
   var spices = ["spicy", "salty", "peppery", "red", "umami", "sweet", "brown", "italian", "fresh", "coarse"]
   var saved_tags = [];
-  for(i = 0; i < num_tags; i++) {
+  var spice_names = ["salt", "paprika", "tumeric", "pink salt", "oregano", "bay leaves", "ginger", "coriander", "star anise", "pepper"];
+  var spice_pics = [
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F7e%2FKorean_sea_salt.jpg&f=1&nofb=1",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.thespicehouse.com%2Fimages%2Ffile%2F1454%2Flarge_square_Hungarian_Half-Sharp_Paprika__close.jpg&f=1&nofb=1",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.aNvb-bOSkgcr01uqbDIxPQHaHa%26pid%3DApi&f=1",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.southernstylespices.com%2Fwp-content%2Fuploads%2F2019%2F03%2FSalts-Himalayan_Pink_Salt_Fine_20190125_004-export-e1555203550405.png&f=1&nofb=1", 
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0219%2F5528%2Fproducts%2Foregano-mexican_1024x1024.png%3Fv%3D1368717989&f=1&nofb=1",
+    "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.herbalteasonline.com%2Fwp-content%2Fuploads%2F2016%2F08%2FBay-Leaves.jpg&f=1&nofb=1",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-prod.medicalnewstoday.com%2Fcontent%2Fimages%2Fhero%2F265%2F265990%2F265990_1100.jpg&f=1&nofb=1",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.thespicehouse.com%2Fimages%2Ffile%2F1152%2Flarge_square_Coriander_Seeds__Moroccan__Ground__close.jpg&f=1&nofb=1",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.healthbenefitstimes.com%2F9%2Fgallery%2Fstar-anise%2FStar-Anise-Rusot%25C3%25A4htianis.jpg&f=1&nofb=1",
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.organicfacts.net%2Fwp-content%2Fuploads%2F2013%2F06%2FBlackpepper.jpg&f=1&nofb=1"
+  ];
+  for(i = 0; i < 10; i++) {
     let tag = new Tag();
     tag.title = spices[i];
     const entityManager = getManager();
@@ -75,13 +83,13 @@ createConnection().then(() => {
     }
   }
 
-  for(i = 0; i < num_items; i++) {
+  for(i = 0; i < 10; i++) {
     let item = new Item();
-    item.title = "spice_" + alpha[i];
+    item.title = spice_names[i];
     item.unit_price = randInt(10, 20);
     item.stock = randInt(100, 500);
-    item.description = "description of spice_"+alpha[i];
-    item.image = "image of spice_"+alpha[i];
+    item.description = "description of " + spice_names[i];
+    item.image = spice_pics[i];
     let val = randInt(0, 9);
     items.push(item);
     if(write) {
@@ -95,7 +103,7 @@ createConnection().then(() => {
 	// * customer - 3
 	// email @{person_type}.com
 
-  for(i = 0; i < num_users; i++) {
+  for(i = 0; i < 10; i++) {
     var name = faker.name.findName().split(' ');
     let user = new User();
     user.firstname = name[0];
@@ -125,15 +133,15 @@ createConnection().then(() => {
     getManager().save(user);
   }
 
-  // generate announcements
-  for(i = 0; i < 10; i++) {
-    let a = new Announcement(); 
-    a.img_link = "some img_link_" + alpha[i];
-    a.link_to = "link_to_" + alpha[i];
-    if(write) {
-      getManager().save(a);
-    }
-  }
+  var a = new Announcement(); 
+  a.img_link = "/Shop/salt";
+  a.link_to = "https://i.imgur.com/sZ92nzl.png";
+  getManager().save(a);
+  a = new Announcement(); 
+  a.img_link = "/Shop/paprika";
+  a.link_to = "https://i.imgur.com/m4eMfBc.png";
+  getManager().save(a);
+
   // generate staff alerts
   for(i = 0; i < 10; i++) {
     let sa = new StaffAlert(); 
@@ -147,13 +155,13 @@ createConnection().then(() => {
   var j = 0;
   var order_items_lst = [];
   var orders = [];
-  for(i = 0; i < num_orders; i++) {
+  for(i = 0; i < 3; i++) {
     var temp_lst = [];
     var o = new Order();
     o.order_status = 0;
     o.staff_id = randInt(5,8);
     o.address = "fake address";
-    o.user = randInt(1, num_users);
+    o.user = randInt(1, 10);
     o.total_cost = 0;
     o.total_weight = 0;
     var temp_set = new Set();
@@ -162,9 +170,9 @@ createConnection().then(() => {
       oi.order = i+1;
       oi.weight = randInt(10, 20);
       o.total_weight += oi.weight;
-      oi.item = randInt(0, num_items);
+      oi.item = randInt(0, 10);
       while(temp_set.has(oi.item)) {
-        oi.item = randInt(0, num_items); 
+        oi.item = randInt(0, 10); 
       }
       temp_set.add(oi.item)
       oi.item += 1
