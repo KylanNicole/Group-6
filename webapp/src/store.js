@@ -106,6 +106,7 @@ export const actions = {
   },
   getItems: function({commit}, payload){
     return axios.get("/api/item", payload).then((response) => {
+      console.log(response.data);
       commit("storeItems", response.data);
     })
   },
@@ -156,8 +157,13 @@ export const actions = {
     })
   },
   updateSpice:function({commit}, payload) {
-    return axios.put(`/api/item/${payload.id}`, payload).then(() => {
-      commit("updateSpice", payload);
+    var t = {};
+    t.itemID = payload.id;
+    t.tags = payload.tags;
+    return axios.put(`/api/item/${payload.id}`, payload).then((response) => {
+      return axios.post('/api/item_tag_1', t).then((response) => {
+        commit("updateSpice", payload);
+      })
     })
   },
   deleteSpice:function({commit}, payload) {

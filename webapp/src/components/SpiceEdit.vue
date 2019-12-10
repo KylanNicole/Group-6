@@ -21,7 +21,7 @@
             <img :src="updatedInfo.image ? updatedInfo.image : image">
             <p>Tags</p>
             <div class="tag" v-for="tag in allTags">
-                <input type="checkbox" :value="tag" v-model="updatedInfo.tags"/>
+                <input type="checkbox" :value="tag.id" v-model="updatedInfo.tags"/>
                 <label> {{tag.title}}</label>
             </div>
             <p>New Tag</p>
@@ -64,7 +64,7 @@ export default {
                 stock: this.stock,
                 description: this.description,
                 image: this.image,
-                tags: this.tags,
+                tags: [],
                 sale: this.sale
             },
             newTag: null
