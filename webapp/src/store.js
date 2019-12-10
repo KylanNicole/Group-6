@@ -68,7 +68,6 @@ export const mutations = {
 
 export const actions = {
   login: function({ commit }, payload) {
-    console.log(payload);
     const { email, password } = payload;
     return axios.post("/api/login", { email, password }).then((response) => {
       commit("login", response.data);
@@ -150,14 +149,23 @@ export const actions = {
       commit("appendTag", response.data);
     })
   },
+  deleteTag:function({commit}, payload){
+    return axios.delete(`/api/tag/${payload.id}`, payload);
+  },
   createSpice:function({commit}, payload) {
     return axios.post("/api/item", payload).then(() => {
       commit("createSpice", payload);
     })
   },
   updateSpice:function({commit}, payload) {
-    return axios.put(`/api/item/${payload.id}`, payload).then(() => {
-      commit("updateSpice", payload);
+    var t = {};
+    t.itemID = payload.id;
+    t.tags = payload.tags;
+    return axios.put(`/api/item/${payload.id}`, payload).then((response) => {
+      return axios.post('/api/item_tag_1', t).then((response) => {
+        payload.tags = t;
+        commit("updateSpice", payload);
+      })
     })
   },
   deleteSpice:function({commit}, payload) {

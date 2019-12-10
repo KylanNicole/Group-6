@@ -11,7 +11,7 @@
     <div class="purchase">
       <form>
         <p>Amount: </p>
-        <input type="number" v-model.number="amount" min="1" :max="spice.stock"/><p> g</p>
+        <input type="number" v-model.number="amount" min="20" :max="spice.stock"/><p> g</p>
         <br/>
         <div v-if="spice.sale > 0" style="color:red;">
           <p style="color:red;"> {{" $" + (this.amount * spice.unit_price * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
@@ -64,7 +64,7 @@ export default {
         this.$set(this.spice, 'stock', this.spice.stock - this.amount);
         let dupItem = this.duplicateCartItem;
         this.$store.dispatch("updateCartItem", {index: dupItem.index, spice: dupItem.spice, amount: dupItem.amount + this.amount})
-      }else if(this.amount > 0) {
+      }else if(this.amount >= 20) {
         let spiceCopy = Object.assign({}, this.spice);
         this.$set(this.spice, 'stock', this.spice.stock - this.amount);
         this.$store.dispatch("addToCart", {index: this.$store.state.cart.length,
@@ -75,7 +75,7 @@ export default {
     },
     data() {
       return {
-        amount: 1,
+        amount: 20,
         warnText: ""
       }
     }

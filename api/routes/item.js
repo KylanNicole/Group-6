@@ -37,7 +37,7 @@ router.route('/item')
 
 
 router.route('/item/:id')
-  //.all(isAuthenticated)
+  .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Item).findOneOrFail(
       { where: { id: req.params.id } },

@@ -21,13 +21,11 @@
             <img :src="updatedInfo.image ? updatedInfo.image : image">
             <p>Tags</p>
             <div class="tag" v-for="tag in allTags">
-                <input type="checkbox" :value="tag" v-model="updatedInfo.tags"/>
+                <input type="checkbox" :value="tag.id" v-model="updatedInfo.tags"/>
                 <label> {{tag.title}}</label>
             </div>
-            <p>New Tag</p>
-            <input type="text" placeholder="New Tag" v-model="newTag"/>
-            <button @click="addTag">Add Tag</button>
-        </div>
+          <button @click="updateSpice" >SAVE</button>
+          </div>
         <div :class="{hide : hideWarn}">
             <hr/>
             <button @click="deleteSpice" class="alert">DELETE</button>
@@ -48,7 +46,8 @@ export default {
         description: String,
         image: String,
         sale: Number,
-        tags: Array,
+        tags: {type: Array, default: function(){return []}},
+        // tags: Array,
         visible: {type: Boolean, default: false}
     },
     //computed:  {},
@@ -64,10 +63,9 @@ export default {
                 stock: this.stock,
                 description: this.description,
                 image: this.image,
-                tags: this.tags,
+                tags: this.initTags(),
                 sale: this.sale
-            },
-            newTag: null
+            }
         }
     },
     computed: {
@@ -82,11 +80,12 @@ export default {
         this.$store.dispatch("getTags", "");
     },
     methods: {
-        addTag() {
-            if(this.newTag != null){
-                this.$store.dispatch("addTag", this.newTag);
-                this.newTag = null;
-            }
+      initTags() {
+          var tags = [];
+          for (var i = 0; i < this.tags.length; i++){
+            tags.push(this.tags[i].id);
+          }
+          return tags;
         },
         updateSpice() {
             this.hideDetails = !this.hideDetails;
