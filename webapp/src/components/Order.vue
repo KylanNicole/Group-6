@@ -1,5 +1,6 @@
 <template>
-  <div class="order">
+  <div class="order" style="position: relative;">
+    <b-loading :is-full-page="false" :active.sync="changingOrder" style="z-index: 1;" />
     <h2>Order ID: {{id}}</h2>
     <button v-if="verifyAvailable" @click="claimOrder">Claim</button>
     <button v-if="verifyClaimed" @click="finishOrder">Finish</button>
@@ -22,9 +23,9 @@
           <td><img :src='item.item.image' style="height: 60px;"></td>
         </tr>
       </table>
-      </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -37,7 +38,8 @@ export default {
     return {
       hideDetails: true,
       trackNum: "",
-      warnUser: false
+      warnUser: false,
+      changingOrder: false
     };
   },
   computed: {
@@ -62,89 +64,98 @@ export default {
     },
     verifyClaimed() {
       return (this.$store.state.loginState.user.permission <= 2 &&
-      this.order.staff_id == this.$store.state.loginState.user.id &&
-      this.order.order_status == 2);
-    },
-    verifyFinished() {
-      return (this.$store.state.loginState.user.permission <= 2 &&
-      this.order.staff_id == this.$store.state.loginState.user.id &&
-      this.order.order_status == 1)
-    }
-  },
-  methods: {
-    clickMethod() {
-      this.hideDetails = !this.hideDetails;
-    },
-    claimOrder() {
-      this.hideDetails = false;
-      this.$store.dispatch("updateOrder",
-      Object.assign({}, this.order, {staff_id : this.$store.state.loginState.user.id}));
-    },
-    finishOrder() {
-      this.hideDetails = true;
-      this.$store.dispatch("updateOrder",
-      Object.assign({}, this.order, {order_status : 1}));
-    },
-    archiveOrder() {
-      if(this.trackNum == '') {
-        this.warnUser = true;
-      } else {
-        this.warnUser = false;
-        this.$store.dispatch("updateOrder",
-        Object.assign({}, this.order, {order_status : 0, tracking_num : this.trackNum}));
+        this.order.staff_id == this.$store.state.loginState.user.id &&
+        this.order.order_status == 2);
+      },
+      verifyFinished() {
+        return (this.$store.state.loginState.user.permission <= 2 &&
+          this.order.staff_id == this.$store.state.loginState.user.id &&
+          this.order.order_status == 1)
+        }
+      },
+      methods: {
+        clickMethod() {
+          this.hideDetails = !this.hideDetails;
+        },
+        claimOrder() {
+          this.hideDetails = false;
+          this.changingOrder = true;
+          this.$store.dispatch("updateOrder",
+          Object.assign({}, this.order, {staff_id : this.$store.state.loginState.user.id})).then((response) => {
+            this.changingOrder = false;
+          });
+        },
+        finishOrder() {
+          this.hideDetails = true;
+          this.changingOrder = true;
+          this.$store.dispatch("updateOrder",
+          Object.assign({}, this.order, {order_status : 1})).then((response) => {
+            this.changingOrder = false;
+          });
+        },
+        archiveOrder() {
+          if(this.trackNum == '') {
+            this.warnUser = true;
+          } else {
+            this.warnUser = false;
+            this.changingOrder = true;
+            this.$store.dispatch("updateOrder",
+            Object.assign({}, this.order, {order_status : 0, tracking_num : this.trackNum})).then((response) => {
+              this.changingOrder = false;
+            });
+          }
+        }
       }
+      // created(){
+      //   this.$store.dispatch("getOrders");
+      // }
+    };
+    </script>
+
+    <style scoped>
+    div {
+      width: 50%;
+      margin: auto;
     }
-  }
-  // created(){
-  //   this.$store.dispatch("getOrders");
-  // }
-};
-</script>
+    .outline {
+      border: 1px solid red;
+    }
+    .order {
+      border: solid 1px #7aa256;
+      /* border: solid 1px black; */
+      overflow: hidden;
+      padding: 5px;
+      background-color: white;
+      margin-bottom: -1px;
+    }
+    h2 {
+      display: inline;
+    }
+    button {
+      float: right;
+      margin-left: -1px;
+      padding: 5px;
+      background-color: rgba(0, 0, 0, 0);
+      border: solid 1px #7aa256;
+      border-radius: 0;
+      color: #7aa256;
+      cursor: pointer;
+    }
+    .hide {
+      display: none;
+    }
 
-<style scoped>
-div {
-  width: 50%;
-  margin: auto;
-}
-.outline {
-  border: 1px solid red;
-}
-.order {
-  border: solid 1px #7aa256;
-  /* border: solid 1px black; */
-  overflow: hidden;
-  padding: 5px;
-  background-color: white;
-  margin-bottom: -1px;
-}
-h2 {
-  display: inline;
-}
-button {
-  float: right;
-  margin-left: -1px;
-  padding: 5px;
-  background-color: rgba(0, 0, 0, 0);
-  border: solid 1px #7aa256;
-  border-radius: 0;
-  color: #7aa256;
-  cursor: pointer;
-}
-.hide {
-  display: none;
-}
+    table {
+      border: solid 1px black;
+      vertical-align: middle;
+    }
 
-table {
-  border: solid 1px black;
-  vertical-align: middle;
-}
+    table tr {
+      border: solid 1px black;
+    }
 
-table tr {
-  border: solid 1px black;
-}
-
-table td {
-  border: solid 1px black;
-  padding: 10px;
-}
-</style>
+    table td {
+      border: solid 1px black;
+      padding: 10px;
+    }
+    </style>

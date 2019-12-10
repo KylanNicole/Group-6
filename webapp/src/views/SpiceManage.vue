@@ -1,5 +1,6 @@
 <template>
   <div id="manage-spice" v-if="this.$store.dispatch('authorized', 1)">
+    <b-loading :is-full-page="true" :active.sync="spicesLoading" style="z-index: 1;" />
     <router-link to="/dashboard">
       <div style="display: block;">
         Back
@@ -19,7 +20,10 @@
       <button @click="addSpice">ADD</button>
       <button @click="clearInput">CANCEL</button>
     </div>
-    <SpiceEdit v-for="spice in getSpices" v-if="(typeof $route.params.spice == 'undefined') || $route.params.spice == spice.id" :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.id" v-on:changed="updateSpices"/>
+    <b-field label="Search">
+      <b-input v-model="search" />
+    </b-field>
+    <SpiceEdit v-for="spice in getSpices" v-if="(typeof $route.params.spice == 'undefined' && spice.title.toLowerCase().includes(search.toLowerCase())) || $route.params.spice == spice.id" :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.id" v-on:changed="updateSpices"/>
   </div>
 </template>
 
@@ -53,7 +57,10 @@ export default {
       this.showReqFields = false;
     },
     updateSpices() {
-      this.$store.dispatch("getItems", "");
+      this.spicesLoading = true;
+      this.$store.dispatch("getItems", "").then((response) => {
+        this.spicesLoading = false;
+      });
     }
   },
   mounted() {
@@ -69,8 +76,10 @@ export default {
         stock: "",
         description: "",
         image: "",
-        sale: ""
-      }
+        sale: "",
+      },
+      spicesLoading: false,
+      search: ""
     }
   }
 }

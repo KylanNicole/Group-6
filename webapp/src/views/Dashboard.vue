@@ -22,6 +22,7 @@
       </router-link>
     </div>
     <hr>
+    <b-loading :is-full-page="false" :active.sync="ordersLoading" style="z-index: 1;" />
     <h1>Unclaimed Orders</h1>
     <Order v-if="showToEmp(order)" v-for="order in unclaimedOrders" :key="order.id" v-bind="order"/>
     <h1>Your Orders</h1>
@@ -40,7 +41,7 @@
     </div>
     <!-- <Order v-for="order in orders" :key="order" v-bind="order"/> -->
   </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -73,13 +74,17 @@ export default {
     this.$store.dispatch("getAlerts").then((response) => {
       this.alerts = response;
     });
-      this.$store.dispatch("getAllOrders");
+    this.ordersLoading = true;
+    this.$store.dispatch("getAllOrders").then((response) => {
+      this.ordersLoading = false;
+    });
   },
   data() {
     return {
       permStr: ["Owner", "Admin", "Staff", "Error"],
       alerts: [],
-      text: ""
+      text: "",
+      ordersLoading: false
     }
   },
   methods: {
