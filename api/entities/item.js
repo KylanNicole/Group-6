@@ -7,37 +7,37 @@ import {
     ManyToMany,
     JoinTable,
   } from 'typeorm';
-  import Order_Item from './order_item';
-  import Tag from './tag';
+import Order_Item from './order_item';
+import Tag from './tag';
 
-  @Entity()
-  export default class Item {
-    @PrimaryGeneratedColumn()
-    id
+@Entity()
+export default class Item {
+  @PrimaryGeneratedColumn()
+  id
 
-    @Column( { type: 'varchar' })
-    title
-  
-    @Column({ type: 'int' })
-    unit_price
-  
-    @Column({ type: 'int' })
-    stock
+  @Column( { type: 'varchar' })
+  title
 
-    @Column({ type: 'varchar' })
-    description
+  @Column({ type: 'int' })
+  unit_price
 
-    @Column({ type: 'varchar' })
-    image
+  @Column({ type: 'int' })
+  stock
 
-    @Column({ type: 'int', default: () => 0})
-    sale
+  @Column({ type: 'varchar' })
+  description
 
-    @OneToMany( () => Order_Item, (order_item) => order_item.item)
-    order_item
+  @Column({ type: 'varchar' })
+  image
 
-    @ManyToMany( () => Tag, (tag) => tag.item, {eager: true})
-    @JoinTable()
-    tags
+  @Column({ type: 'int', default: () => 0})
+  sale
 
-  }
+  @OneToMany( () => Order_Item, (order_item) => order_item.item)
+  order_item
+
+  @ManyToMany( () => Tag, (tag) => tag.items)
+  @JoinTable()
+  tags
+}
+
