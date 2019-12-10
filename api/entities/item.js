@@ -36,8 +36,7 @@ export default class Item {
   @OneToMany( () => Order_Item, (order_item) => order_item.item)
   order_item
 
-  @ManyToMany( () => Tag, (tag) => tag.items)
+  @ManyToMany( () => Tag, (tag) => tag.items, {cascade: true, eager: true})
   @JoinTable()
   tags
 }
-

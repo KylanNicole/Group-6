@@ -68,7 +68,6 @@ export const mutations = {
 
 export const actions = {
   login: function({ commit }, payload) {
-    console.log(payload);
     const { email, password } = payload;
     return axios.post("/api/login", { email, password }).then((response) => {
       commit("login", response.data);
@@ -106,7 +105,6 @@ export const actions = {
   },
   getItems: function({commit}, payload){
     return axios.get("/api/item", payload).then((response) => {
-      console.log(response.data);
       commit("storeItems", response.data);
     })
   },

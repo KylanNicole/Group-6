@@ -23,7 +23,9 @@
     <b-field label="Search">
       <b-input v-model="search" />
     </b-field>
-    <SpiceEdit v-for="spice in getSpices" v-if="(typeof $route.params.spice == 'undefined' && spice.title.toLowerCase().includes(search.toLowerCase())) || $route.params.spice == spice.id" :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.id" v-on:changed="updateSpices"/>
+    <SpiceEdit v-for="spice in getSpices"
+    v-if="(typeof $route.params.spice == 'undefined' && spice.title.toLowerCase().includes(search.toLowerCase())) || $route.params.spice == spice.id"
+    :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.id" v-on:changed="updateSpices"/>
   </div>
 </template>
 

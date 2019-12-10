@@ -48,7 +48,8 @@ export default {
         description: String,
         image: String,
         sale: Number,
-        tags: Array,
+        tags: {type: Array, default: function(){return []}},
+        // tags: Array,
         visible: {type: Boolean, default: false}
     },
     //computed:  {},
@@ -64,7 +65,7 @@ export default {
                 stock: this.stock,
                 description: this.description,
                 image: this.image,
-                tags: [],
+                tags: this.initTags(),
                 sale: this.sale
             },
             newTag: null
@@ -87,6 +88,13 @@ export default {
                 this.$store.dispatch("addTag", this.newTag);
                 this.newTag = null;
             }
+        },
+        initTags() {
+          var tags = [];
+          for (var i = 0; i < this.tags.length; i++){
+            tags.push(this.tags[i].id);
+          }
+          return tags;
         },
         updateSpice() {
             this.hideDetails = !this.hideDetails;
