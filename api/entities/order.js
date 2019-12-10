@@ -32,7 +32,7 @@ import Order_Item from './order_item';
     @Column({ type: 'varchar'})
     tracking_num
   
-    @ManyToOne(() => User, (user) => user.orders)
+    @ManyToOne(() => User, (user) => user.orders, {eager: true})
     user
 
     @OneToMany(() => Order_Item, (order_item) => order_item.order, {cascade : true, eager: true})

@@ -1,19 +1,21 @@
 <template>
   <div class="order" style="position: relative;">
-    <b-loading :is-full-page="false" :active.sync="changingOrder" style="z-index: 1;" />
+    <b-loading :is-full-page="false" :active.sync="changingOrder" style="z-index: 3;" />
     <h2>Order ID: {{id}}</h2>
     <button v-if="verifyAvailable" @click="claimOrder">Claim</button>
     <button v-if="verifyClaimed" @click="finishOrder">Finish</button>
-    <input v-if="verifyFinished" type="number" placeholder="Tracking Number"
+    <input v-if="verifyFinished" type="text" placeholder="Tracking Number"
     v-model="trackNum" style="margin-left: 15px;" :class="{outline : warnUser}"/>
     <button v-if="verifyFinished" @click="archiveOrder">Shipped</button>
     <button @click="clickMethod">Details</button>
     <div :class="{hide : hideDetails}">
-      <!--Address and user name-->
-      <p><b>Price:</b> ${{(order.total_cost / 100.0).toFixed(2)}}</p>
-      <p><b>Weight:</b> {{order.total_weight}}g</p>
-      <p><b>Status:</b> {{stringStatus}}</p>
+      <p><b>For: </b>{{order.user.firstname + " " + order.user.lastname}}</p>
+      <p><b>Address: </b>{{order.address}}</p>
+      <p><b>Price: </b>${{(order.total_cost / 100.0).toFixed(2)}}</p>
+      <p><b>Weight: </b>{{order.total_weight}}g</p>
+      <p><b>Status: </b>{{stringStatus}}</p>
       <p v-if="order.tracking_num != ''"><b>Tracking Number:</b> {{order.tracking_num}}</p>
+      <p v-if="order.staff_id > -1 && this.$store.state.loginState.user.permission <= 2"><b>Claimed by: </b>{{staffObj.email}}</p>
       <p><b>Items:</b></p>
       <table style="border: 1px solid black;">
         <tr v-for="item in order.order_items" :key="item.id">
@@ -39,6 +41,7 @@ export default {
       hideDetails: true,
       trackNum: "",
       warnUser: false,
+      //staffObj: {},
       changingOrder: false
     };
   },
@@ -64,53 +67,60 @@ export default {
     },
     verifyClaimed() {
       return (this.$store.state.loginState.user.permission <= 2 &&
-        this.order.staff_id == this.$store.state.loginState.user.id &&
-        this.order.order_status == 2);
-      },
-      verifyFinished() {
-        return (this.$store.state.loginState.user.permission <= 2 &&
-          this.order.staff_id == this.$store.state.loginState.user.id &&
-          this.order.order_status == 1)
-        }
-      },
-      methods: {
-        clickMethod() {
-          this.hideDetails = !this.hideDetails;
-        },
-        claimOrder() {
-          this.hideDetails = false;
-          this.changingOrder = true;
-          this.$store.dispatch("updateOrder",
-          Object.assign({}, this.order, {staff_id : this.$store.state.loginState.user.id})).then((response) => {
-            this.changingOrder = false;
-          });
-        },
-        finishOrder() {
-          this.hideDetails = true;
-          this.changingOrder = true;
-          this.$store.dispatch("updateOrder",
-          Object.assign({}, this.order, {order_status : 1})).then((response) => {
-            this.changingOrder = false;
-          });
-        },
-        archiveOrder() {
-          if(this.trackNum == '') {
-            this.warnUser = true;
-          } else {
-            this.warnUser = false;
-            this.changingOrder = true;
-            this.$store.dispatch("updateOrder",
-            Object.assign({}, this.order, {order_status : 0, tracking_num : this.trackNum})).then((response) => {
-              this.changingOrder = false;
-            });
-          }
-        }
+      this.order.staff_id == this.$store.state.loginState.user.id &&
+      this.order.order_status == 2);
+    },
+    verifyFinished() {
+      return (this.$store.state.loginState.user.permission <= 2 &&
+      this.order.staff_id == this.$store.state.loginState.user.id &&
+      this.order.order_status == 1)
+    },
+    staffObj() {
+      return this.$store.state.staff.find(user => {
+          return (user.id == this.order.staff_id)
+        });
+    }
+  },
+  methods: {
+    clickMethod() {
+      this.hideDetails = !this.hideDetails;
+    },
+    claimOrder() {
+      this.hideDetails = false;
+      this.changingOrder = true;
+      this.$store.dispatch("updateOrder",
+      Object.assign({}, this.order, {staff_id : this.$store.state.loginState.user.id}));
+      this.changingOrder = false;
+    },
+    finishOrder() {
+      this.hideDetails = true;
+      this.changingOrder = true;
+      if(this.order.address == "in store") {
+        this.$store.dispatch("updateOrder",
+        Object.assign({}, this.order, {order_status : 0}));
+        this.changingOrder = false;
+      } else {
+        this.$store.dispatch("updateOrder",
+        Object.assign({}, this.order, {order_status : 1}));
+        this.changingOrder = false;
       }
-      // created(){
-      //   this.$store.dispatch("getOrders");
-      // }
-    };
-    </script>
+    },
+    archiveOrder() {
+      if(this.order.address != 'in store' && this.trackNum == '') {
+        this.warnUser = true;
+      } else {
+        this.changingOrder = true;
+        this.warnUser = false;
+        this.$store.dispatch("updateOrder",
+        Object.assign({}, this.order, {order_status : 0, tracking_num : this.trackNum}));
+        this.changingOrder = false;
+      }
+    }
+  },
+  created(){
+  }
+};
+</script>
 
     <style scoped>
     div {

@@ -29,6 +29,6 @@ export default class User {
   @Column({ type: 'varchar', nullable: false })
   password
 
-  @OneToMany(() => Order, (order) => order.user, { eager: true})
+  @OneToMany(() => Order, (order) => order.user/*, { eager: true}*/)
   orders
 }

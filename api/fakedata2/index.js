@@ -5,5 +5,4 @@ require('@babel/register')({
   });
   
   // Import the rest of our application. :)
-  module.exports = require('./fakedata.js');
-
+  module.exports = require('./fakedata2.js');
