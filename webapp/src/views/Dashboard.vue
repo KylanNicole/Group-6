@@ -65,9 +65,13 @@ export default {
       })
     },
     unclaimedOrders() {
-      return this.$store.state.orders.filter(order => {
+      let orders = this.$store.state.orders.filter(order => {
         return (order.staff_id < 0)
       })
+      //TODO Fix this problem of loading and reloading unclaimed orders and filtering if not
+      // matching userID.
+      console.log(orders);
+      return orders;
     }
   },
   created() {
@@ -78,6 +82,7 @@ export default {
     this.$store.dispatch("getAllOrders").then((response) => {
       this.ordersLoading = false;
     });
+    this.$store.dispatch("getAccounts");
   },
   data() {
     return {

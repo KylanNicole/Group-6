@@ -60,6 +60,9 @@ export const mutations = {
   },
   storeAllOrders(state, orders) {
     state.orders = orders;
+  },
+  storeStaff(state, staff) {
+    state.staff = staff;
   }
 };
 
@@ -83,6 +86,7 @@ export const actions = {
   },
   getAccounts({ commit }){
     return axios.get("/api/staff").then((response) => {
+      commit("storeStaff", response.data);
       return response.data;
     })
   },
@@ -210,7 +214,8 @@ export default new Vuex.Store({
     orders: [],
     tags: [],
     cart: [],
-    banners: []
+    banners: [],
+    staff: []
   },
   mutations,
   actions
