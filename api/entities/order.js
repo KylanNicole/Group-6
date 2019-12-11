@@ -27,9 +27,12 @@ import Order_Item from './order_item';
     staff_id
 
     @Column({ type: 'varchar'})
-    address 
+    address
+
+    @Column({ type: 'varchar'})
+    tracking_num
   
-    @ManyToOne(() => User, (user) => user.orders)
+    @ManyToOne(() => User, (user) => user.orders, {eager: true})
     user
 
     @OneToMany(() => Order_Item, (order_item) => order_item.order, {cascade : true, eager: true})

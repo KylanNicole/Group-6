@@ -1,16 +1,17 @@
 <template>
-<div v-if="this.$store.dispatch('authorized', 1)">
-  <div style="border: solid 1px black; width: 50%; padding: 10px;">
-  <!-- <button>X</button> -->
-  <section>
-    <h3>Banner Creation</h3>
-    <b-field label="Image Link">
-      <b-input
-      v-model="img_link"
-      placeholder="Image Link"
-      required
-      ></b-input>
-    </b-field>
+  <div v-if="this.$store.dispatch('authorized', 1)">
+    <div style="border: solid 1px black; width: 50%; padding: 10px;">
+      <!-- <button>X</button> -->
+      <section>
+        <b-loading :is-full-page="true" :active.sync="changingBanners" style="z-index: 1;" />
+        <h3>Banner Creation</h3>
+        <b-field label="Image Link">
+          <b-input
+          v-model="img_link"
+          placeholder="Image Link"
+          required
+          ></b-input>
+        </b-field>
 
         <b-field label="Link To...">
           <b-input
@@ -33,12 +34,12 @@
         </li>
       </ul>
       <!-- <ul v-for="b in this.$store.state.banners">
-        <li>
-          <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to" v-bind:id="b.id"/>
-        </li>
-      </ul> -->
-    </div>
-  </div>
+      <li>
+      <banner v-bind:img_link="b.img_link" v-bind:link_to="b.link_to" v-bind:id="b.id"/>
+    </li>
+  </ul> -->
+</div>
+</div>
 </template>
 
 <script>
@@ -50,13 +51,17 @@ export default {
   },
   methods: {
     createBanner: function(){
+      this.changingBanners = true;
       this.$store.dispatch("addBanner", {img_link: this.img_link, link_to: this.link_to,}).then(() => {
-          this.getBanners();
+        this.changingBanners = false;
+        this.getBanners();
       });
     },
     getBanners: function(){
+      this.changingBanners = true;
       this.$store.dispatch("getBanners").then(() => {
         this.banners = this.$store.state.banners;
+        this.changingBanners = false;
         this.$forceUpdate();
       });
     }
@@ -65,7 +70,8 @@ export default {
     return {
       img_link: "",
       link_to: "",
-      banners: []
+      banners: [],
+      changingBanners: false
     }
   },
   created(){

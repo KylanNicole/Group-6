@@ -3,23 +3,29 @@
         <h1>{{title}}</h1>
         <button @click="updateSpice" >{{editText}}</button>
         <button @click="cancelUpdate" :class="{hide : hideDetails}">CANCEL</button>
-        <button @click="deleteSpice" :class="{hide : !hideWarn}">DELETE</button>
+        <!-- <button @click="deleteSpice" :class="{hide : !hideWarn}">DELETE</button> -->
         <div :class="{hide : hideDetails}">
             <hr/>
             <p>Name</p>
             <input type="text" v-model="updatedInfo.title"/>
-            <p>Unit Price</p>
-            <input type="text" v-model="updatedInfo.unit_price"/>
-            <p>Sale Amount</p>
-            <input type="text" v-model="updatedInfo.sale"/>
-            <p>Stock Amount</p>
-            <input type="text" v-model.number="updatedInfo.stock"/>
+            <p>Unit Price (cents/gram)</p>
+            <input type="number" v-model="updatedInfo.unit_price"/>
+            <p>Sale Amount (0-100%)</p>
+            <input type="number" min=0 max=100 v-model="updatedInfo.sale"/>
+            <p>Stock Amount (grams)</p>
+            <input type="number" v-model.number="updatedInfo.stock"/>
             <p>Description</p>
             <textarea v-model="updatedInfo.description"/>
             <p>Image URL</p>
             <input type="text" v-model="updatedInfo.image"/>
             <img :src="updatedInfo.image ? updatedInfo.image : image">
-        </div>
+            <p>Tags</p>
+            <div class="tag" v-for="tag in allTags">
+                <input type="checkbox" :value="tag.id" v-model="updatedInfo.tags"/>
+                <label> {{tag.title}}</label>
+            </div>
+          <button @click="updateSpice" >SAVE</button>
+          </div>
         <div :class="{hide : hideWarn}">
             <hr/>
             <button @click="deleteSpice" class="alert">DELETE</button>
@@ -40,8 +46,11 @@ export default {
         description: String,
         image: String,
         sale: Number,
+        tags: {type: Array, default: function(){return []}},
+        // tags: Array,
         visible: {type: Boolean, default: false}
     },
+    //computed:  {},
     data() {
         return {
             editText: "UPDATE",
@@ -54,16 +63,30 @@ export default {
                 stock: this.stock,
                 description: this.description,
                 image: this.image,
+                tags: this.initTags(),
                 sale: this.sale
             }
+        }
+    },
+    computed: {
+        allTags() {
+            return this.$store.state.tags;
         }
     },
     created() {
         if(this.active) {
             this.updateSpice();
         }
+        this.$store.dispatch("getTags", "");
     },
     methods: {
+      initTags() {
+          var tags = [];
+          for (var i = 0; i < this.tags.length; i++){
+            tags.push(this.tags[i].id);
+          }
+          return tags;
+        },
         updateSpice() {
             this.hideDetails = !this.hideDetails;
             this.hideWarn = true;
@@ -128,5 +151,10 @@ img {
 .alert {
     color: red;
     display: block;
+}
+.tag {
+    background-color: #8d9b77;
+    border-radius: 5px;
+    margin: 5px;
 }
 </style>

@@ -68,13 +68,14 @@ router.route('/order/:id')
   })
   .put((req, res) => {
     const foundOrder = req.order;
-    const {  total_cost, total_weight, order_status, staff_id, user, order_item } = req.body;
+    const {  total_cost, total_weight, order_status, staff_id, user, order_item, tracking_num} = req.body;
     foundOrder.total_cost = total_cost;
     foundOrder.total_weight = total_weight;
     foundOrder.order_status = order_status;
     foundOrder.staff_id = staff_id;
     foundOrder.user = user; 
     foundOrder.order_item = order_item;
+    foundOrder.tracking_num = tracking_num;
 
     getManager().save(foundOrder).then((updatedOrder) => {
       res.send(updatedOrder);

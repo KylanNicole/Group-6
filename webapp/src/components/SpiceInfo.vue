@@ -1,22 +1,17 @@
 <template>
-  <div class="spice-info">
-    <div class="desc">
-      <img :src='spice.image' />
-      <h4>{{spice.title}}</h4>
-      <p>
-        {{spice.description}}
-      </p>
-      <p>Tags</p>
-      <!--<p class="tag" v-for="tag in tags">{{spice.tag}}</p>-->
+    <div class="spice-info">
+        <div class="desc">
+            <img :src='spice.image' />
+            <h4>{{spice.title}}</h4>
+            <p style="margin-bottom: 5px;">
+                {{spice.description}}
+            </p>
+            <p class="tag" v-for="tag in spice.tags">{{tag.title}}</p>
     </div>
     <div class="purchase">
       <form>
         <p>Amount: </p>
-        <input type="number" v-model.number="amount" min="1" :max="spice.stock"/>
-        <select>
-          <option default>g</option>
-          <option>oz</option>
-        </select>
+        <input type="number" v-model.number="amount" min="20" :max="spice.stock"/><p> g</p>
         <br/>
         <div v-if="spice.sale > 0" style="color:red;">
           <p style="color:red;"> {{" $" + (this.amount * spice.unit_price * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
@@ -57,7 +52,7 @@ export default {
   },
   methods: {
     getPrice(){
-      return "$" + (this.amount * this.spice.unit_price * (1.0 - this.spice.sale)).toFixed(2);
+      return "$" + (this.amount * (this.spice.unit_price / 100.0) * ((100.0 - this.spice.sale) / 100.0)).toFixed(2);
     },
     addToCart() {
       this.warnText = "";
@@ -69,7 +64,7 @@ export default {
         this.$set(this.spice, 'stock', this.spice.stock - this.amount);
         let dupItem = this.duplicateCartItem;
         this.$store.dispatch("updateCartItem", {index: dupItem.index, spice: dupItem.spice, amount: dupItem.amount + this.amount})
-      }else if(this.amount > 0) {
+      }else if(this.amount >= 20) {
         let spiceCopy = Object.assign({}, this.spice);
         this.$set(this.spice, 'stock', this.spice.stock - this.amount);
         this.$store.dispatch("addToCart", {index: this.$store.state.cart.length,
@@ -80,7 +75,7 @@ export default {
     },
     data() {
       return {
-        amount: 1,
+        amount: 20,
         warnText: ""
       }
     }

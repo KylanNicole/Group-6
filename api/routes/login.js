@@ -24,7 +24,7 @@ export default (passport) => {
     res.send(req.user);
   });
   router.put('/updatePerm', isAuth, (req, res) => {
-    if (req.user.permission == 0){
+    if (req.user.permission == 0 && req.user.email != req.body.email){
       const {email, perm} = req.body;
       const foundUser = getRepository(User)
       .findOneOrFail(
@@ -51,7 +51,7 @@ export default (passport) => {
         var u;
         for (u in foundUsers) {
           if (foundUsers[u].permission < 3){
-            limitedUsers.push({firstname: foundUsers[u].firstname, lastname: foundUsers[u].lastname, email: foundUsers[u].email, permission: foundUsers[u].permission});
+            limitedUsers.push({id: foundUsers[u].id, firstname: foundUsers[u].firstname, lastname: foundUsers[u].lastname, email: foundUsers[u].email, permission: foundUsers[u].permission});
           }
         }
         res.send(limitedUsers);

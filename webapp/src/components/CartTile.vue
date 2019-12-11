@@ -4,11 +4,8 @@
         <h3 style="margin:0; color: #cc783c;">{{spice.title}}</h3>
         <img style="float: left" :src="spice.image">
         <div class="info">
-            <input style="width: 50px" type="number" min="1" v-model.number="amount" :max="spice.stock">
-            <select>
-                <option default>g</option>
-                <option>oz</option>
-            </select>
+            <input style="width: 50px" type="number" min="20" v-model.number="amount" :max="spice.stock">
+            <p style="display: inline"> g</p>
             <p style="margin: 0">Price: ${{(spice.unit_price * amount * (100.0 - spice.sale) / 10000.0).toFixed(2)}}</p>
         </div>
     </div>

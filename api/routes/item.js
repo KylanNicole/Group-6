@@ -21,7 +21,7 @@ router.route('/item')
       res.sendStatus(401);
       return;
     }
-    
+
     const { title, unit_price, stock, description, image, sale} = req.body;
 
     const manager = getManager();
@@ -37,7 +37,7 @@ router.route('/item')
 
 
 router.route('/item/:id')
-  //.all(isAuthenticated)
+  .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Item).findOneOrFail(
       { where: { id: req.params.id } },
@@ -56,18 +56,19 @@ router.route('/item/:id')
       return;
     }
     const foundItem = req.item;
-    const {title, unit_price, stock, description, image, sale, order_item, tag  } = req.body;
+
+    const {title, unit_price, stock, description, image, sale, order_item, tags  } = req.body;
 
     foundItem.title = title;
     foundItem.unit_price = unit_price;
     foundItem.stock = stock;
     foundItem.description = description;
     foundItem.image = image;
-    //clamp sale between 0.0 and 1.0
-    foundItem.sale = sale < 0.0 ? 0.0 : sale > 1.0 ? 1.0 : sale;
-    foundItem.order_item = order_item;
-    foundItem.tag = tag;
 
+    //clamp sale between 0 and 100
+    foundItem.sale = sale < 0 ? 0 : sale > 100 ? 100 : sale;
+    foundItem.order_item = order_item;
+    foundItem.tags = tags;
 
     getManager().save(foundItem).then((updatedItem) => {
       res.send(updatedItem);

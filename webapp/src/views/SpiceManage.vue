@@ -1,12 +1,12 @@
 <template>
-
   <div id="manage-spice" v-if="this.$store.dispatch('authorized', 1)">
+    <b-loading :is-full-page="true" :active.sync="spicesLoading" style="z-index: 1;" />
     <router-link to="/dashboard">
       <div style="display: block;">
         Back
       </div>
     </router-link>
-    <button @click="hideFields = false">NEW SPICE</button>
+    <button @click="hideFields = !hideFields">NEW PRODUCT</button>
     <div id="spice-form" :class="{hide : hideFields}">
       <img :src="newSpice.image"/>
       <h4>New Spice</h4>
@@ -20,7 +20,24 @@
       <button @click="addSpice">ADD</button>
       <button @click="clearInput">CANCEL</button>
     </div>
-    <SpiceEdit v-for="spice in getSpices" v-if="(typeof $route.params.spice == 'undefined') || $route.params.spice == spice.id" :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.id" v-on:changed="updateSpices"/>
+    <button @click="hideTags = !hideTags">MANAGE TAGS</button>
+    <div id="tag-form" :class="{hide : hideTags}">
+      <p>New Tag</p>
+      <input type="text" placeholder="New Tag" v-model="newTag"/>
+      <button @click="addTag">Add Tag</button>
+      <p>Tags</p>
+      <div class="tag" v-for="tag in allTags">
+        <!-- <input type="checkbox" :value="tag.id" v-model="tags"/> -->
+        <button class="delButton" @click="deleteTag(tag)">X</button>
+        <label> {{tag.title}}</label>
+      </div>
+    </div>
+    <b-field style="width: 50%; margin: auto;">
+      <b-input v-model="search" placeholder="SEARCH"/>
+    </b-field>
+    <SpiceEdit v-for="spice in getSpices"
+    v-if="(typeof $route.params.spice == 'undefined' && spice.title.toLowerCase().includes(search.toLowerCase())) || $route.params.spice == spice.id"
+    :key="spice.id" v-bind="spice" v-bind:visible="$route.params.spice == spice.id" v-on:changed="updateSpices"/>
   </div>
 </template>
 
@@ -28,15 +45,37 @@
 import SpiceEdit from "@/components/SpiceEdit.vue";
 
 export default {
-
   name: "SpiceManage",
   components: { SpiceEdit },
+  created() {
+    this.$store.dispatch("getTags", "");
+  },
   computed: {
+    allTags() {
+      return this.$store.state.tags;
+    },
     getSpices() {
       return this.$store.state.spices;
     }
   },
   methods: {
+    addTag() {
+      if(this.newTag != null){
+        this.spicesLoading = true;
+        this.$store.dispatch("addTag", this.newTag).then(() => {
+          this.spicesLoading = false;
+        });
+        this.newTag = null;
+      }
+    },
+    deleteTag(tag){
+      this.spicesLoading = true
+      this.$store.dispatch("deleteTag", tag).then(() => {
+        this.$store.dispatch("getTags", "").then(() => {
+          this.spicesLoading = false;
+        })
+      });
+    },
     addSpice() {
       if(this.newSpice.title == "" || this.newSpice.unit_price == "" || this.newSpice.image == "")
       {
@@ -55,7 +94,10 @@ export default {
       this.showReqFields = false;
     },
     updateSpices() {
-      this.$store.dispatch("getItems", "");
+      this.spicesLoading = true;
+      this.$store.dispatch("getItems", "").then((response) => {
+        this.spicesLoading = false;
+      });
     }
   },
   mounted() {
@@ -64,6 +106,7 @@ export default {
   data() {
     return {
       hideFields: true,
+      hideTags: true,
       showReqFields: false,
       newSpice:  {
         title: "",
@@ -71,8 +114,12 @@ export default {
         stock: "",
         description: "",
         image: "",
-        sale: ""
-      }
+        sale: "",
+      },
+      spicesLoading: false,
+      search: "",
+      tags: [],
+      newTag: null
     }
   }
 }
@@ -84,6 +131,12 @@ input {
 }
 .hide {
   display: none;
+}
+
+.delButton{
+  background-color: #ff6666;
+  font-size: 10px;
+  padding: 3px;
 }
 
 button {
@@ -106,6 +159,12 @@ button:hover {
 }
 
 #spice-form {
+  width: 40%;
+  margin: auto;
+
+  padding: 15px;
+}
+#tag-form {
   width: 40%;
   margin: auto;
 
